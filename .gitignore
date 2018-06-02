@@ -1,0 +1,8 @@
+#vendor directory
+vendor/
+node_modules/
+.DS_Store
+
+
+# error log
+yarn-error.log

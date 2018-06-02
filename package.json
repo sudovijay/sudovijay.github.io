@@ -1,0 +1,47 @@
+{
+  "name": "sudovijay-web",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "description": "A simple boilerplate to start with for both frontend & backend projects",
+  "repository": "git@github.com:sudovijay/boilerplate-web.git",
+  "author": "Vijay Singh <sudovijay@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=development webpack --watch --mode development",
+    "build": "NODE_ENV=production webpack --mode production",
+    "dev": "NODE_ENV=development webpack --mode development",
+    "format": "prettier --write --single-quote --print-width=120 --parser=flow --tab-width=2 \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
+  },
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^8.5.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "browser-sync": "^2.24.4",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "cssnano": "^3.10.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "glob-all": "^3.1.0",
+    "hard-source-webpack-plugin": "^0.7.4",
+    "node-sass": "^4.9.0",
+    "postcss-loader": "^2.1.5",
+    "purgecss-webpack-plugin": "^1.1.0",
+    "sass-loader": "^7.0.1",
+    "tailwindcss": "^0.5.3",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.10.2",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^2.1.4",
+    "webpack-merge": "^4.1.2"
+  }
+}
