@@ -4,6 +4,7 @@ const webpack = require('webpack'); // eslint-disable-line
 const tailwindcss = require('tailwindcss'); // eslint-disable-line
 const autoprefixer = require('autoprefixer'); // eslint-disable-line
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // eslint-disable-line
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line
 
 const is_dev = process.env.NODE_ENV === 'development';
 
@@ -100,5 +101,10 @@ module.exports = {
         ],
     },
 
-    plugins: [new ExtractTextPlugin(`${file_name}.css`)],
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: '../index.html',
+        }),
+        new ExtractTextPlugin(`${file_name}.css`),
+    ],
 };
