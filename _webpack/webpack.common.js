@@ -29,7 +29,7 @@ module.exports = {
                             loader: 'css-loader',
                             options: {
                                 sourceMap: is_dev,
-                                minimize: true,
+                                // minimize: !is_dev,
                             },
                         },
                         {
@@ -37,10 +37,6 @@ module.exports = {
                             options: {
                                 plugins: [
                                     tailwindcss('./tailwind.js'),
-                                    require('cssnano')({
-                                        autoprefixer: false,
-                                        discardComments: { removeAll: true },
-                                    }),
                                     autoprefixer({
                                         remove: false,
                                         browsers: [
@@ -104,6 +100,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             filename: '../index.html',
+            template: path.join(process.cwd(), 'templ/index.templ.html'),
         }),
         new ExtractTextPlugin(`${file_name}.css`),
     ],

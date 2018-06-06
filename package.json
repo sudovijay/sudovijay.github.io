@@ -16,7 +16,6 @@
   "dependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-helmet": "^5.2.0",
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
@@ -31,7 +30,6 @@
     "browser-sync-webpack-plugin": "^2.2.2",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
-    "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "glob-all": "^3.1.0",
     "hard-source-webpack-plugin": "^0.7.4",
