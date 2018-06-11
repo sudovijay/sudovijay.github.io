@@ -1,2 +1,2 @@
 // require js app
-require('./App.jsx');
+import "./App";
