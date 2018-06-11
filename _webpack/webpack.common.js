@@ -1,9 +1,7 @@
 const path = require('path');
 const glob = require('glob-all'); // eslint-disable-line
 const webpack = require('webpack'); // eslint-disable-line
-const tailwindcss = require('tailwindcss'); // eslint-disable-line
 const autoprefixer = require('autoprefixer'); // eslint-disable-line
-const ExtractTextPlugin = require('extract-text-webpack-plugin'); // eslint-disable-line
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line
 
 const is_dev = process.env.NODE_ENV === 'development';
@@ -21,46 +19,6 @@ module.exports = {
     devtool: !is_dev ? 'false' : 'source-maps',
     module: {
         rules: [
-            {
-                test: /\.s[ac]ss$/,
-                use: ExtractTextPlugin.extract({
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: is_dev,
-                                // minimize: !is_dev,
-                            },
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: [
-                                    tailwindcss('./tailwind.js'),
-                                    autoprefixer({
-                                        remove: false,
-                                        browsers: [
-                                            '>1%',
-                                            'last 4 versions',
-                                            'Firefox ESR',
-                                            'not ie < 9', // React doesn't support IE8 anyway
-                                        ],
-                                        flexbox: 'no-2009',
-                                    }),
-                                ],
-                                sourceMap: is_dev,
-                            },
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: is_dev,
-                            },
-                        },
-                    ],
-                }),
-            },
-
             {
                 test: /\.(js|jsx|mjs)$/,
                 loader: 'babel-loader',
@@ -102,6 +60,5 @@ module.exports = {
             filename: '../index.html',
             template: path.join(process.cwd(), 'templ/index.templ.html'),
         }),
-        new ExtractTextPlugin(`${file_name}.css`),
     ],
 };
