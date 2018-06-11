@@ -46,11 +46,11 @@
         "webpack-merge": "^4.1.2"
     },
     "lint-staged": {
-        "*.{js,css,md,php}": [
+        "*.{js,css,md,php,jsx}": [
             "/usr/local/bin/prettier --write",
             "git add"
         ],
-        "*.js": [
+        "*.{js,jsx}": [
             "eslint --fix",
             "git add"
         ]

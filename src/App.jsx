@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Heading = styled.h2`
     color: red;
     background: grey;
-display: flex;
+    display: flex;
     text-transform: uppercase;
 `;
 
