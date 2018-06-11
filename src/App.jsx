@@ -7,6 +7,7 @@ const Heading = styled.h2`
     background: grey;
     display: flex;
     text-transform: uppercase;
+    border-radius: 2px solid;
 `;
 
 class App extends Component {

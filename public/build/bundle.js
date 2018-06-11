@@ -36722,7 +36722,7 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 var Heading = styled_components__WEBPACK_IMPORTED_MODULE_2__[
                     "default"
                 ].h2.withConfig({ displayName: "App__Heading" })([
-                    "color:red;background:grey;display:flex;"
+                    "color:red;background:grey;display:flex;text-transform:uppercase;border-radius:2px solid;"
                 ]);
                 var App = (function(_Component) {
                     _inherits(App, _Component);
