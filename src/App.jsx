@@ -1,21 +1,27 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import styled from "styled-components";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-const Heading = styled.h2`
-    color: red;
-    background: grey;
-    display: flex;
-    text-transform: uppercase;
-    border-radius: 2px solid;
-`;
+// components
+import Trianglify from "./components/Trianglify";
+
+// importing pages
+import Home from "./pages/Home";
+import FourOFour from "./errors/FourOFour";
+
+import Global from "./styles/index";
 
 class App extends Component {
     render() {
         return (
-            <div className="border">
-                <Heading>Hello World</Heading>
-            </div>
+            <Trianglify>
+                <Router>
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route component={FourOFour} />
+                    </Switch>
+                </Router>
+            </Trianglify>
         );
     }
 }
