@@ -50097,43 +50097,49 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                     }
                     App.prototype.render = function render() {
                         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                            _components_Trianglify__WEBPACK_IMPORTED_MODULE_3__[
+                            _styles_index__WEBPACK_IMPORTED_MODULE_6__[
                                 "default"
                             ],
                             null,
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                                react_router_dom__WEBPACK_IMPORTED_MODULE_2__[
-                                    "BrowserRouter"
+                                _components_Trianglify__WEBPACK_IMPORTED_MODULE_3__[
+                                    "default"
                                 ],
                                 null,
                                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                                     react_router_dom__WEBPACK_IMPORTED_MODULE_2__[
-                                        "Switch"
+                                        "BrowserRouter"
                                     ],
                                     null,
                                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                                         react_router_dom__WEBPACK_IMPORTED_MODULE_2__[
-                                            "Route"
+                                            "Switch"
                                         ],
-                                        {
-                                            exact: true,
-                                            path: "/",
-                                            component:
-                                                _pages_Home__WEBPACK_IMPORTED_MODULE_4__[
-                                                    "default"
-                                                ]
-                                        }
-                                    ),
-                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                                        react_router_dom__WEBPACK_IMPORTED_MODULE_2__[
-                                            "Route"
-                                        ],
-                                        {
-                                            component:
-                                                _errors_FourOFour__WEBPACK_IMPORTED_MODULE_5__[
-                                                    "default"
-                                                ]
-                                        }
+                                        null,
+                                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                            react_router_dom__WEBPACK_IMPORTED_MODULE_2__[
+                                                "Route"
+                                            ],
+                                            {
+                                                exact: true,
+                                                path: "/",
+                                                component:
+                                                    _pages_Home__WEBPACK_IMPORTED_MODULE_4__[
+                                                        "default"
+                                                    ]
+                                            }
+                                        ),
+                                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                            react_router_dom__WEBPACK_IMPORTED_MODULE_2__[
+                                                "Route"
+                                            ],
+                                            {
+                                                component:
+                                                    _errors_FourOFour__WEBPACK_IMPORTED_MODULE_5__[
+                                                        "default"
+                                                    ]
+                                            }
+                                        )
                                     )
                                 )
                             )
@@ -50171,6 +50177,9 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 );
                 /* harmony import */ var trianglify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
                     trianglify__WEBPACK_IMPORTED_MODULE_1__
+                );
+                /* harmony import */ var _utils_FadeInOut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+                    /*! ../utils/FadeInOut */ "./src/utils/FadeInOut.js"
                 );
                 function _classCallCheck(instance, Constructor) {
                     if (!(instance instanceof Constructor)) {
@@ -50216,36 +50225,116 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                             ? Object.setPrototypeOf(subClass, superClass)
                             : (subClass.__proto__ = superClass);
                 }
-                var pattern = trianglify__WEBPACK_IMPORTED_MODULE_1___default()(
-                    { width: window.innerWidth, height: window.innerHeight }
-                );
                 var Trianglify = (function(_Component) {
                     _inherits(Trianglify, _Component);
-                    function Trianglify(props) {
+                    function Trianglify() {
+                        var _temp, _this, _ret;
                         _classCallCheck(this, Trianglify);
-                        var _this = _possibleConstructorReturn(
-                            this,
-                            _Component.call(this, props)
+                        for (
+                            var _len = arguments.length,
+                                args = Array(_len),
+                                _key = 0;
+                            _key < _len;
+                            _key++
+                        ) {
+                            args[_key] = arguments[_key];
+                        }
+                        return (
+                            (_ret = ((_temp = ((_this = _possibleConstructorReturn(
+                                this,
+                                _Component.call.apply(
+                                    _Component,
+                                    [this].concat(args)
+                                )
+                            )),
+                            _this)),
+                            (_this.state = { interval: 60000 }),
+                            (_this.updateDimensions = function() {
+                                clearTimeout(_this.resizeInterval);
+                                _this.resizeInterval = setTimeout(function() {
+                                    _this.changeCanvas();
+                                }, 200);
+                            }),
+                            (_this.generatePattern = function() {
+                                return trianglify__WEBPACK_IMPORTED_MODULE_1___default()(
+                                    {
+                                        width: window.innerWidth,
+                                        height: window.innerHeight,
+                                        cell_size: 150
+                                    }
+                                );
+                            }),
+                            (_this.canvasRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef()),
+                            (_this.changeCanvas = function() {
+                                Object(
+                                    _utils_FadeInOut__WEBPACK_IMPORTED_MODULE_2__[
+                                        "fadeOut"
+                                    ]
+                                )(
+                                    _this.canvasRef.current,
+                                    _utils_FadeInOut__WEBPACK_IMPORTED_MODULE_2__[
+                                        "fadeIn"
+                                    ].bind(
+                                        null,
+                                        _this.canvasRef.current,
+                                        _this.renderCanvas
+                                    )
+                                );
+                            }),
+                            (_this.renderCanvas = function() {
+                                _this.pattern = _this.generatePattern();
+                                _this.pattern.canvas(_this.canvasRef.current);
+                            }),
+                            _temp)),
+                            _possibleConstructorReturn(_this, _ret)
                         );
-                        _this.canvasRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-                        return _this;
                     }
                     Trianglify.prototype.componentDidMount = function componentDidMount() {
-                        pattern.canvas(this.canvasRef.current);
-                        console.log(pattern);
+                        var _this2 = this;
+                        this.renderCanvas();
+                        this.interval = setInterval(function() {
+                            _this2.changeCanvas();
+                        }, this.state.interval);
+                        window.addEventListener(
+                            "resize",
+                            this.updateDimensions
+                        );
                     };
-                    Trianglify.prototype.render = function render() {
-                        var el = pattern.canvas();
+                    Trianglify.prototype.componentWillUnmount = function componentWillUnmount() {
+                        clearInterval(this.interval);
+                        window.removeEventListener(
+                            "resize",
+                            this.updateDimensions
+                        );
+                    };
+                    /**
+                     * Update dimenesion method
+                     * that'll regenrate canvas
+                     * on window resize
+                     */ /**
+                     * generate canvas pattern by calling
+                     * its lib
+                     */ /**
+                     * Chnage canvas re rendering
+                     * with fadeout and in
+                     */ Trianglify.prototype.render = function render() {
                         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                            "main",
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a
+                                .Fragment,
                             null,
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                                 "canvas",
                                 {
                                     ref: this.canvasRef,
-                                    height: "100",
-                                    width: "200",
-                                    style: { position: "absolute", zIndex: 0 }
+                                    style: {
+                                        position: "absolute",
+                                        zIndex: -1,
+                                        transition: "opacity 0.8s ease",
+                                        top: 0,
+                                        bottom: 0,
+                                        right: 0,
+                                        left: 0
+                                    }
                                 }
                             ),
                             this.props.children
@@ -50397,28 +50486,97 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 /* harmony import */ var styled_normalize__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
                     styled_normalize__WEBPACK_IMPORTED_MODULE_0__
                 );
-                /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_1__
+                );
+                /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
                     /*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.es.js"
                 );
                 var _templateObject = _taggedTemplateLiteralLoose(
-                    ["\n  ", "\n\n\n"],
-                    ["\n  ", "\n\n\n"]
+                    ["\n        ", "\n\n    }\n  "],
+                    ["\n        ", "\n\n    }\n  "]
                 );
                 function _taggedTemplateLiteralLoose(strings, raw) {
                     strings.raw = raw;
                     return strings;
                 }
-                /* harmony default export */ __webpack_exports__[
-                    "default"
-                ] = function() {
-                    return Object(
-                        styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                var Global = function Global(_ref) {
+                    var children = _ref.children;
+                    Object(
+                        styled_components__WEBPACK_IMPORTED_MODULE_2__[
                             "injectGlobal"
                         ]
                     )(
                         _templateObject,
                         styled_normalize__WEBPACK_IMPORTED_MODULE_0___default.a
                     );
+                    return react__WEBPACK_IMPORTED_MODULE_1__["Children"].only(
+                        children
+                    );
+                };
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = Global;
+
+                /***/
+            },
+
+        /***/ "./src/utils/FadeInOut.js":
+            /*!********************************!*\
+  !*** ./src/utils/FadeInOut.js ***!
+  \********************************/
+            /*! exports provided: fadeIn, fadeOut */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony export (binding) */ __webpack_require__.d(
+                    __webpack_exports__,
+                    "fadeIn",
+                    function() {
+                        return fadeIn;
+                    }
+                );
+                /* harmony export (binding) */ __webpack_require__.d(
+                    __webpack_exports__,
+                    "fadeOut",
+                    function() {
+                        return fadeOut;
+                    }
+                );
+                var fadeIn = function fadeIn(element) {
+                    var callback =
+                        arguments.length > 1 && arguments[1] !== undefined
+                            ? arguments[1]
+                            : null;
+                    var intialOpacity = 0.1;
+                    if (callback) callback();
+                    var timerInterval = setInterval(function() {
+                        if (intialOpacity >= 1) {
+                            clearInterval(timerInterval);
+                            return;
+                        }
+                        element.style.opacity = intialOpacity;
+                        intialOpacity += 0.1;
+                    }, 50);
+                };
+                var fadeOut = function fadeOut(element) {
+                    var callback =
+                        arguments.length > 1 && arguments[1] !== undefined
+                            ? arguments[1]
+                            : null;
+                    var intialOpacity = 1;
+                    var timerInterval = setInterval(function() {
+                        if (intialOpacity <= 0.1) {
+                            clearInterval(timerInterval);
+                            if (callback) callback();
+                            return;
+                        }
+                        element.style.opacity = intialOpacity;
+                        intialOpacity -= 0.1;
+                    }, 50);
                 };
 
                 /***/

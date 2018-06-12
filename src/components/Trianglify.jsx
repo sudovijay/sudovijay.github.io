@@ -1,35 +1,90 @@
 import React, { Component } from "react";
 import trianglify from "trianglify";
 
-const pattern = trianglify({
-    width: window.innerWidth,
-    height: window.innerHeight,
-});
+import { fadeIn, fadeOut } from "../utils/FadeInOut";
 
 class Trianglify extends Component {
-    constructor(props) {
-        super(props);
-        this.canvasRef = React.createRef();
-    }
+    static resizeInterval;
+
+    state = {
+        interval: 60000,
+    };
 
     componentDidMount() {
-        pattern.canvas(this.canvasRef.current);
+        this.renderCanvas();
 
-        console.log(pattern);
+        this.interval = setInterval(() => {
+            this.changeCanvas();
+        }, this.state.interval);
+
+        window.addEventListener("resize", this.updateDimensions);
     }
 
+    componentWillUnmount() {
+        clearInterval(this.interval);
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
+    /**
+     * Update dimenesion method
+     * that'll regenrate canvas
+     * on window resize
+     */
+    updateDimensions = () => {
+        clearTimeout(this.resizeInterval);
+
+        this.resizeInterval = setTimeout(() => {
+            this.changeCanvas();
+        }, 200);
+    };
+
+    /**
+     * generate canvas pattern by calling
+     * its lib
+     */
+    generatePattern = () =>
+        trianglify({
+            width: window.innerWidth,
+            height: window.innerHeight,
+            cell_size: 150,
+        });
+
+    canvasRef = React.createRef();
+
+    /**
+     * Chnage canvas re rendering
+     * with fadeout and in
+     */
+    changeCanvas = () => {
+        fadeOut(
+            this.canvasRef.current,
+            fadeIn.bind(null, this.canvasRef.current, this.renderCanvas),
+        );
+    };
+
+    renderCanvas = () => {
+        this.pattern = this.generatePattern();
+
+        this.pattern.canvas(this.canvasRef.current);
+    };
+
     render() {
-        const el = pattern.canvas();
         return (
-            <main>
+            <React.Fragment>
                 <canvas
                     ref={this.canvasRef}
-                    height="100"
-                    width="200"
-                    style={{ position: "absolute", zIndex: 0 }}
+                    style={{
+                        position: "absolute",
+                        zIndex: -1,
+                        transition: "opacity 0.8s ease",
+                        top: 0,
+                        bottom: 0,
+                        right: 0,
+                        left: 0,
+                    }}
                 />
                 {this.props.children}
-            </main>
+            </React.Fragment>
         );
     }
 }

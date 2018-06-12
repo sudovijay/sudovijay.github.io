@@ -14,14 +14,16 @@ import Global from "./styles/index";
 class App extends Component {
     render() {
         return (
-            <Trianglify>
-                <Router>
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route component={FourOFour} />
-                    </Switch>
-                </Router>
-            </Trianglify>
+            <Global>
+                <Trianglify>
+                    <Router>
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <Route component={FourOFour} />
+                        </Switch>
+                    </Router>
+                </Trianglify>
+            </Global>
         );
     }
 }
