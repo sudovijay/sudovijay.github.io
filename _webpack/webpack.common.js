@@ -32,7 +32,7 @@ module.exports = {
                         loader: "url-loader",
                         options: {
                             limit: 10000,
-                            name: "images/[name].[md5:hash:hex:8].[ext]"
+                            name: "build/images/[name].[md5:hash:hex:8].[ext]"
                         }
                     }
                 ]
@@ -48,6 +48,20 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: "babel-loader"
+                    },
+                    {
+                        loader: "react-svg-loader",
+                        options: {
+                            jsx: true // true outputs JSX tags
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -59,7 +73,14 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             filename: "../index.html",
-            template: path.join(process.cwd(), "templ/index.templ.html")
+            template: path.join(process.cwd(), "templ/index.templ.html"),
+            minify: {
+                collapseWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true
+            }
         })
     ]
 };

@@ -117,6 +117,36 @@
 })(
     /************************************************************************/
     /******/ {
+        /***/ "./node_modules/chain-function/index.js":
+            /*!**********************************************!*\
+  !*** ./node_modules/chain-function/index.js ***!
+  \**********************************************/
+            /*! no static exports found */
+            /***/ function(module, exports) {
+                module.exports = function chain() {
+                    var len = arguments.length;
+                    var args = [];
+
+                    for (var i = 0; i < len; i++) args[i] = arguments[i];
+
+                    args = args.filter(function(fn) {
+                        return fn != null;
+                    });
+
+                    if (args.length === 0) return undefined;
+                    if (args.length === 1) return args[0];
+
+                    return args.reduce(function(current, next) {
+                        return function chainedFunction() {
+                            current.apply(this, arguments);
+                            next.apply(this, arguments);
+                        };
+                    });
+                };
+
+                /***/
+            },
+
         /***/ "./node_modules/chroma-js/chroma.js":
             /*!******************************************!*\
   !*** ./node_modules/chroma-js/chroma.js ***!
@@ -3588,6 +3618,357 @@
                 function defaultGetY(p) {
                     return p[1];
                 }
+
+                /***/
+            },
+
+        /***/ "./node_modules/dom-helpers/class/addClass.js":
+            /*!****************************************************!*\
+  !*** ./node_modules/dom-helpers/class/addClass.js ***!
+  \****************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                exports.default = addClass;
+
+                var _hasClass = __webpack_require__(
+                    /*! ./hasClass */ "./node_modules/dom-helpers/class/hasClass.js"
+                );
+
+                var _hasClass2 = _interopRequireDefault(_hasClass);
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function addClass(element, className) {
+                    if (element.classList) element.classList.add(className);
+                    else if (!(0, _hasClass2.default)(element, className))
+                        if (typeof element.className === "string")
+                            element.className =
+                                element.className + " " + className;
+                        else
+                            element.setAttribute(
+                                "class",
+                                ((element.className &&
+                                    element.className.baseVal) ||
+                                    "") +
+                                    " " +
+                                    className
+                            );
+                }
+                module.exports = exports["default"];
+
+                /***/
+            },
+
+        /***/ "./node_modules/dom-helpers/class/hasClass.js":
+            /*!****************************************************!*\
+  !*** ./node_modules/dom-helpers/class/hasClass.js ***!
+  \****************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                exports.default = hasClass;
+                function hasClass(element, className) {
+                    if (element.classList)
+                        return (
+                            !!className && element.classList.contains(className)
+                        );
+                    else
+                        return (
+                            (
+                                " " +
+                                (element.className.baseVal ||
+                                    element.className) +
+                                " "
+                            ).indexOf(" " + className + " ") !== -1
+                        );
+                }
+                module.exports = exports["default"];
+
+                /***/
+            },
+
+        /***/ "./node_modules/dom-helpers/class/removeClass.js":
+            /*!*******************************************************!*\
+  !*** ./node_modules/dom-helpers/class/removeClass.js ***!
+  \*******************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                function replaceClassName(origClass, classToRemove) {
+                    return origClass
+                        .replace(
+                            new RegExp(
+                                "(^|\\s)" + classToRemove + "(?:\\s|$)",
+                                "g"
+                            ),
+                            "$1"
+                        )
+                        .replace(/\s+/g, " ")
+                        .replace(/^\s*|\s*$/g, "");
+                }
+
+                module.exports = function removeClass(element, className) {
+                    if (element.classList) element.classList.remove(className);
+                    else if (typeof element.className === "string")
+                        element.className = replaceClassName(
+                            element.className,
+                            className
+                        );
+                    else
+                        element.setAttribute(
+                            "class",
+                            replaceClassName(
+                                (element.className &&
+                                    element.className.baseVal) ||
+                                    "",
+                                className
+                            )
+                        );
+                };
+
+                /***/
+            },
+
+        /***/ "./node_modules/dom-helpers/transition/properties.js":
+            /*!***********************************************************!*\
+  !*** ./node_modules/dom-helpers/transition/properties.js ***!
+  \***********************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                exports.animationEnd = exports.animationDelay = exports.animationTiming = exports.animationDuration = exports.animationName = exports.transitionEnd = exports.transitionDuration = exports.transitionDelay = exports.transitionTiming = exports.transitionProperty = exports.transform = undefined;
+
+                var _inDOM = __webpack_require__(
+                    /*! ../util/inDOM */ "./node_modules/dom-helpers/util/inDOM.js"
+                );
+
+                var _inDOM2 = _interopRequireDefault(_inDOM);
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                var transform = "transform";
+                var prefix = void 0,
+                    transitionEnd = void 0,
+                    animationEnd = void 0;
+                var transitionProperty = void 0,
+                    transitionDuration = void 0,
+                    transitionTiming = void 0,
+                    transitionDelay = void 0;
+                var animationName = void 0,
+                    animationDuration = void 0,
+                    animationTiming = void 0,
+                    animationDelay = void 0;
+
+                if (_inDOM2.default) {
+                    var _getTransitionPropert = getTransitionProperties();
+
+                    prefix = _getTransitionPropert.prefix;
+                    exports.transitionEnd = transitionEnd =
+                        _getTransitionPropert.transitionEnd;
+                    exports.animationEnd = animationEnd =
+                        _getTransitionPropert.animationEnd;
+
+                    exports.transform = transform = prefix + "-" + transform;
+                    exports.transitionProperty = transitionProperty =
+                        prefix + "-transition-property";
+                    exports.transitionDuration = transitionDuration =
+                        prefix + "-transition-duration";
+                    exports.transitionDelay = transitionDelay =
+                        prefix + "-transition-delay";
+                    exports.transitionTiming = transitionTiming =
+                        prefix + "-transition-timing-function";
+
+                    exports.animationName = animationName =
+                        prefix + "-animation-name";
+                    exports.animationDuration = animationDuration =
+                        prefix + "-animation-duration";
+                    exports.animationTiming = animationTiming =
+                        prefix + "-animation-delay";
+                    exports.animationDelay = animationDelay =
+                        prefix + "-animation-timing-function";
+                }
+
+                exports.transform = transform;
+                exports.transitionProperty = transitionProperty;
+                exports.transitionTiming = transitionTiming;
+                exports.transitionDelay = transitionDelay;
+                exports.transitionDuration = transitionDuration;
+                exports.transitionEnd = transitionEnd;
+                exports.animationName = animationName;
+                exports.animationDuration = animationDuration;
+                exports.animationTiming = animationTiming;
+                exports.animationDelay = animationDelay;
+                exports.animationEnd = animationEnd;
+                exports.default = {
+                    transform: transform,
+                    end: transitionEnd,
+                    property: transitionProperty,
+                    timing: transitionTiming,
+                    delay: transitionDelay,
+                    duration: transitionDuration
+                };
+
+                function getTransitionProperties() {
+                    var style = document.createElement("div").style;
+
+                    var vendorMap = {
+                        O: function O(e) {
+                            return "o" + e.toLowerCase();
+                        },
+                        Moz: function Moz(e) {
+                            return e.toLowerCase();
+                        },
+                        Webkit: function Webkit(e) {
+                            return "webkit" + e;
+                        },
+                        ms: function ms(e) {
+                            return "MS" + e;
+                        }
+                    };
+
+                    var vendors = Object.keys(vendorMap);
+
+                    var transitionEnd = void 0,
+                        animationEnd = void 0;
+                    var prefix = "";
+
+                    for (var i = 0; i < vendors.length; i++) {
+                        var vendor = vendors[i];
+
+                        if (vendor + "TransitionProperty" in style) {
+                            prefix = "-" + vendor.toLowerCase();
+                            transitionEnd = vendorMap[vendor]("TransitionEnd");
+                            animationEnd = vendorMap[vendor]("AnimationEnd");
+                            break;
+                        }
+                    }
+
+                    if (!transitionEnd && "transitionProperty" in style)
+                        transitionEnd = "transitionend";
+
+                    if (!animationEnd && "animationName" in style)
+                        animationEnd = "animationend";
+
+                    style = null;
+
+                    return {
+                        animationEnd: animationEnd,
+                        transitionEnd: transitionEnd,
+                        prefix: prefix
+                    };
+                }
+
+                /***/
+            },
+
+        /***/ "./node_modules/dom-helpers/util/inDOM.js":
+            /*!************************************************!*\
+  !*** ./node_modules/dom-helpers/util/inDOM.js ***!
+  \************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                exports.default = !!(
+                    typeof window !== "undefined" &&
+                    window.document &&
+                    window.document.createElement
+                );
+                module.exports = exports["default"];
+
+                /***/
+            },
+
+        /***/ "./node_modules/dom-helpers/util/requestAnimationFrame.js":
+            /*!****************************************************************!*\
+  !*** ./node_modules/dom-helpers/util/requestAnimationFrame.js ***!
+  \****************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _inDOM = __webpack_require__(
+                    /*! ./inDOM */ "./node_modules/dom-helpers/util/inDOM.js"
+                );
+
+                var _inDOM2 = _interopRequireDefault(_inDOM);
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                var vendors = ["", "webkit", "moz", "o", "ms"];
+                var cancel = "clearTimeout";
+                var raf = fallback;
+                var compatRaf = void 0;
+
+                var getKey = function getKey(vendor, k) {
+                    return (
+                        vendor +
+                        (!vendor ? k : k[0].toUpperCase() + k.substr(1)) +
+                        "AnimationFrame"
+                    );
+                };
+
+                if (_inDOM2.default) {
+                    vendors.some(function(vendor) {
+                        var rafKey = getKey(vendor, "request");
+
+                        if (rafKey in window) {
+                            cancel = getKey(vendor, "cancel");
+                            return (raf = function raf(cb) {
+                                return window[rafKey](cb);
+                            });
+                        }
+                    });
+                }
+
+                /* https://github.com/component/raf */
+                var prev = new Date().getTime();
+                function fallback(fn) {
+                    var curr = new Date().getTime(),
+                        ms = Math.max(0, 16 - (curr - prev)),
+                        req = setTimeout(fn, ms);
+
+                    prev = curr;
+                    return req;
+                }
+
+                compatRaf = function compatRaf(cb) {
+                    return raf(cb);
+                };
+                compatRaf.cancel = function(id) {
+                    window[cancel] &&
+                        typeof window[cancel] === "function" &&
+                        window[cancel](id);
+                };
+                exports.default = compatRaf;
+                module.exports = exports["default"];
 
                 /***/
             },
@@ -8374,6 +8755,765 @@
                         Array.isArray(val) === false
                     );
                 };
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/_Symbol.js":
+            /*!****************************************!*\
+  !*** ./node_modules/lodash/_Symbol.js ***!
+  \****************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                var root = __webpack_require__(
+                    /*! ./_root */ "./node_modules/lodash/_root.js"
+                );
+
+                /** Built-in value references. */
+                var Symbol = root.Symbol;
+
+                module.exports = Symbol;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/_baseGetTag.js":
+            /*!********************************************!*\
+  !*** ./node_modules/lodash/_baseGetTag.js ***!
+  \********************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                var Symbol = __webpack_require__(
+                        /*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"
+                    ),
+                    getRawTag = __webpack_require__(
+                        /*! ./_getRawTag */ "./node_modules/lodash/_getRawTag.js"
+                    ),
+                    objectToString = __webpack_require__(
+                        /*! ./_objectToString */ "./node_modules/lodash/_objectToString.js"
+                    );
+
+                /** `Object#toString` result references. */
+                var nullTag = "[object Null]",
+                    undefinedTag = "[object Undefined]";
+
+                /** Built-in value references. */
+                var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+                /**
+                 * The base implementation of `getTag` without fallbacks for buggy environments.
+                 *
+                 * @private
+                 * @param {*} value The value to query.
+                 * @returns {string} Returns the `toStringTag`.
+                 */
+                function baseGetTag(value) {
+                    if (value == null) {
+                        return value === undefined ? undefinedTag : nullTag;
+                    }
+                    return symToStringTag && symToStringTag in Object(value)
+                        ? getRawTag(value)
+                        : objectToString(value);
+                }
+
+                module.exports = baseGetTag;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/_freeGlobal.js":
+            /*!********************************************!*\
+  !*** ./node_modules/lodash/_freeGlobal.js ***!
+  \********************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                /* WEBPACK VAR INJECTION */ (function(global) {
+                    /** Detect free variable `global` from Node.js. */
+                    var freeGlobal =
+                        typeof global == "object" &&
+                        global &&
+                        global.Object === Object &&
+                        global;
+
+                    module.exports = freeGlobal;
+
+                    /* WEBPACK VAR INJECTION */
+                }.call(
+                    this,
+                    __webpack_require__(
+                        /*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"
+                    )
+                ));
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/_getRawTag.js":
+            /*!*******************************************!*\
+  !*** ./node_modules/lodash/_getRawTag.js ***!
+  \*******************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                var Symbol = __webpack_require__(
+                    /*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"
+                );
+
+                /** Used for built-in method references. */
+                var objectProto = Object.prototype;
+
+                /** Used to check objects for own properties. */
+                var hasOwnProperty = objectProto.hasOwnProperty;
+
+                /**
+                 * Used to resolve the
+                 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+                 * of values.
+                 */
+                var nativeObjectToString = objectProto.toString;
+
+                /** Built-in value references. */
+                var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+                /**
+                 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+                 *
+                 * @private
+                 * @param {*} value The value to query.
+                 * @returns {string} Returns the raw `toStringTag`.
+                 */
+                function getRawTag(value) {
+                    var isOwn = hasOwnProperty.call(value, symToStringTag),
+                        tag = value[symToStringTag];
+
+                    try {
+                        value[symToStringTag] = undefined;
+                        var unmasked = true;
+                    } catch (e) {}
+
+                    var result = nativeObjectToString.call(value);
+                    if (unmasked) {
+                        if (isOwn) {
+                            value[symToStringTag] = tag;
+                        } else {
+                            delete value[symToStringTag];
+                        }
+                    }
+                    return result;
+                }
+
+                module.exports = getRawTag;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/_objectToString.js":
+            /*!************************************************!*\
+  !*** ./node_modules/lodash/_objectToString.js ***!
+  \************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports) {
+                /** Used for built-in method references. */
+                var objectProto = Object.prototype;
+
+                /**
+                 * Used to resolve the
+                 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+                 * of values.
+                 */
+                var nativeObjectToString = objectProto.toString;
+
+                /**
+                 * Converts `value` to a string using `Object.prototype.toString`.
+                 *
+                 * @private
+                 * @param {*} value The value to convert.
+                 * @returns {string} Returns the converted string.
+                 */
+                function objectToString(value) {
+                    return nativeObjectToString.call(value);
+                }
+
+                module.exports = objectToString;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/_root.js":
+            /*!**************************************!*\
+  !*** ./node_modules/lodash/_root.js ***!
+  \**************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                var freeGlobal = __webpack_require__(
+                    /*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js"
+                );
+
+                /** Detect free variable `self`. */
+                var freeSelf =
+                    typeof self == "object" &&
+                    self &&
+                    self.Object === Object &&
+                    self;
+
+                /** Used as a reference to the global object. */
+                var root = freeGlobal || freeSelf || Function("return this")();
+
+                module.exports = root;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/debounce.js":
+            /*!*****************************************!*\
+  !*** ./node_modules/lodash/debounce.js ***!
+  \*****************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                var isObject = __webpack_require__(
+                        /*! ./isObject */ "./node_modules/lodash/isObject.js"
+                    ),
+                    now = __webpack_require__(
+                        /*! ./now */ "./node_modules/lodash/now.js"
+                    ),
+                    toNumber = __webpack_require__(
+                        /*! ./toNumber */ "./node_modules/lodash/toNumber.js"
+                    );
+
+                /** Error message constants. */
+                var FUNC_ERROR_TEXT = "Expected a function";
+
+                /* Built-in method references for those with the same name as other `lodash` methods. */
+                var nativeMax = Math.max,
+                    nativeMin = Math.min;
+
+                /**
+                 * Creates a debounced function that delays invoking `func` until after `wait`
+                 * milliseconds have elapsed since the last time the debounced function was
+                 * invoked. The debounced function comes with a `cancel` method to cancel
+                 * delayed `func` invocations and a `flush` method to immediately invoke them.
+                 * Provide `options` to indicate whether `func` should be invoked on the
+                 * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+                 * with the last arguments provided to the debounced function. Subsequent
+                 * calls to the debounced function return the result of the last `func`
+                 * invocation.
+                 *
+                 * **Note:** If `leading` and `trailing` options are `true`, `func` is
+                 * invoked on the trailing edge of the timeout only if the debounced function
+                 * is invoked more than once during the `wait` timeout.
+                 *
+                 * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+                 * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+                 *
+                 * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+                 * for details over the differences between `_.debounce` and `_.throttle`.
+                 *
+                 * @static
+                 * @memberOf _
+                 * @since 0.1.0
+                 * @category Function
+                 * @param {Function} func The function to debounce.
+                 * @param {number} [wait=0] The number of milliseconds to delay.
+                 * @param {Object} [options={}] The options object.
+                 * @param {boolean} [options.leading=false]
+                 *  Specify invoking on the leading edge of the timeout.
+                 * @param {number} [options.maxWait]
+                 *  The maximum time `func` is allowed to be delayed before it's invoked.
+                 * @param {boolean} [options.trailing=true]
+                 *  Specify invoking on the trailing edge of the timeout.
+                 * @returns {Function} Returns the new debounced function.
+                 * @example
+                 *
+                 * // Avoid costly calculations while the window size is in flux.
+                 * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+                 *
+                 * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+                 * jQuery(element).on('click', _.debounce(sendMail, 300, {
+                 *   'leading': true,
+                 *   'trailing': false
+                 * }));
+                 *
+                 * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+                 * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+                 * var source = new EventSource('/stream');
+                 * jQuery(source).on('message', debounced);
+                 *
+                 * // Cancel the trailing debounced invocation.
+                 * jQuery(window).on('popstate', debounced.cancel);
+                 */
+                function debounce(func, wait, options) {
+                    var lastArgs,
+                        lastThis,
+                        maxWait,
+                        result,
+                        timerId,
+                        lastCallTime,
+                        lastInvokeTime = 0,
+                        leading = false,
+                        maxing = false,
+                        trailing = true;
+
+                    if (typeof func != "function") {
+                        throw new TypeError(FUNC_ERROR_TEXT);
+                    }
+                    wait = toNumber(wait) || 0;
+                    if (isObject(options)) {
+                        leading = !!options.leading;
+                        maxing = "maxWait" in options;
+                        maxWait = maxing
+                            ? nativeMax(toNumber(options.maxWait) || 0, wait)
+                            : maxWait;
+                        trailing =
+                            "trailing" in options
+                                ? !!options.trailing
+                                : trailing;
+                    }
+
+                    function invokeFunc(time) {
+                        var args = lastArgs,
+                            thisArg = lastThis;
+
+                        lastArgs = lastThis = undefined;
+                        lastInvokeTime = time;
+                        result = func.apply(thisArg, args);
+                        return result;
+                    }
+
+                    function leadingEdge(time) {
+                        // Reset any `maxWait` timer.
+                        lastInvokeTime = time;
+                        // Start the timer for the trailing edge.
+                        timerId = setTimeout(timerExpired, wait);
+                        // Invoke the leading edge.
+                        return leading ? invokeFunc(time) : result;
+                    }
+
+                    function remainingWait(time) {
+                        var timeSinceLastCall = time - lastCallTime,
+                            timeSinceLastInvoke = time - lastInvokeTime,
+                            timeWaiting = wait - timeSinceLastCall;
+
+                        return maxing
+                            ? nativeMin(
+                                  timeWaiting,
+                                  maxWait - timeSinceLastInvoke
+                              )
+                            : timeWaiting;
+                    }
+
+                    function shouldInvoke(time) {
+                        var timeSinceLastCall = time - lastCallTime,
+                            timeSinceLastInvoke = time - lastInvokeTime;
+
+                        // Either this is the first call, activity has stopped and we're at the
+                        // trailing edge, the system time has gone backwards and we're treating
+                        // it as the trailing edge, or we've hit the `maxWait` limit.
+                        return (
+                            lastCallTime === undefined ||
+                            timeSinceLastCall >= wait ||
+                            timeSinceLastCall < 0 ||
+                            (maxing && timeSinceLastInvoke >= maxWait)
+                        );
+                    }
+
+                    function timerExpired() {
+                        var time = now();
+                        if (shouldInvoke(time)) {
+                            return trailingEdge(time);
+                        }
+                        // Restart the timer.
+                        timerId = setTimeout(timerExpired, remainingWait(time));
+                    }
+
+                    function trailingEdge(time) {
+                        timerId = undefined;
+
+                        // Only invoke if we have `lastArgs` which means `func` has been
+                        // debounced at least once.
+                        if (trailing && lastArgs) {
+                            return invokeFunc(time);
+                        }
+                        lastArgs = lastThis = undefined;
+                        return result;
+                    }
+
+                    function cancel() {
+                        if (timerId !== undefined) {
+                            clearTimeout(timerId);
+                        }
+                        lastInvokeTime = 0;
+                        lastArgs = lastCallTime = lastThis = timerId = undefined;
+                    }
+
+                    function flush() {
+                        return timerId === undefined
+                            ? result
+                            : trailingEdge(now());
+                    }
+
+                    function debounced() {
+                        var time = now(),
+                            isInvoking = shouldInvoke(time);
+
+                        lastArgs = arguments;
+                        lastThis = this;
+                        lastCallTime = time;
+
+                        if (isInvoking) {
+                            if (timerId === undefined) {
+                                return leadingEdge(lastCallTime);
+                            }
+                            if (maxing) {
+                                // Handle invocations in a tight loop.
+                                timerId = setTimeout(timerExpired, wait);
+                                return invokeFunc(lastCallTime);
+                            }
+                        }
+                        if (timerId === undefined) {
+                            timerId = setTimeout(timerExpired, wait);
+                        }
+                        return result;
+                    }
+                    debounced.cancel = cancel;
+                    debounced.flush = flush;
+                    return debounced;
+                }
+
+                module.exports = debounce;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/isObject.js":
+            /*!*****************************************!*\
+  !*** ./node_modules/lodash/isObject.js ***!
+  \*****************************************/
+            /*! no static exports found */
+            /***/ function(module, exports) {
+                /**
+                 * Checks if `value` is the
+                 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+                 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+                 *
+                 * @static
+                 * @memberOf _
+                 * @since 0.1.0
+                 * @category Lang
+                 * @param {*} value The value to check.
+                 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+                 * @example
+                 *
+                 * _.isObject({});
+                 * // => true
+                 *
+                 * _.isObject([1, 2, 3]);
+                 * // => true
+                 *
+                 * _.isObject(_.noop);
+                 * // => true
+                 *
+                 * _.isObject(null);
+                 * // => false
+                 */
+                function isObject(value) {
+                    var type = typeof value;
+                    return (
+                        value != null &&
+                        (type == "object" || type == "function")
+                    );
+                }
+
+                module.exports = isObject;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/isObjectLike.js":
+            /*!*********************************************!*\
+  !*** ./node_modules/lodash/isObjectLike.js ***!
+  \*********************************************/
+            /*! no static exports found */
+            /***/ function(module, exports) {
+                /**
+                 * Checks if `value` is object-like. A value is object-like if it's not `null`
+                 * and has a `typeof` result of "object".
+                 *
+                 * @static
+                 * @memberOf _
+                 * @since 4.0.0
+                 * @category Lang
+                 * @param {*} value The value to check.
+                 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+                 * @example
+                 *
+                 * _.isObjectLike({});
+                 * // => true
+                 *
+                 * _.isObjectLike([1, 2, 3]);
+                 * // => true
+                 *
+                 * _.isObjectLike(_.noop);
+                 * // => false
+                 *
+                 * _.isObjectLike(null);
+                 * // => false
+                 */
+                function isObjectLike(value) {
+                    return value != null && typeof value == "object";
+                }
+
+                module.exports = isObjectLike;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/isSymbol.js":
+            /*!*****************************************!*\
+  !*** ./node_modules/lodash/isSymbol.js ***!
+  \*****************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                var baseGetTag = __webpack_require__(
+                        /*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"
+                    ),
+                    isObjectLike = __webpack_require__(
+                        /*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js"
+                    );
+
+                /** `Object#toString` result references. */
+                var symbolTag = "[object Symbol]";
+
+                /**
+                 * Checks if `value` is classified as a `Symbol` primitive or object.
+                 *
+                 * @static
+                 * @memberOf _
+                 * @since 4.0.0
+                 * @category Lang
+                 * @param {*} value The value to check.
+                 * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+                 * @example
+                 *
+                 * _.isSymbol(Symbol.iterator);
+                 * // => true
+                 *
+                 * _.isSymbol('abc');
+                 * // => false
+                 */
+                function isSymbol(value) {
+                    return (
+                        typeof value == "symbol" ||
+                        (isObjectLike(value) && baseGetTag(value) == symbolTag)
+                    );
+                }
+
+                module.exports = isSymbol;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/now.js":
+            /*!************************************!*\
+  !*** ./node_modules/lodash/now.js ***!
+  \************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                var root = __webpack_require__(
+                    /*! ./_root */ "./node_modules/lodash/_root.js"
+                );
+
+                /**
+                 * Gets the timestamp of the number of milliseconds that have elapsed since
+                 * the Unix epoch (1 January 1970 00:00:00 UTC).
+                 *
+                 * @static
+                 * @memberOf _
+                 * @since 2.4.0
+                 * @category Date
+                 * @returns {number} Returns the timestamp.
+                 * @example
+                 *
+                 * _.defer(function(stamp) {
+                 *   console.log(_.now() - stamp);
+                 * }, _.now());
+                 * // => Logs the number of milliseconds it took for the deferred invocation.
+                 */
+                var now = function() {
+                    return root.Date.now();
+                };
+
+                module.exports = now;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/throttle.js":
+            /*!*****************************************!*\
+  !*** ./node_modules/lodash/throttle.js ***!
+  \*****************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                var debounce = __webpack_require__(
+                        /*! ./debounce */ "./node_modules/lodash/debounce.js"
+                    ),
+                    isObject = __webpack_require__(
+                        /*! ./isObject */ "./node_modules/lodash/isObject.js"
+                    );
+
+                /** Error message constants. */
+                var FUNC_ERROR_TEXT = "Expected a function";
+
+                /**
+                 * Creates a throttled function that only invokes `func` at most once per
+                 * every `wait` milliseconds. The throttled function comes with a `cancel`
+                 * method to cancel delayed `func` invocations and a `flush` method to
+                 * immediately invoke them. Provide `options` to indicate whether `func`
+                 * should be invoked on the leading and/or trailing edge of the `wait`
+                 * timeout. The `func` is invoked with the last arguments provided to the
+                 * throttled function. Subsequent calls to the throttled function return the
+                 * result of the last `func` invocation.
+                 *
+                 * **Note:** If `leading` and `trailing` options are `true`, `func` is
+                 * invoked on the trailing edge of the timeout only if the throttled function
+                 * is invoked more than once during the `wait` timeout.
+                 *
+                 * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+                 * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+                 *
+                 * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+                 * for details over the differences between `_.throttle` and `_.debounce`.
+                 *
+                 * @static
+                 * @memberOf _
+                 * @since 0.1.0
+                 * @category Function
+                 * @param {Function} func The function to throttle.
+                 * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
+                 * @param {Object} [options={}] The options object.
+                 * @param {boolean} [options.leading=true]
+                 *  Specify invoking on the leading edge of the timeout.
+                 * @param {boolean} [options.trailing=true]
+                 *  Specify invoking on the trailing edge of the timeout.
+                 * @returns {Function} Returns the new throttled function.
+                 * @example
+                 *
+                 * // Avoid excessively updating the position while scrolling.
+                 * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+                 *
+                 * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
+                 * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
+                 * jQuery(element).on('click', throttled);
+                 *
+                 * // Cancel the trailing throttled invocation.
+                 * jQuery(window).on('popstate', throttled.cancel);
+                 */
+                function throttle(func, wait, options) {
+                    var leading = true,
+                        trailing = true;
+
+                    if (typeof func != "function") {
+                        throw new TypeError(FUNC_ERROR_TEXT);
+                    }
+                    if (isObject(options)) {
+                        leading =
+                            "leading" in options ? !!options.leading : leading;
+                        trailing =
+                            "trailing" in options
+                                ? !!options.trailing
+                                : trailing;
+                    }
+                    return debounce(func, wait, {
+                        leading: leading,
+                        maxWait: wait,
+                        trailing: trailing
+                    });
+                }
+
+                module.exports = throttle;
+
+                /***/
+            },
+
+        /***/ "./node_modules/lodash/toNumber.js":
+            /*!*****************************************!*\
+  !*** ./node_modules/lodash/toNumber.js ***!
+  \*****************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                var isObject = __webpack_require__(
+                        /*! ./isObject */ "./node_modules/lodash/isObject.js"
+                    ),
+                    isSymbol = __webpack_require__(
+                        /*! ./isSymbol */ "./node_modules/lodash/isSymbol.js"
+                    );
+
+                /** Used as references for various `Number` constants. */
+                var NAN = 0 / 0;
+
+                /** Used to match leading and trailing whitespace. */
+                var reTrim = /^\s+|\s+$/g;
+
+                /** Used to detect bad signed hexadecimal string values. */
+                var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+
+                /** Used to detect binary string values. */
+                var reIsBinary = /^0b[01]+$/i;
+
+                /** Used to detect octal string values. */
+                var reIsOctal = /^0o[0-7]+$/i;
+
+                /** Built-in method references without a dependency on `root`. */
+                var freeParseInt = parseInt;
+
+                /**
+                 * Converts `value` to a number.
+                 *
+                 * @static
+                 * @memberOf _
+                 * @since 4.0.0
+                 * @category Lang
+                 * @param {*} value The value to process.
+                 * @returns {number} Returns the number.
+                 * @example
+                 *
+                 * _.toNumber(3.2);
+                 * // => 3.2
+                 *
+                 * _.toNumber(Number.MIN_VALUE);
+                 * // => 5e-324
+                 *
+                 * _.toNumber(Infinity);
+                 * // => Infinity
+                 *
+                 * _.toNumber('3.2');
+                 * // => 3.2
+                 */
+                function toNumber(value) {
+                    if (typeof value == "number") {
+                        return value;
+                    }
+                    if (isSymbol(value)) {
+                        return NAN;
+                    }
+                    if (isObject(value)) {
+                        var other =
+                            typeof value.valueOf == "function"
+                                ? value.valueOf()
+                                : value;
+                        value = isObject(other) ? other + "" : other;
+                    }
+                    if (typeof value != "string") {
+                        return value === 0 ? value : +value;
+                    }
+                    value = value.replace(reTrim, "");
+                    var isBinary = reIsBinary.test(value);
+                    return isBinary || reIsOctal.test(value)
+                        ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+                        : reIsBadHex.test(value)
+                            ? NAN
+                            : +value;
+                }
+
+                module.exports = toNumber;
 
                 /***/
             },
@@ -35697,6 +36837,2012 @@ object-assign
                 /***/
             },
 
+        /***/ "./node_modules/react-grid-system/build/config.js":
+            /*!********************************************************!*\
+  !*** ./node_modules/react-grid-system/build/config.js ***!
+  \********************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var configuration = {
+                    breakpoints: [576, 768, 992, 1200],
+                    containerWidths: [540, 750, 960, 1140],
+                    gutterWidth: 30,
+                    gridColumns: 12,
+                    defaultScreenClass: "xl"
+                };
+
+                var getConfiguration = (exports.getConfiguration = function getConfiguration() {
+                    return configuration;
+                });
+
+                var setConfiguration = (exports.setConfiguration = function setConfiguration(
+                    newConfiguration
+                ) {
+                    configuration = _extends(
+                        {},
+                        configuration,
+                        newConfiguration
+                    );
+                });
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/grid/Col/index.js":
+            /*!****************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/grid/Col/index.js ***!
+  \****************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                var _throttle = __webpack_require__(
+                    /*! lodash/throttle */ "./node_modules/lodash/throttle.js"
+                );
+
+                var _throttle2 = _interopRequireDefault(_throttle);
+
+                var _style = __webpack_require__(
+                    /*! ./style */ "./node_modules/react-grid-system/build/grid/Col/style.js"
+                );
+
+                var _style2 = _interopRequireDefault(_style);
+
+                var _config = __webpack_require__(
+                    /*! ../../config */ "./node_modules/react-grid-system/build/config.js"
+                );
+
+                var _utils = __webpack_require__(
+                    /*! ../../utils */ "./node_modules/react-grid-system/build/utils.js"
+                );
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function _objectWithoutProperties(obj, keys) {
+                    var target = {};
+                    for (var i in obj) {
+                        if (keys.indexOf(i) >= 0) continue;
+                        if (!Object.prototype.hasOwnProperty.call(obj, i))
+                            continue;
+                        target[i] = obj[i];
+                    }
+                    return target;
+                }
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                } /* global window */
+
+                var Col = (function(_React$Component) {
+                    _inherits(Col, _React$Component);
+
+                    function Col(props) {
+                        _classCallCheck(this, Col);
+
+                        var _this = _possibleConstructorReturn(
+                            this,
+                            (Col.__proto__ || Object.getPrototypeOf(Col)).call(
+                                this,
+                                props
+                            )
+                        );
+
+                        _this.componentDidMount = function() {
+                            _this.setScreenClass();
+                            _this.eventListener = (0, _throttle2.default)(
+                                _this.setScreenClass,
+                                100
+                            );
+                            window.addEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.componentWillUnmount = function() {
+                            _this.eventListener.cancel();
+                            window.removeEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.setScreenClass = function() {
+                            _this.setState({
+                                screenClass: (0, _utils.getScreenClass)()
+                            });
+                        };
+
+                        _this.render = function() {
+                            var _this$props = _this.props,
+                                children = _this$props.children,
+                                xs = _this$props.xs,
+                                sm = _this$props.sm,
+                                md = _this$props.md,
+                                lg = _this$props.lg,
+                                xl = _this$props.xl,
+                                offset = _this$props.offset,
+                                pull = _this$props.pull,
+                                push = _this$props.push,
+                                debug = _this$props.debug,
+                                style = _this$props.style,
+                                otherProps = _objectWithoutProperties(
+                                    _this$props,
+                                    [
+                                        "children",
+                                        "xs",
+                                        "sm",
+                                        "md",
+                                        "lg",
+                                        "xl",
+                                        "offset",
+                                        "pull",
+                                        "push",
+                                        "debug",
+                                        "style"
+                                    ]
+                                );
+
+                            var theStyle = (0, _style2.default)({
+                                width: {
+                                    xs: xs,
+                                    sm: sm,
+                                    md: md,
+                                    lg: lg,
+                                    xl: xl
+                                },
+                                offset: offset,
+                                pull: pull,
+                                push: push,
+                                debug: debug,
+                                screenClass: _this.state.screenClass,
+                                gutterWidth: (0, _config.getConfiguration)()
+                                    .gutterWidth,
+                                gridColumns: (0, _config.getConfiguration)()
+                                    .gridColumns,
+                                moreStyle: style
+                            });
+                            return _react2.default.createElement(
+                                "div",
+                                _extends({ style: theStyle }, otherProps),
+                                children
+                            );
+                        };
+
+                        _this.state = {
+                            screenClass: (0, _config.getConfiguration)()
+                                .defaultScreenClass
+                        };
+                        return _this;
+                    }
+
+                    return Col;
+                })(_react2.default.Component);
+
+                Col.propTypes = {
+                    /**
+                     * Content of the column
+                     */
+                    children: _propTypes2.default.node,
+                    /**
+                     * The width of the column for screenclass `xs`, between 0 and 12
+                     */
+                    xs: _propTypes2.default.number,
+                    /**
+                     * The width of the column for screenclass `sm`, between 0 and 12
+                     */
+                    sm: _propTypes2.default.number,
+                    /**
+                     * The width of the column for screenclass `md`, between 0 and 12
+                     */
+                    md: _propTypes2.default.number,
+                    /**
+                     * The width of the column for screenclass `lg`, between 0 and 12
+                     */
+                    lg: _propTypes2.default.number,
+                    /**
+                     * The width of the column for screenclass `xl`, between 0 and 12
+                     */
+                    xl: _propTypes2.default.number,
+                    /**
+                     * The offset of this column for all screenclasses
+                     */
+                    offset: _propTypes2.default.shape({
+                        xs: _propTypes2.default.number,
+                        sm: _propTypes2.default.number,
+                        md: _propTypes2.default.number,
+                        lg: _propTypes2.default.number,
+                        xl: _propTypes2.default.number
+                    }),
+                    /**
+                     * The amount this column is pushed to the right for all screenclasses
+                     */
+                    push: _propTypes2.default.shape({
+                        xs: _propTypes2.default.number,
+                        sm: _propTypes2.default.number,
+                        md: _propTypes2.default.number,
+                        lg: _propTypes2.default.number,
+                        xl: _propTypes2.default.number
+                    }),
+                    /**
+                     * The amount this column is pulled to the left for all screenclasses
+                     */
+                    pull: _propTypes2.default.shape({
+                        xs: _propTypes2.default.number,
+                        sm: _propTypes2.default.number,
+                        md: _propTypes2.default.number,
+                        lg: _propTypes2.default.number,
+                        xl: _propTypes2.default.number
+                    }),
+                    /**
+                     * Optional styling
+                     */
+                    style: _propTypes2.default.objectOf(
+                        _propTypes2.default.oneOfType([
+                            _propTypes2.default.number,
+                            _propTypes2.default.string
+                        ])
+                    ),
+                    /**
+                     * Set to apply some debug styling
+                     */
+                    debug: _propTypes2.default.bool
+                };
+                Col.defaultProps = {
+                    children: null,
+                    xs: null,
+                    sm: null,
+                    md: null,
+                    lg: null,
+                    xl: null,
+                    offset: {},
+                    push: {},
+                    pull: {},
+                    style: {},
+                    debug: false
+                };
+                exports.default = Col;
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/grid/Col/style.js":
+            /*!****************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/grid/Col/style.js ***!
+  \****************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var _utils = __webpack_require__(
+                    /*! ../../utils */ "./node_modules/react-grid-system/build/utils.js"
+                );
+
+                var hasWidth = function hasWidth(widths) {
+                    return Object.keys(widths).reduce(function(acc, cur) {
+                        return acc || widths[cur];
+                    }, false);
+                };
+
+                var getWidth = function getWidth(width, gridColumns) {
+                    if (typeof width !== "number") return undefined;
+                    var normalizedWidth = Math.max(
+                        0,
+                        Math.min(gridColumns, width)
+                    );
+                    return (100 / gridColumns) * normalizedWidth + "%";
+                };
+
+                exports.default = function(_ref) {
+                    var _ref$width = _ref.width,
+                        width = _ref$width === undefined ? {} : _ref$width,
+                        _ref$offset = _ref.offset,
+                        offset = _ref$offset === undefined ? {} : _ref$offset,
+                        _ref$pull = _ref.pull,
+                        pull = _ref$pull === undefined ? {} : _ref$pull,
+                        _ref$push = _ref.push,
+                        push = _ref$push === undefined ? {} : _ref$push,
+                        debug = _ref.debug,
+                        screenClass = _ref.screenClass,
+                        gutterWidth = _ref.gutterWidth,
+                        moreStyle = _ref.moreStyle,
+                        gridColumns = _ref.gridColumns;
+
+                    var theGutterWidth =
+                        typeof gutterWidth === "number"
+                            ? gutterWidth
+                            : _utils.defaultGutterWidth;
+                    var theGridColumns =
+                        typeof gridColumns === "number"
+                            ? gridColumns
+                            : _utils.defaultGridColumns;
+
+                    var styles = _extends(
+                        {
+                            boxSizing: "border-box",
+                            minHeight: "1px",
+                            position: "relative",
+                            paddingLeft: theGutterWidth / 2 + "px",
+                            paddingRight: theGutterWidth / 2 + "px",
+                            width: "100%",
+                            overflow: "hidden"
+                        },
+                        moreStyle
+                    );
+
+                    if (debug) {
+                        styles.outline = "1px solid silver";
+                        styles.background = "rgba(0,0,0,.05)";
+                    }
+
+                    styles.flexBasis = "100%";
+                    styles.flexGrow = 0;
+                    styles.flexShrink = 0;
+                    styles.maxWidth = "100%";
+                    styles.marginLeft = "0%";
+                    styles.right = "auto";
+                    styles.left = "auto";
+
+                    _utils.screenClasses.forEach(function(size, index) {
+                        if (
+                            _utils.screenClasses.indexOf(screenClass) >= index
+                        ) {
+                            styles.flexBasis =
+                                getWidth(width[size], theGridColumns) ||
+                                styles.flexBasis;
+                            styles.maxWidth =
+                                getWidth(width[size], theGridColumns) ||
+                                styles.maxWidth;
+                            styles.marginLeft =
+                                getWidth(offset[size], theGridColumns) ||
+                                styles.marginLeft;
+                            styles.right =
+                                getWidth(pull[size], theGridColumns) ||
+                                styles.right;
+                            styles.left =
+                                getWidth(push[size], theGridColumns) ||
+                                styles.left;
+                        }
+                    });
+
+                    if (!hasWidth(width)) {
+                        styles.flexBasis = 0;
+                        styles.flexGrow = 1;
+                    }
+
+                    return styles;
+                };
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/grid/Container/index.js":
+            /*!**********************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/grid/Container/index.js ***!
+  \**********************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                var _throttle = __webpack_require__(
+                    /*! lodash/throttle */ "./node_modules/lodash/throttle.js"
+                );
+
+                var _throttle2 = _interopRequireDefault(_throttle);
+
+                var _style = __webpack_require__(
+                    /*! ./style */ "./node_modules/react-grid-system/build/grid/Container/style.js"
+                );
+
+                var _style2 = _interopRequireDefault(_style);
+
+                var _config = __webpack_require__(
+                    /*! ../../config */ "./node_modules/react-grid-system/build/config.js"
+                );
+
+                var _utils = __webpack_require__(
+                    /*! ../../utils */ "./node_modules/react-grid-system/build/utils.js"
+                );
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function _objectWithoutProperties(obj, keys) {
+                    var target = {};
+                    for (var i in obj) {
+                        if (keys.indexOf(i) >= 0) continue;
+                        if (!Object.prototype.hasOwnProperty.call(obj, i))
+                            continue;
+                        target[i] = obj[i];
+                    }
+                    return target;
+                }
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                } /* global window */
+
+                var Container = (function(_React$Component) {
+                    _inherits(Container, _React$Component);
+
+                    function Container(props) {
+                        _classCallCheck(this, Container);
+
+                        var _this = _possibleConstructorReturn(
+                            this,
+                            (
+                                Container.__proto__ ||
+                                Object.getPrototypeOf(Container)
+                            ).call(this, props)
+                        );
+
+                        _this.componentDidMount = function() {
+                            _this.setScreenClass();
+                            _this.eventListener = (0, _throttle2.default)(
+                                _this.setScreenClass,
+                                100
+                            );
+                            window.addEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.componentWillUnmount = function() {
+                            _this.eventListener.cancel();
+                            window.removeEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.setScreenClass = function() {
+                            _this.setState({
+                                screenClass: (0, _utils.getScreenClass)()
+                            });
+                        };
+
+                        _this.render = function() {
+                            var _this$props = _this.props,
+                                children = _this$props.children,
+                                fluid = _this$props.fluid,
+                                xs = _this$props.xs,
+                                sm = _this$props.sm,
+                                md = _this$props.md,
+                                lg = _this$props.lg,
+                                xl = _this$props.xl,
+                                style = _this$props.style,
+                                otherProps = _objectWithoutProperties(
+                                    _this$props,
+                                    [
+                                        "children",
+                                        "fluid",
+                                        "xs",
+                                        "sm",
+                                        "md",
+                                        "lg",
+                                        "xl",
+                                        "style"
+                                    ]
+                                );
+
+                            var theStyle = (0, _style2.default)({
+                                fluid: fluid,
+                                xs: xs,
+                                sm: sm,
+                                md: md,
+                                lg: lg,
+                                xl: xl,
+                                screenClass: _this.state.screenClass,
+                                containerWidths: (0, _config.getConfiguration)()
+                                    .containerWidths,
+                                gutterWidth: (0, _config.getConfiguration)()
+                                    .gutterWidth,
+                                moreStyle: style
+                            });
+                            return _react2.default.createElement(
+                                "div",
+                                _extends({ style: theStyle }, otherProps),
+                                children,
+                                _react2.default.createElement("span", {
+                                    style: (0, _style.getAfterStyle)()
+                                })
+                            );
+                        };
+
+                        _this.state = {
+                            screenClass: (0, _config.getConfiguration)()
+                                .defaultScreenClass
+                        };
+                        return _this;
+                    }
+
+                    return Container;
+                })(_react2.default.Component);
+
+                Container.propTypes = {
+                    /**
+                     * Content of the component
+                     */
+                    children: _propTypes2.default.node.isRequired,
+                    /**
+                     * True makes the container full-width, false fixed-width
+                     */
+                    fluid: _propTypes2.default.bool,
+                    /**
+                     * This is in combination with fluid enabled
+                     * True makes container fluid only in xs, not present means fluid everywhere
+                     */
+                    xs: _propTypes2.default.bool,
+                    /**
+                     * This is in combination with fluid enabled
+                     * True makes container fluid only in sm, not present means fluid everywhere
+                     */
+                    sm: _propTypes2.default.bool,
+                    /**
+                     * This is in combination with fluid enabled
+                     * True makes container fluid only in md, not present means fluid everywhere
+                     */
+                    md: _propTypes2.default.bool,
+                    /**
+                     * This is in combination with fluid enabled
+                     * True makes container fluid only in lg, not present means fluid everywhere
+                     */
+                    lg: _propTypes2.default.bool,
+                    /**
+                     * This is in combination with fluid enabled
+                     * True makes container fluid only in xl, not present means fluid everywhere
+                     */
+                    xl: _propTypes2.default.bool,
+                    /**
+                     * Optional styling
+                     */
+                    style: _propTypes2.default.objectOf(
+                        _propTypes2.default.oneOfType([
+                            _propTypes2.default.number,
+                            _propTypes2.default.string
+                        ])
+                    )
+                };
+                Container.defaultProps = {
+                    fluid: false,
+                    xs: false,
+                    sm: false,
+                    md: false,
+                    lg: false,
+                    xl: false,
+                    style: {}
+                };
+                exports.default = Container;
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/grid/Container/style.js":
+            /*!**********************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/grid/Container/style.js ***!
+  \**********************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                exports.getAfterStyle = undefined;
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var _utils = __webpack_require__(
+                    /*! ../../utils */ "./node_modules/react-grid-system/build/utils.js"
+                );
+
+                exports.default = function(_ref) {
+                    var fluid = _ref.fluid,
+                        xs = _ref.xs,
+                        sm = _ref.sm,
+                        md = _ref.md,
+                        lg = _ref.lg,
+                        xl = _ref.xl,
+                        screenClass = _ref.screenClass,
+                        containerWidths = _ref.containerWidths,
+                        gutterWidth = _ref.gutterWidth,
+                        moreStyle = _ref.moreStyle;
+
+                    var theContainerWidths =
+                        containerWidths && containerWidths.length
+                            ? containerWidths
+                            : _utils.defaultContainerWidths;
+                    var theGutterWidth =
+                        typeof gutterWidth === "number"
+                            ? gutterWidth
+                            : _utils.defaultGutterWidth;
+
+                    var styles = _extends(
+                        {
+                            boxSizing: "border-box",
+                            position: "relative",
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            paddingLeft: theGutterWidth / 2 + "px",
+                            paddingRight: theGutterWidth / 2 + "px"
+                        },
+                        moreStyle
+                    );
+
+                    if (fluid && !sm && !md && !lg && !xl) {
+                        return styles;
+                    }
+
+                    if (
+                        screenClass === "sm" &&
+                        theContainerWidths[0] &&
+                        !sm &&
+                        !xs
+                    ) {
+                        styles.maxWidth = theContainerWidths[0] + "px";
+                    }
+
+                    if (screenClass === "md" && theContainerWidths[1] && !md) {
+                        styles.maxWidth = theContainerWidths[1] + "px";
+                    }
+
+                    if (screenClass === "lg" && theContainerWidths[2] && !lg) {
+                        styles.maxWidth = theContainerWidths[2] + "px";
+                    }
+
+                    if (screenClass === "xl" && theContainerWidths[3] && !xl) {
+                        styles.maxWidth = theContainerWidths[3] + "px";
+                    }
+
+                    return styles;
+                };
+
+                var getAfterStyle = (exports.getAfterStyle = function getAfterStyle() {
+                    return {
+                        display: "table",
+                        clear: "both"
+                    };
+                });
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/grid/Row/index.js":
+            /*!****************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/grid/Row/index.js ***!
+  \****************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                var _style = __webpack_require__(
+                    /*! ./style */ "./node_modules/react-grid-system/build/grid/Row/style.js"
+                );
+
+                var _style2 = _interopRequireDefault(_style);
+
+                var _config = __webpack_require__(
+                    /*! ../../config */ "./node_modules/react-grid-system/build/config.js"
+                );
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function _objectWithoutProperties(obj, keys) {
+                    var target = {};
+                    for (var i in obj) {
+                        if (keys.indexOf(i) >= 0) continue;
+                        if (!Object.prototype.hasOwnProperty.call(obj, i))
+                            continue;
+                        target[i] = obj[i];
+                    }
+                    return target;
+                }
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                }
+
+                var Row = (function(_React$Component) {
+                    _inherits(Row, _React$Component);
+
+                    function Row() {
+                        var _ref;
+
+                        var _temp, _this, _ret;
+
+                        _classCallCheck(this, Row);
+
+                        for (
+                            var _len = arguments.length,
+                                args = Array(_len),
+                                _key = 0;
+                            _key < _len;
+                            _key++
+                        ) {
+                            args[_key] = arguments[_key];
+                        }
+
+                        return (
+                            (_ret = ((_temp = ((_this = _possibleConstructorReturn(
+                                this,
+                                (_ref =
+                                    Row.__proto__ ||
+                                    Object.getPrototypeOf(Row)).call.apply(
+                                    _ref,
+                                    [this].concat(args)
+                                )
+                            )),
+                            _this)),
+                            (_this.render = function() {
+                                var _this$props = _this.props,
+                                    children = _this$props.children,
+                                    style = _this$props.style,
+                                    align = _this$props.align,
+                                    debug = _this$props.debug,
+                                    nogutter = _this$props.nogutter,
+                                    otherProps = _objectWithoutProperties(
+                                        _this$props,
+                                        [
+                                            "children",
+                                            "style",
+                                            "align",
+                                            "debug",
+                                            "nogutter"
+                                        ]
+                                    );
+
+                                var theStyle = (0, _style2.default)({
+                                    gutterWidth: nogutter
+                                        ? 0
+                                        : (0, _config.getConfiguration)()
+                                              .gutterWidth,
+                                    align: align,
+                                    debug: debug,
+                                    moreStyle: style
+                                });
+                                return _react2.default.createElement(
+                                    "div",
+                                    _extends({ style: theStyle }, otherProps),
+                                    children
+                                );
+                            }),
+                            _temp)),
+                            _possibleConstructorReturn(_this, _ret)
+                        );
+                    }
+
+                    return Row;
+                })(_react2.default.Component);
+
+                Row.propTypes = {
+                    /**
+                     * Content of the element
+                     */
+                    children: _propTypes2.default.node.isRequired,
+                    /**
+                     * Column alignment
+                     */
+                    align: _propTypes2.default.oneOf([
+                        "normal",
+                        "start",
+                        "center",
+                        "end"
+                    ]),
+                    /**
+                     * No gutter for this row
+                     */
+                    nogutter: _propTypes2.default.bool,
+                    /**
+                     * Optional styling
+                     */
+                    style: _propTypes2.default.objectOf(
+                        _propTypes2.default.oneOfType([
+                            _propTypes2.default.number,
+                            _propTypes2.default.string
+                        ])
+                    ),
+                    /**
+                     * Set to apply some debug styling
+                     */
+                    debug: _propTypes2.default.bool
+                };
+                Row.defaultProps = {
+                    align: "normal",
+                    nogutter: false,
+                    style: {},
+                    debug: false
+                };
+                exports.default = Row;
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/grid/Row/style.js":
+            /*!****************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/grid/Row/style.js ***!
+  \****************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var _utils = __webpack_require__(
+                    /*! ../../utils */ "./node_modules/react-grid-system/build/utils.js"
+                );
+
+                exports.default = function(_ref) {
+                    var gutterWidth = _ref.gutterWidth,
+                        align = _ref.align,
+                        debug = _ref.debug,
+                        moreStyle = _ref.moreStyle;
+
+                    var theGutterWidth =
+                        typeof gutterWidth === "number"
+                            ? gutterWidth
+                            : _utils.defaultGutterWidth;
+
+                    var alignItems = align;
+                    if (align === "start") alignItems = "flex-start";
+                    if (align === "end") alignItems = "flex-end";
+
+                    var styles = _extends(
+                        {
+                            marginLeft: "-" + theGutterWidth / 2 + "px",
+                            marginRight: "-" + theGutterWidth / 2 + "px",
+                            display: "flex",
+                            flexWrap: "wrap",
+                            flexGrow: 0,
+                            flexShrink: 0,
+                            alignItems: alignItems
+                        },
+                        moreStyle
+                    );
+
+                    if (debug) {
+                        styles.background = "rgba(128,128,128,.05)";
+                    }
+
+                    return styles;
+                };
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/index.js":
+            /*!*******************************************************!*\
+  !*** ./node_modules/react-grid-system/build/index.js ***!
+  \*******************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                exports.setConfiguration = exports.ScreenClassRender = exports.Visible = exports.Hidden = exports.Row = exports.Container = exports.Col = undefined;
+
+                var _config = __webpack_require__(
+                    /*! ./config */ "./node_modules/react-grid-system/build/config.js"
+                );
+
+                Object.defineProperty(exports, "setConfiguration", {
+                    enumerable: true,
+                    get: function get() {
+                        return _config.setConfiguration;
+                    }
+                });
+
+                var _Col2 = __webpack_require__(
+                    /*! ./grid/Col */ "./node_modules/react-grid-system/build/grid/Col/index.js"
+                );
+
+                var _Col3 = _interopRequireDefault(_Col2);
+
+                var _Container2 = __webpack_require__(
+                    /*! ./grid/Container */ "./node_modules/react-grid-system/build/grid/Container/index.js"
+                );
+
+                var _Container3 = _interopRequireDefault(_Container2);
+
+                var _Row2 = __webpack_require__(
+                    /*! ./grid/Row */ "./node_modules/react-grid-system/build/grid/Row/index.js"
+                );
+
+                var _Row3 = _interopRequireDefault(_Row2);
+
+                var _Hidden2 = __webpack_require__(
+                    /*! ./utilities/Hidden */ "./node_modules/react-grid-system/build/utilities/Hidden/index.js"
+                );
+
+                var _Hidden3 = _interopRequireDefault(_Hidden2);
+
+                var _Visible2 = __webpack_require__(
+                    /*! ./utilities/Visible */ "./node_modules/react-grid-system/build/utilities/Visible/index.js"
+                );
+
+                var _Visible3 = _interopRequireDefault(_Visible2);
+
+                var _ScreenClassRender2 = __webpack_require__(
+                    /*! ./utilities/ScreenClassRender */ "./node_modules/react-grid-system/build/utilities/ScreenClassRender/index.js"
+                );
+
+                var _ScreenClassRender3 = _interopRequireDefault(
+                    _ScreenClassRender2
+                );
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                exports.Col = _Col3.default; // Grid
+
+                exports.Container = _Container3.default;
+                exports.Row = _Row3.default;
+
+                // Utilities
+
+                exports.Hidden = _Hidden3.default;
+                exports.Visible = _Visible3.default;
+                exports.ScreenClassRender = _ScreenClassRender3.default;
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/utilities/Hidden/index.js":
+            /*!************************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/utilities/Hidden/index.js ***!
+  \************************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                var _throttle = __webpack_require__(
+                    /*! lodash/throttle */ "./node_modules/lodash/throttle.js"
+                );
+
+                var _throttle2 = _interopRequireDefault(_throttle);
+
+                var _style = __webpack_require__(
+                    /*! ./style */ "./node_modules/react-grid-system/build/utilities/Hidden/style.js"
+                );
+
+                var style = _interopRequireWildcard(_style);
+
+                var _config = __webpack_require__(
+                    /*! ../../config */ "./node_modules/react-grid-system/build/config.js"
+                );
+
+                var _utils = __webpack_require__(
+                    /*! ../../utils */ "./node_modules/react-grid-system/build/utils.js"
+                );
+
+                function _interopRequireWildcard(obj) {
+                    if (obj && obj.__esModule) {
+                        return obj;
+                    } else {
+                        var newObj = {};
+                        if (obj != null) {
+                            for (var key in obj) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        obj,
+                                        key
+                                    )
+                                )
+                                    newObj[key] = obj[key];
+                            }
+                        }
+                        newObj.default = obj;
+                        return newObj;
+                    }
+                }
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                } /* global window */
+
+                var Hidden = (function(_React$Component) {
+                    _inherits(Hidden, _React$Component);
+
+                    function Hidden(props) {
+                        _classCallCheck(this, Hidden);
+
+                        var _this = _possibleConstructorReturn(
+                            this,
+                            (
+                                Hidden.__proto__ ||
+                                Object.getPrototypeOf(Hidden)
+                            ).call(this, props)
+                        );
+
+                        _this.componentDidMount = function() {
+                            _this.setScreenClass();
+                            _this.eventListener = (0, _throttle2.default)(
+                                _this.setScreenClass,
+                                100
+                            );
+                            window.addEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.componentWillUnmount = function() {
+                            _this.eventListener.cancel();
+                            window.removeEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.setScreenClass = function() {
+                            _this.setState({
+                                screenClass: (0, _utils.getScreenClass)()
+                            });
+                        };
+
+                        _this.render = function() {
+                            if (
+                                style.hidden({
+                                    screenClass: _this.state.screenClass,
+                                    xs: _this.props.xs,
+                                    sm: _this.props.sm,
+                                    md: _this.props.md,
+                                    lg: _this.props.lg,
+                                    xl: _this.props.xl
+                                })
+                            )
+                                return false;
+                            return _react2.default.createElement(
+                                _react2.default.Fragment,
+                                null,
+                                _this.props.children
+                            );
+                        };
+
+                        _this.state = {
+                            screenClass: (0, _config.getConfiguration)()
+                                .defaultScreenClass
+                        };
+                        return _this;
+                    }
+
+                    return Hidden;
+                })(_react2.default.Component);
+
+                Hidden.propTypes = {
+                    /**
+                     * Content of the component
+                     */
+                    children: _propTypes2.default.node.isRequired,
+                    /**
+                     * Hide on extra small devices
+                     */
+                    xs: _propTypes2.default.bool,
+                    /**
+                     * Hide on small devices
+                     */
+                    sm: _propTypes2.default.bool,
+                    /**
+                     * Hide on medium devices
+                     */
+                    md: _propTypes2.default.bool,
+                    /**
+                     * Hide on large devices
+                     */
+                    lg: _propTypes2.default.bool,
+                    /**
+                     * Hide on xlarge devices
+                     */
+                    xl: _propTypes2.default.bool
+                };
+                Hidden.defaultProps = {
+                    xs: false,
+                    sm: false,
+                    md: false,
+                    lg: false,
+                    xl: false
+                };
+                exports.default = Hidden;
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/utilities/Hidden/style.js":
+            /*!************************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/utilities/Hidden/style.js ***!
+  \************************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                var hidden = (exports.hidden = function hidden(_ref) {
+                    var screenClass = _ref.screenClass,
+                        xs = _ref.xs,
+                        sm = _ref.sm,
+                        md = _ref.md,
+                        lg = _ref.lg,
+                        xl = _ref.xl;
+
+                    if (screenClass === "xl") return xl;
+                    if (screenClass === "lg") return lg;
+                    if (screenClass === "md") return md;
+                    if (screenClass === "sm") return sm;
+                    return xs;
+                });
+
+                exports.default = hidden;
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/utilities/ScreenClassRender/index.js":
+            /*!***********************************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/utilities/ScreenClassRender/index.js ***!
+  \***********************************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                var _throttle = __webpack_require__(
+                    /*! lodash/throttle */ "./node_modules/lodash/throttle.js"
+                );
+
+                var _throttle2 = _interopRequireDefault(_throttle);
+
+                var _config = __webpack_require__(
+                    /*! ../../config */ "./node_modules/react-grid-system/build/config.js"
+                );
+
+                var _utils = __webpack_require__(
+                    /*! ../../utils */ "./node_modules/react-grid-system/build/utils.js"
+                );
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                } /* global window */
+                /* eslint no-console: off */
+
+                var ScreenClassRender = (function(_React$Component) {
+                    _inherits(ScreenClassRender, _React$Component);
+
+                    function ScreenClassRender(props) {
+                        _classCallCheck(this, ScreenClassRender);
+
+                        var _this = _possibleConstructorReturn(
+                            this,
+                            (
+                                ScreenClassRender.__proto__ ||
+                                Object.getPrototypeOf(ScreenClassRender)
+                            ).call(this, props)
+                        );
+
+                        _this.componentDidMount = function() {
+                            _this.setScreenClass();
+                            _this.eventListener = (0, _throttle2.default)(
+                                _this.setScreenClass,
+                                100
+                            );
+                            window.addEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.componentWillUnmount = function() {
+                            _this.eventListener.cancel();
+                            window.removeEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.setScreenClass = function() {
+                            _this.setState({
+                                screenClass: (0, _utils.getScreenClass)()
+                            });
+                        };
+
+                        _this.render = function() {
+                            return _react2.default.createElement(
+                                _react2.default.Fragment,
+                                null,
+                                _this.props.render(_this.state.screenClass)
+                            );
+                        };
+
+                        _this.state = {
+                            screenClass: (0, _config.getConfiguration)()
+                                .defaultScreenClass
+                        };
+                        return _this;
+                    }
+
+                    return ScreenClassRender;
+                })(_react2.default.Component);
+
+                ScreenClassRender.propTypes = {
+                    /**
+                     * The function which return value will be rendered.
+                     * Will be called with one argument: the screen class.
+                     */
+                    render: _propTypes2.default.func.isRequired
+                };
+                exports.default = ScreenClassRender;
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/utilities/Visible/index.js":
+            /*!*************************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/utilities/Visible/index.js ***!
+  \*************************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                var _throttle = __webpack_require__(
+                    /*! lodash/throttle */ "./node_modules/lodash/throttle.js"
+                );
+
+                var _throttle2 = _interopRequireDefault(_throttle);
+
+                var _style = __webpack_require__(
+                    /*! ./style */ "./node_modules/react-grid-system/build/utilities/Visible/style.js"
+                );
+
+                var style = _interopRequireWildcard(_style);
+
+                var _config = __webpack_require__(
+                    /*! ../../config */ "./node_modules/react-grid-system/build/config.js"
+                );
+
+                var _utils = __webpack_require__(
+                    /*! ../../utils */ "./node_modules/react-grid-system/build/utils.js"
+                );
+
+                function _interopRequireWildcard(obj) {
+                    if (obj && obj.__esModule) {
+                        return obj;
+                    } else {
+                        var newObj = {};
+                        if (obj != null) {
+                            for (var key in obj) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        obj,
+                                        key
+                                    )
+                                )
+                                    newObj[key] = obj[key];
+                            }
+                        }
+                        newObj.default = obj;
+                        return newObj;
+                    }
+                }
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                } /* global window */
+
+                var Visible = (function(_React$Component) {
+                    _inherits(Visible, _React$Component);
+
+                    function Visible(props) {
+                        _classCallCheck(this, Visible);
+
+                        var _this = _possibleConstructorReturn(
+                            this,
+                            (
+                                Visible.__proto__ ||
+                                Object.getPrototypeOf(Visible)
+                            ).call(this, props)
+                        );
+
+                        _this.componentDidMount = function() {
+                            _this.setScreenClass();
+                            _this.eventListener = (0, _throttle2.default)(
+                                _this.setScreenClass,
+                                100
+                            );
+                            window.addEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.componentWillUnmount = function() {
+                            _this.eventListener.cancel();
+                            window.removeEventListener(
+                                "resize",
+                                _this.eventListener
+                            );
+                        };
+
+                        _this.setScreenClass = function() {
+                            _this.setState({
+                                screenClass: (0, _utils.getScreenClass)()
+                            });
+                        };
+
+                        _this.render = function() {
+                            if (
+                                !style.visible({
+                                    screenClass: _this.state.screenClass,
+                                    xs: _this.props.xs,
+                                    sm: _this.props.sm,
+                                    md: _this.props.md,
+                                    lg: _this.props.lg,
+                                    xl: _this.props.xl
+                                })
+                            )
+                                return false;
+                            return _react2.default.createElement(
+                                _react2.default.Fragment,
+                                null,
+                                _this.props.children
+                            );
+                        };
+
+                        _this.state = {
+                            screenClass: (0, _config.getConfiguration)()
+                                .defaultScreenClass
+                        };
+                        return _this;
+                    }
+
+                    return Visible;
+                })(_react2.default.Component);
+
+                Visible.propTypes = {
+                    /**
+                     * Content of the component
+                     */
+                    children: _propTypes2.default.node.isRequired,
+                    /**
+                     * Show on extra small devices
+                     */
+                    xs: _propTypes2.default.bool,
+                    /**
+                     * Show on small devices
+                     */
+                    sm: _propTypes2.default.bool,
+                    /**
+                     * Show on medium devices
+                     */
+                    md: _propTypes2.default.bool,
+                    /**
+                     * Show on large devices
+                     */
+                    lg: _propTypes2.default.bool,
+                    /**
+                     * Show on xl devices
+                     */
+                    xl: _propTypes2.default.bool
+                };
+                Visible.defaultProps = {
+                    xs: false,
+                    sm: false,
+                    md: false,
+                    lg: false,
+                    xl: false
+                };
+                exports.default = Visible;
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/utilities/Visible/style.js":
+            /*!*************************************************************************!*\
+  !*** ./node_modules/react-grid-system/build/utilities/Visible/style.js ***!
+  \*************************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                var visible = (exports.visible = function visible(_ref) {
+                    var screenClass = _ref.screenClass,
+                        xs = _ref.xs,
+                        sm = _ref.sm,
+                        md = _ref.md,
+                        lg = _ref.lg,
+                        xl = _ref.xl;
+
+                    if (screenClass === "xl") return xl;
+                    if (screenClass === "lg") return lg;
+                    if (screenClass === "md") return md;
+                    if (screenClass === "sm") return sm;
+                    return xs;
+                });
+
+                exports.default = visible;
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-grid-system/build/utils.js":
+            /*!*******************************************************!*\
+  !*** ./node_modules/react-grid-system/build/utils.js ***!
+  \*******************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                exports.getScreenClass = exports.screenClasses = undefined;
+
+                var _config = __webpack_require__(
+                    /*! ./config */ "./node_modules/react-grid-system/build/config.js"
+                );
+
+                var getViewPort = function getViewPort() {
+                    if (typeof window !== "undefined" && window.innerWidth) {
+                        return window.innerWidth;
+                    }
+                    return null;
+                }; /* global window */
+                /* eslint "no-console": "off" */
+
+                var screenClasses = (exports.screenClasses = [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl"
+                ]);
+
+                var getScreenClass = (exports.getScreenClass = function getScreenClass() {
+                    var _getConfiguration = (0, _config.getConfiguration)(),
+                        breakpoints = _getConfiguration.breakpoints,
+                        defaultScreenClass =
+                            _getConfiguration.defaultScreenClass;
+
+                    var screenClass = defaultScreenClass;
+
+                    var viewport = getViewPort();
+                    if (viewport) {
+                        screenClass = "xs";
+                        if (breakpoints[0] && viewport >= breakpoints[0])
+                            screenClass = "sm";
+                        if (breakpoints[1] && viewport >= breakpoints[1])
+                            screenClass = "md";
+                        if (breakpoints[2] && viewport >= breakpoints[2])
+                            screenClass = "lg";
+                        if (breakpoints[3] && viewport >= breakpoints[3])
+                            screenClass = "xl";
+                    }
+
+                    return screenClass;
+                });
+
+                /***/
+            },
+
         /***/ "./node_modules/react-is/cjs/react-is.development.js":
             /*!***********************************************************!*\
   !*** ./node_modules/react-is/cjs/react-is.development.js ***!
@@ -39478,6 +42624,1252 @@ object-assign
                         options
                     );
                 }
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-transition-group/CSSTransitionGroup.js":
+            /*!*******************************************************************!*\
+  !*** ./node_modules/react-transition-group/CSSTransitionGroup.js ***!
+  \*******************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                exports.__esModule = true;
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                var _TransitionGroup = __webpack_require__(
+                    /*! ./TransitionGroup */ "./node_modules/react-transition-group/TransitionGroup.js"
+                );
+
+                var _TransitionGroup2 = _interopRequireDefault(
+                    _TransitionGroup
+                );
+
+                var _CSSTransitionGroupChild = __webpack_require__(
+                    /*! ./CSSTransitionGroupChild */ "./node_modules/react-transition-group/CSSTransitionGroupChild.js"
+                );
+
+                var _CSSTransitionGroupChild2 = _interopRequireDefault(
+                    _CSSTransitionGroupChild
+                );
+
+                var _PropTypes = __webpack_require__(
+                    /*! ./utils/PropTypes */ "./node_modules/react-transition-group/utils/PropTypes.js"
+                );
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                }
+
+                var propTypes = {
+                    transitionName: _PropTypes.nameShape.isRequired,
+
+                    transitionAppear: _propTypes2.default.bool,
+                    transitionEnter: _propTypes2.default.bool,
+                    transitionLeave: _propTypes2.default.bool,
+                    transitionAppearTimeout: (0, _PropTypes.transitionTimeout)(
+                        "Appear"
+                    ),
+                    transitionEnterTimeout: (0, _PropTypes.transitionTimeout)(
+                        "Enter"
+                    ),
+                    transitionLeaveTimeout: (0, _PropTypes.transitionTimeout)(
+                        "Leave"
+                    )
+                };
+
+                var defaultProps = {
+                    transitionAppear: false,
+                    transitionEnter: true,
+                    transitionLeave: true
+                };
+
+                var CSSTransitionGroup = (function(_React$Component) {
+                    _inherits(CSSTransitionGroup, _React$Component);
+
+                    function CSSTransitionGroup() {
+                        var _temp, _this, _ret;
+
+                        _classCallCheck(this, CSSTransitionGroup);
+
+                        for (
+                            var _len = arguments.length,
+                                args = Array(_len),
+                                _key = 0;
+                            _key < _len;
+                            _key++
+                        ) {
+                            args[_key] = arguments[_key];
+                        }
+
+                        return (
+                            (_ret = ((_temp = ((_this = _possibleConstructorReturn(
+                                this,
+                                _React$Component.call.apply(
+                                    _React$Component,
+                                    [this].concat(args)
+                                )
+                            )),
+                            _this)),
+                            (_this._wrapChild = function(child) {
+                                return _react2.default.createElement(
+                                    _CSSTransitionGroupChild2.default,
+                                    {
+                                        name: _this.props.transitionName,
+                                        appear: _this.props.transitionAppear,
+                                        enter: _this.props.transitionEnter,
+                                        leave: _this.props.transitionLeave,
+                                        appearTimeout:
+                                            _this.props.transitionAppearTimeout,
+                                        enterTimeout:
+                                            _this.props.transitionEnterTimeout,
+                                        leaveTimeout:
+                                            _this.props.transitionLeaveTimeout
+                                    },
+                                    child
+                                );
+                            }),
+                            _temp)),
+                            _possibleConstructorReturn(_this, _ret)
+                        );
+                    }
+
+                    // We need to provide this childFactory so that
+                    // ReactCSSTransitionGroupChild can receive updates to name, enter, and
+                    // leave while it is leaving.
+
+                    CSSTransitionGroup.prototype.render = function render() {
+                        return _react2.default.createElement(
+                            _TransitionGroup2.default,
+                            _extends({}, this.props, {
+                                childFactory: this._wrapChild
+                            })
+                        );
+                    };
+
+                    return CSSTransitionGroup;
+                })(_react2.default.Component);
+
+                CSSTransitionGroup.displayName = "CSSTransitionGroup";
+
+                CSSTransitionGroup.propTypes = true ? propTypes : undefined;
+                CSSTransitionGroup.defaultProps = defaultProps;
+
+                exports.default = CSSTransitionGroup;
+                module.exports = exports["default"];
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-transition-group/CSSTransitionGroupChild.js":
+            /*!************************************************************************!*\
+  !*** ./node_modules/react-transition-group/CSSTransitionGroupChild.js ***!
+  \************************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                exports.__esModule = true;
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var _addClass = __webpack_require__(
+                    /*! dom-helpers/class/addClass */ "./node_modules/dom-helpers/class/addClass.js"
+                );
+
+                var _addClass2 = _interopRequireDefault(_addClass);
+
+                var _removeClass = __webpack_require__(
+                    /*! dom-helpers/class/removeClass */ "./node_modules/dom-helpers/class/removeClass.js"
+                );
+
+                var _removeClass2 = _interopRequireDefault(_removeClass);
+
+                var _requestAnimationFrame = __webpack_require__(
+                    /*! dom-helpers/util/requestAnimationFrame */ "./node_modules/dom-helpers/util/requestAnimationFrame.js"
+                );
+
+                var _requestAnimationFrame2 = _interopRequireDefault(
+                    _requestAnimationFrame
+                );
+
+                var _properties = __webpack_require__(
+                    /*! dom-helpers/transition/properties */ "./node_modules/dom-helpers/transition/properties.js"
+                );
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                var _reactDom = __webpack_require__(
+                    /*! react-dom */ "./node_modules/react-dom/index.js"
+                );
+
+                var _PropTypes = __webpack_require__(
+                    /*! ./utils/PropTypes */ "./node_modules/react-transition-group/utils/PropTypes.js"
+                );
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                }
+
+                var events = [];
+                if (_properties.transitionEnd)
+                    events.push(_properties.transitionEnd);
+                if (_properties.animationEnd)
+                    events.push(_properties.animationEnd);
+
+                function addEndListener(node, listener) {
+                    if (events.length) {
+                        events.forEach(function(e) {
+                            return node.addEventListener(e, listener, false);
+                        });
+                    } else {
+                        setTimeout(listener, 0);
+                    }
+
+                    return function() {
+                        if (!events.length) return;
+                        events.forEach(function(e) {
+                            return node.removeEventListener(e, listener, false);
+                        });
+                    };
+                }
+
+                var propTypes = {
+                    children: _propTypes2.default.node,
+                    name: _PropTypes.nameShape.isRequired,
+
+                    // Once we require timeouts to be specified, we can remove the
+                    // boolean flags (appear etc.) and just accept a number
+                    // or a bool for the timeout flags (appearTimeout etc.)
+                    appear: _propTypes2.default.bool,
+                    enter: _propTypes2.default.bool,
+                    leave: _propTypes2.default.bool,
+                    appearTimeout: _propTypes2.default.number,
+                    enterTimeout: _propTypes2.default.number,
+                    leaveTimeout: _propTypes2.default.number
+                };
+
+                var CSSTransitionGroupChild = (function(_React$Component) {
+                    _inherits(CSSTransitionGroupChild, _React$Component);
+
+                    function CSSTransitionGroupChild() {
+                        var _temp, _this, _ret;
+
+                        _classCallCheck(this, CSSTransitionGroupChild);
+
+                        for (
+                            var _len = arguments.length,
+                                args = Array(_len),
+                                _key = 0;
+                            _key < _len;
+                            _key++
+                        ) {
+                            args[_key] = arguments[_key];
+                        }
+
+                        return (
+                            (_ret = ((_temp = ((_this = _possibleConstructorReturn(
+                                this,
+                                _React$Component.call.apply(
+                                    _React$Component,
+                                    [this].concat(args)
+                                )
+                            )),
+                            _this)),
+                            (_this.componentWillAppear = function(done) {
+                                if (_this.props.appear) {
+                                    _this.transition(
+                                        "appear",
+                                        done,
+                                        _this.props.appearTimeout
+                                    );
+                                } else {
+                                    done();
+                                }
+                            }),
+                            (_this.componentWillEnter = function(done) {
+                                if (_this.props.enter) {
+                                    _this.transition(
+                                        "enter",
+                                        done,
+                                        _this.props.enterTimeout
+                                    );
+                                } else {
+                                    done();
+                                }
+                            }),
+                            (_this.componentWillLeave = function(done) {
+                                if (_this.props.leave) {
+                                    _this.transition(
+                                        "leave",
+                                        done,
+                                        _this.props.leaveTimeout
+                                    );
+                                } else {
+                                    done();
+                                }
+                            }),
+                            _temp)),
+                            _possibleConstructorReturn(_this, _ret)
+                        );
+                    }
+
+                    CSSTransitionGroupChild.prototype.componentWillMount = function componentWillMount() {
+                        this.classNameAndNodeQueue = [];
+                        this.transitionTimeouts = [];
+                    };
+
+                    CSSTransitionGroupChild.prototype.componentWillUnmount = function componentWillUnmount() {
+                        this.unmounted = true;
+
+                        if (this.timeout) {
+                            clearTimeout(this.timeout);
+                        }
+                        this.transitionTimeouts.forEach(function(timeout) {
+                            clearTimeout(timeout);
+                        });
+
+                        this.classNameAndNodeQueue.length = 0;
+                    };
+
+                    CSSTransitionGroupChild.prototype.transition = function transition(
+                        animationType,
+                        finishCallback,
+                        timeout
+                    ) {
+                        var node = (0, _reactDom.findDOMNode)(this);
+
+                        if (!node) {
+                            if (finishCallback) {
+                                finishCallback();
+                            }
+                            return;
+                        }
+
+                        var className =
+                            this.props.name[animationType] ||
+                            this.props.name + "-" + animationType;
+                        var activeClassName =
+                            this.props.name[animationType + "Active"] ||
+                            className + "-active";
+                        var timer = null;
+                        var removeListeners = void 0;
+
+                        (0, _addClass2.default)(node, className);
+
+                        // Need to do this to actually trigger a transition.
+                        this.queueClassAndNode(activeClassName, node);
+
+                        // Clean-up the animation after the specified delay
+                        var finish = function finish(e) {
+                            if (e && e.target !== node) {
+                                return;
+                            }
+
+                            clearTimeout(timer);
+                            if (removeListeners) removeListeners();
+
+                            (0, _removeClass2.default)(node, className);
+                            (0, _removeClass2.default)(node, activeClassName);
+
+                            if (removeListeners) removeListeners();
+
+                            // Usually this optional callback is used for informing an owner of
+                            // a leave animation and telling it to remove the child.
+                            if (finishCallback) {
+                                finishCallback();
+                            }
+                        };
+
+                        if (timeout) {
+                            timer = setTimeout(finish, timeout);
+                            this.transitionTimeouts.push(timer);
+                        } else if (_properties.transitionEnd) {
+                            removeListeners = addEndListener(node, finish);
+                        }
+                    };
+
+                    CSSTransitionGroupChild.prototype.queueClassAndNode = function queueClassAndNode(
+                        className,
+                        node
+                    ) {
+                        var _this2 = this;
+
+                        this.classNameAndNodeQueue.push({
+                            className: className,
+                            node: node
+                        });
+
+                        if (!this.rafHandle) {
+                            this.rafHandle = (0,
+                            _requestAnimationFrame2.default)(function() {
+                                return _this2.flushClassNameAndNodeQueue();
+                            });
+                        }
+                    };
+
+                    CSSTransitionGroupChild.prototype.flushClassNameAndNodeQueue = function flushClassNameAndNodeQueue() {
+                        if (!this.unmounted) {
+                            this.classNameAndNodeQueue.forEach(function(obj) {
+                                // This is for to force a repaint,
+                                // which is necessary in order to transition styles when adding a class name.
+                                /* eslint-disable no-unused-expressions */
+                                obj.node.scrollTop;
+                                /* eslint-enable no-unused-expressions */
+                                (0,
+                                _addClass2.default)(obj.node, obj.className);
+                            });
+                        }
+                        this.classNameAndNodeQueue.length = 0;
+                        this.rafHandle = null;
+                    };
+
+                    CSSTransitionGroupChild.prototype.render = function render() {
+                        var props = _extends({}, this.props);
+                        delete props.name;
+                        delete props.appear;
+                        delete props.enter;
+                        delete props.leave;
+                        delete props.appearTimeout;
+                        delete props.enterTimeout;
+                        delete props.leaveTimeout;
+                        delete props.children;
+                        return _react2.default.cloneElement(
+                            _react2.default.Children.only(this.props.children),
+                            props
+                        );
+                    };
+
+                    return CSSTransitionGroupChild;
+                })(_react2.default.Component);
+
+                CSSTransitionGroupChild.displayName = "CSSTransitionGroupChild";
+
+                CSSTransitionGroupChild.propTypes = true
+                    ? propTypes
+                    : undefined;
+
+                exports.default = CSSTransitionGroupChild;
+                module.exports = exports["default"];
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-transition-group/TransitionGroup.js":
+            /*!****************************************************************!*\
+  !*** ./node_modules/react-transition-group/TransitionGroup.js ***!
+  \****************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                exports.__esModule = true;
+
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                var _chainFunction = __webpack_require__(
+                    /*! chain-function */ "./node_modules/chain-function/index.js"
+                );
+
+                var _chainFunction2 = _interopRequireDefault(_chainFunction);
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                var _warning = __webpack_require__(
+                    /*! warning */ "./node_modules/warning/browser.js"
+                );
+
+                var _warning2 = _interopRequireDefault(_warning);
+
+                var _ChildMapping = __webpack_require__(
+                    /*! ./utils/ChildMapping */ "./node_modules/react-transition-group/utils/ChildMapping.js"
+                );
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                }
+
+                var propTypes = {
+                    component: _propTypes2.default.any,
+                    childFactory: _propTypes2.default.func,
+                    children: _propTypes2.default.node
+                };
+
+                var defaultProps = {
+                    component: "span",
+                    childFactory: function childFactory(child) {
+                        return child;
+                    }
+                };
+
+                var TransitionGroup = (function(_React$Component) {
+                    _inherits(TransitionGroup, _React$Component);
+
+                    function TransitionGroup(props, context) {
+                        _classCallCheck(this, TransitionGroup);
+
+                        var _this = _possibleConstructorReturn(
+                            this,
+                            _React$Component.call(this, props, context)
+                        );
+
+                        _this.performAppear = function(key, component) {
+                            _this.currentlyTransitioningKeys[key] = true;
+
+                            if (component.componentWillAppear) {
+                                component.componentWillAppear(
+                                    _this._handleDoneAppearing.bind(
+                                        _this,
+                                        key,
+                                        component
+                                    )
+                                );
+                            } else {
+                                _this._handleDoneAppearing(key, component);
+                            }
+                        };
+
+                        _this._handleDoneAppearing = function(key, component) {
+                            if (component.componentDidAppear) {
+                                component.componentDidAppear();
+                            }
+
+                            delete _this.currentlyTransitioningKeys[key];
+
+                            var currentChildMapping = (0,
+                            _ChildMapping.getChildMapping)(
+                                _this.props.children
+                            );
+
+                            if (
+                                !currentChildMapping ||
+                                !currentChildMapping.hasOwnProperty(key)
+                            ) {
+                                // This was removed before it had fully appeared. Remove it.
+                                _this.performLeave(key, component);
+                            }
+                        };
+
+                        _this.performEnter = function(key, component) {
+                            _this.currentlyTransitioningKeys[key] = true;
+
+                            if (component.componentWillEnter) {
+                                component.componentWillEnter(
+                                    _this._handleDoneEntering.bind(
+                                        _this,
+                                        key,
+                                        component
+                                    )
+                                );
+                            } else {
+                                _this._handleDoneEntering(key, component);
+                            }
+                        };
+
+                        _this._handleDoneEntering = function(key, component) {
+                            if (component.componentDidEnter) {
+                                component.componentDidEnter();
+                            }
+
+                            delete _this.currentlyTransitioningKeys[key];
+
+                            var currentChildMapping = (0,
+                            _ChildMapping.getChildMapping)(
+                                _this.props.children
+                            );
+
+                            if (
+                                !currentChildMapping ||
+                                !currentChildMapping.hasOwnProperty(key)
+                            ) {
+                                // This was removed before it had fully entered. Remove it.
+                                _this.performLeave(key, component);
+                            }
+                        };
+
+                        _this.performLeave = function(key, component) {
+                            _this.currentlyTransitioningKeys[key] = true;
+
+                            if (component.componentWillLeave) {
+                                component.componentWillLeave(
+                                    _this._handleDoneLeaving.bind(
+                                        _this,
+                                        key,
+                                        component
+                                    )
+                                );
+                            } else {
+                                // Note that this is somewhat dangerous b/c it calls setState()
+                                // again, effectively mutating the component before all the work
+                                // is done.
+                                _this._handleDoneLeaving(key, component);
+                            }
+                        };
+
+                        _this._handleDoneLeaving = function(key, component) {
+                            if (component.componentDidLeave) {
+                                component.componentDidLeave();
+                            }
+
+                            delete _this.currentlyTransitioningKeys[key];
+
+                            var currentChildMapping = (0,
+                            _ChildMapping.getChildMapping)(
+                                _this.props.children
+                            );
+
+                            if (
+                                currentChildMapping &&
+                                currentChildMapping.hasOwnProperty(key)
+                            ) {
+                                // This entered again before it fully left. Add it again.
+                                _this.keysToEnter.push(key);
+                            } else {
+                                _this.setState(function(state) {
+                                    var newChildren = _extends(
+                                        {},
+                                        state.children
+                                    );
+                                    delete newChildren[key];
+                                    return { children: newChildren };
+                                });
+                            }
+                        };
+
+                        _this.childRefs = Object.create(null);
+
+                        _this.state = {
+                            children: (0, _ChildMapping.getChildMapping)(
+                                props.children
+                            )
+                        };
+                        return _this;
+                    }
+
+                    TransitionGroup.prototype.componentWillMount = function componentWillMount() {
+                        this.currentlyTransitioningKeys = {};
+                        this.keysToEnter = [];
+                        this.keysToLeave = [];
+                    };
+
+                    TransitionGroup.prototype.componentDidMount = function componentDidMount() {
+                        var initialChildMapping = this.state.children;
+                        for (var key in initialChildMapping) {
+                            if (initialChildMapping[key]) {
+                                this.performAppear(key, this.childRefs[key]);
+                            }
+                        }
+                    };
+
+                    TransitionGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(
+                        nextProps
+                    ) {
+                        var nextChildMapping = (0,
+                        _ChildMapping.getChildMapping)(nextProps.children);
+                        var prevChildMapping = this.state.children;
+
+                        this.setState({
+                            children: (0, _ChildMapping.mergeChildMappings)(
+                                prevChildMapping,
+                                nextChildMapping
+                            )
+                        });
+
+                        for (var key in nextChildMapping) {
+                            var hasPrev =
+                                prevChildMapping &&
+                                prevChildMapping.hasOwnProperty(key);
+                            if (
+                                nextChildMapping[key] &&
+                                !hasPrev &&
+                                !this.currentlyTransitioningKeys[key]
+                            ) {
+                                this.keysToEnter.push(key);
+                            }
+                        }
+
+                        for (var _key in prevChildMapping) {
+                            var hasNext =
+                                nextChildMapping &&
+                                nextChildMapping.hasOwnProperty(_key);
+                            if (
+                                prevChildMapping[_key] &&
+                                !hasNext &&
+                                !this.currentlyTransitioningKeys[_key]
+                            ) {
+                                this.keysToLeave.push(_key);
+                            }
+                        }
+
+                        // If we want to someday check for reordering, we could do it here.
+                    };
+
+                    TransitionGroup.prototype.componentDidUpdate = function componentDidUpdate() {
+                        var _this2 = this;
+
+                        var keysToEnter = this.keysToEnter;
+                        this.keysToEnter = [];
+                        keysToEnter.forEach(function(key) {
+                            return _this2.performEnter(
+                                key,
+                                _this2.childRefs[key]
+                            );
+                        });
+
+                        var keysToLeave = this.keysToLeave;
+                        this.keysToLeave = [];
+                        keysToLeave.forEach(function(key) {
+                            return _this2.performLeave(
+                                key,
+                                _this2.childRefs[key]
+                            );
+                        });
+                    };
+
+                    TransitionGroup.prototype.render = function render() {
+                        var _this3 = this;
+
+                        // TODO: we could get rid of the need for the wrapper node
+                        // by cloning a single child
+                        var childrenToRender = [];
+
+                        var _loop = function _loop(key) {
+                            var child = _this3.state.children[key];
+                            if (child) {
+                                var isCallbackRef =
+                                    typeof child.ref !== "string";
+                                var factoryChild = _this3.props.childFactory(
+                                    child
+                                );
+                                var ref = function ref(r) {
+                                    _this3.childRefs[key] = r;
+                                };
+
+                                true
+                                    ? (0, _warning2.default)(
+                                          isCallbackRef,
+                                          "string refs are not supported on children of TransitionGroup and will be ignored. " +
+                                              "Please use a callback ref instead: https://facebook.github.io/react/docs/refs-and-the-dom.html#the-ref-callback-attribute"
+                                      )
+                                    : undefined;
+
+                                // Always chaining the refs leads to problems when the childFactory
+                                // wraps the child. The child ref callback gets called twice with the
+                                // wrapper and the child. So we only need to chain the ref if the
+                                // factoryChild is not different from child.
+                                if (factoryChild === child && isCallbackRef) {
+                                    ref = (0, _chainFunction2.default)(
+                                        child.ref,
+                                        ref
+                                    );
+                                }
+
+                                // You may need to apply reactive updates to a child as it is leaving.
+                                // The normal React way to do it won't work since the child will have
+                                // already been removed. In case you need this behavior you can provide
+                                // a childFactory function to wrap every child, even the ones that are
+                                // leaving.
+                                childrenToRender.push(
+                                    _react2.default.cloneElement(factoryChild, {
+                                        key: key,
+                                        ref: ref
+                                    })
+                                );
+                            }
+                        };
+
+                        for (var key in this.state.children) {
+                            _loop(key);
+                        }
+
+                        // Do not forward TransitionGroup props to primitive DOM nodes
+                        var props = _extends({}, this.props);
+                        delete props.transitionLeave;
+                        delete props.transitionName;
+                        delete props.transitionAppear;
+                        delete props.transitionEnter;
+                        delete props.childFactory;
+                        delete props.transitionLeaveTimeout;
+                        delete props.transitionEnterTimeout;
+                        delete props.transitionAppearTimeout;
+                        delete props.component;
+
+                        return _react2.default.createElement(
+                            this.props.component,
+                            props,
+                            childrenToRender
+                        );
+                    };
+
+                    return TransitionGroup;
+                })(_react2.default.Component);
+
+                TransitionGroup.displayName = "TransitionGroup";
+
+                TransitionGroup.propTypes = true ? propTypes : undefined;
+                TransitionGroup.defaultProps = defaultProps;
+
+                exports.default = TransitionGroup;
+                module.exports = exports["default"];
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-transition-group/index.js":
+            /*!******************************************************!*\
+  !*** ./node_modules/react-transition-group/index.js ***!
+  \******************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                var _CSSTransitionGroup = __webpack_require__(
+                    /*! ./CSSTransitionGroup */ "./node_modules/react-transition-group/CSSTransitionGroup.js"
+                );
+
+                var _CSSTransitionGroup2 = _interopRequireDefault(
+                    _CSSTransitionGroup
+                );
+
+                var _TransitionGroup = __webpack_require__(
+                    /*! ./TransitionGroup */ "./node_modules/react-transition-group/TransitionGroup.js"
+                );
+
+                var _TransitionGroup2 = _interopRequireDefault(
+                    _TransitionGroup
+                );
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                module.exports = {
+                    TransitionGroup: _TransitionGroup2.default,
+                    CSSTransitionGroup: _CSSTransitionGroup2.default
+                };
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-transition-group/utils/ChildMapping.js":
+            /*!*******************************************************************!*\
+  !*** ./node_modules/react-transition-group/utils/ChildMapping.js ***!
+  \*******************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                exports.__esModule = true;
+                exports.getChildMapping = getChildMapping;
+                exports.mergeChildMappings = mergeChildMappings;
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                /**
+                 * Given `this.props.children`, return an object mapping key to child.
+                 *
+                 * @param {*} children `this.props.children`
+                 * @return {object} Mapping of key to child
+                 */
+                function getChildMapping(children) {
+                    if (!children) {
+                        return children;
+                    }
+                    var result = {};
+                    _react.Children.map(children, function(child) {
+                        return child;
+                    }).forEach(function(child) {
+                        result[child.key] = child;
+                    });
+                    return result;
+                }
+
+                /**
+                 * When you're adding or removing children some may be added or removed in the
+                 * same render pass. We want to show *both* since we want to simultaneously
+                 * animate elements in and out. This function takes a previous set of keys
+                 * and a new set of keys and merges them with its best guess of the correct
+                 * ordering. In the future we may expose some of the utilities in
+                 * ReactMultiChild to make this easy, but for now React itself does not
+                 * directly have this concept of the union of prevChildren and nextChildren
+                 * so we implement it here.
+                 *
+                 * @param {object} prev prev children as returned from
+                 * `ReactTransitionChildMapping.getChildMapping()`.
+                 * @param {object} next next children as returned from
+                 * `ReactTransitionChildMapping.getChildMapping()`.
+                 * @return {object} a key set that contains all keys in `prev` and all keys
+                 * in `next` in a reasonable order.
+                 */
+                function mergeChildMappings(prev, next) {
+                    prev = prev || {};
+                    next = next || {};
+
+                    function getValueForKey(key) {
+                        if (next.hasOwnProperty(key)) {
+                            return next[key];
+                        }
+
+                        return prev[key];
+                    }
+
+                    // For each key of `next`, the list of keys to insert before that key in
+                    // the combined list
+                    var nextKeysPending = {};
+
+                    var pendingKeys = [];
+                    for (var prevKey in prev) {
+                        if (next.hasOwnProperty(prevKey)) {
+                            if (pendingKeys.length) {
+                                nextKeysPending[prevKey] = pendingKeys;
+                                pendingKeys = [];
+                            }
+                        } else {
+                            pendingKeys.push(prevKey);
+                        }
+                    }
+
+                    var i = void 0;
+                    var childMapping = {};
+                    for (var nextKey in next) {
+                        if (nextKeysPending.hasOwnProperty(nextKey)) {
+                            for (
+                                i = 0;
+                                i < nextKeysPending[nextKey].length;
+                                i++
+                            ) {
+                                var pendingNextKey =
+                                    nextKeysPending[nextKey][i];
+                                childMapping[
+                                    nextKeysPending[nextKey][i]
+                                ] = getValueForKey(pendingNextKey);
+                            }
+                        }
+                        childMapping[nextKey] = getValueForKey(nextKey);
+                    }
+
+                    // Finally, add the keys which didn't appear before any key in `next`
+                    for (i = 0; i < pendingKeys.length; i++) {
+                        childMapping[pendingKeys[i]] = getValueForKey(
+                            pendingKeys[i]
+                        );
+                    }
+
+                    return childMapping;
+                }
+
+                /***/
+            },
+
+        /***/ "./node_modules/react-transition-group/utils/PropTypes.js":
+            /*!****************************************************************!*\
+  !*** ./node_modules/react-transition-group/utils/PropTypes.js ***!
+  \****************************************************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                "use strict";
+
+                exports.__esModule = true;
+                exports.nameShape = undefined;
+                exports.transitionTimeout = transitionTimeout;
+
+                var _react = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+
+                var _react2 = _interopRequireDefault(_react);
+
+                var _propTypes = __webpack_require__(
+                    /*! prop-types */ "./node_modules/prop-types/index.js"
+                );
+
+                var _propTypes2 = _interopRequireDefault(_propTypes);
+
+                function _interopRequireDefault(obj) {
+                    return obj && obj.__esModule ? obj : { default: obj };
+                }
+
+                function transitionTimeout(transitionType) {
+                    var timeoutPropName =
+                        "transition" + transitionType + "Timeout";
+                    var enabledPropName = "transition" + transitionType;
+
+                    return function(props) {
+                        // If the transition is enabled
+                        if (props[enabledPropName]) {
+                            // If no timeout duration is provided
+                            if (props[timeoutPropName] == null) {
+                                return new Error(
+                                    timeoutPropName +
+                                        " wasn't supplied to CSSTransitionGroup: " +
+                                        "this can cause unreliable animations and won't be supported in " +
+                                        "a future version of React. See " +
+                                        "https://fb.me/react-animation-transition-group-timeout for more " +
+                                        "information."
+                                );
+
+                                // If the duration isn't a number
+                            } else if (
+                                typeof props[timeoutPropName] !== "number"
+                            ) {
+                                return new Error(
+                                    timeoutPropName +
+                                        " must be a number (in milliseconds)"
+                                );
+                            }
+                        }
+
+                        return null;
+                    };
+                }
+
+                var nameShape = (exports.nameShape = _propTypes2.default.oneOfType(
+                    [
+                        _propTypes2.default.string,
+                        _propTypes2.default.shape({
+                            enter: _propTypes2.default.string,
+                            leave: _propTypes2.default.string,
+                            active: _propTypes2.default.string
+                        }),
+                        _propTypes2.default.shape({
+                            enter: _propTypes2.default.string,
+                            enterActive: _propTypes2.default.string,
+                            leave: _propTypes2.default.string,
+                            leaveActive: _propTypes2.default.string,
+                            appear: _propTypes2.default.string,
+                            appearActive: _propTypes2.default.string
+                        })
+                    ]
+                ));
 
                 /***/
             },
@@ -49940,6 +54332,36 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 /***/
             },
 
+        /***/ "./node_modules/webpack/buildin/global.js":
+            /*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+            /*! no static exports found */
+            /***/ function(module, exports) {
+                var g;
+
+                // This works in non-strict mode
+                g = (function() {
+                    return this;
+                })();
+
+                try {
+                    // This works if eval is allowed (see CSP)
+                    g = g || Function("return this")() || (1, eval)("this");
+                } catch (e) {
+                    // This works if the window reference is available
+                    if (typeof window === "object") g = window;
+                }
+
+                // g can still be undefined, but nothing to do about it...
+                // We return undefined, instead of nothing here, so it's
+                // easier to handle this case. if(!global) { ...}
+
+                module.exports = g;
+
+                /***/
+            },
+
         /***/ "./node_modules/webpack/buildin/harmony-module.js":
             /*!*******************************************!*\
   !*** (webpack)/buildin/harmony-module.js ***!
@@ -50035,10 +54457,16 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 /* harmony import */ var _pages_Home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
                     /*! ./pages/Home */ "./src/pages/Home.jsx"
                 );
-                /* harmony import */ var _errors_FourOFour__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+                /* harmony import */ var _pages_Skills__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+                    /*! ./pages/Skills */ "./src/pages/Skills.jsx"
+                );
+                /* harmony import */ var _pages_Work__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+                    /*! ./pages/Work */ "./src/pages/Work.jsx"
+                );
+                /* harmony import */ var _errors_FourOFour__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
                     /*! ./errors/FourOFour */ "./src/errors/FourOFour.jsx"
                 );
-                /* harmony import */ var _styles_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+                /* harmony import */ var _styles_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
                     /*! ./styles/index */ "./src/styles/index.js"
                 );
                 function _classCallCheck(instance, Constructor) {
@@ -50097,7 +54525,7 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                     }
                     App.prototype.render = function render() {
                         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                            _styles_index__WEBPACK_IMPORTED_MODULE_6__[
+                            _styles_index__WEBPACK_IMPORTED_MODULE_7__[
                                 "default"
                             ],
                             null,
@@ -50134,8 +54562,34 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                                                 "Route"
                                             ],
                                             {
+                                                exact: true,
+                                                path: "/skills",
                                                 component:
-                                                    _errors_FourOFour__WEBPACK_IMPORTED_MODULE_5__[
+                                                    _pages_Skills__WEBPACK_IMPORTED_MODULE_9__[
+                                                        "default"
+                                                    ]
+                                            }
+                                        ),
+                                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                            react_router_dom__WEBPACK_IMPORTED_MODULE_2__[
+                                                "Route"
+                                            ],
+                                            {
+                                                exact: true,
+                                                path: "/work",
+                                                component:
+                                                    _pages_Work__WEBPACK_IMPORTED_MODULE_8__[
+                                                        "default"
+                                                    ]
+                                            }
+                                        ),
+                                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                            react_router_dom__WEBPACK_IMPORTED_MODULE_2__[
+                                                "Route"
+                                            ],
+                                            {
+                                                component:
+                                                    _errors_FourOFour__WEBPACK_IMPORTED_MODULE_6__[
                                                         "default"
                                                     ]
                                             }
@@ -50154,6 +54608,1283 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                     ),
                     document.getElementById("root")
                 );
+
+                /***/
+            },
+
+        /***/ "./src/assets/beer.png":
+            /*!*****************************!*\
+  !*** ./src/assets/beer.png ***!
+  \*****************************/
+            /*! no static exports found */
+            /***/ function(module, exports, __webpack_require__) {
+                module.exports =
+                    __webpack_require__.p + "build/images/beer.0c3c1b00.png";
+
+                /***/
+            },
+
+        /***/ "./src/assets/close.svg":
+            /*!******************************!*\
+  !*** ./src/assets/close.svg ***!
+  \******************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                function _objectWithoutProperties(obj, keys) {
+                    var target = {};
+                    for (var i in obj) {
+                        if (keys.indexOf(i) >= 0) continue;
+                        if (!Object.prototype.hasOwnProperty.call(obj, i))
+                            continue;
+                        target[i] = obj[i];
+                    }
+                    return target;
+                }
+
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = function(_ref) {
+                    var _ref$styles = _ref.styles,
+                        styles = _ref$styles === undefined ? {} : _ref$styles,
+                        props = _objectWithoutProperties(_ref, ["styles"]);
+
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "svg",
+                        _extends(
+                            {
+                                width: "54",
+                                height: "55",
+                                viewBox: "0 0 54 55",
+                                xmlns: "http://www.w3.org/2000/svg"
+                            },
+                            props
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "title",
+                            null,
+                            "Shape"
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "path",
+                            {
+                                d:
+                                    "M37.235 27.5l15.352-15.636c1.884-1.919 1.884-5.03 0-6.95L49.175 1.44a4.764 4.764 0 0 0-6.823 0L27 17.075 11.648 1.439a4.764 4.764 0 0 0-6.823 0L1.413 4.914c-1.884 1.919-1.884 5.03 0 6.95L16.765 27.5 1.413 43.136c-1.884 1.919-1.884 5.03 0 6.95l3.412 3.475a4.764 4.764 0 0 0 6.823 0L27 37.925l15.352 15.636a4.764 4.764 0 0 0 6.823 0l3.412-3.475c1.884-1.919 1.884-5.03 0-6.95L37.235 27.5z",
+                                fill: "#4A90E2",
+                                fillRule: "nonzero"
+                            }
+                        )
+                    );
+                };
+
+                /***/
+            },
+
+        /***/ "./src/assets/dev.png":
+            /*!****************************!*\
+  !*** ./src/assets/dev.png ***!
+  \****************************/
+            /*! no static exports found */
+            /***/ function(module, exports) {
+                module.exports =
+                    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA+CAYAAAB+39gDAAAAAXNSR0IArs4c6QAAFeFJREFUaAW1WguMXNV5/u+989qZfXjXa+8ar/HaxnZsYxv8AL/iAAEHcFB4CColxERK1IhGQQpSS9NKDUqaNIDapJSqtCGpQCgh5VHRUqlN0kQtscG4fsiAURx7WWzW6/V6HzM7s/O4c2f6ff+5Z3bHu2bXhJzde8+55/H///f///nPueeOI7/HtHHjxnYplRZUXfeyIAjmOdVqpIIkrjsacd0+JxYbXLp0ad/zzz8f/L7EcD5iws7WjRuvBIY1jutujnreVnGcLvBokWq1qSpi+eVRN1qtVofKQXCkXC7vq4gcTwTB4dfefnv4o5TJMvydaMJSSZjmVjcSuT8eidwQj8clmUhIJBIBPgfYLPmqKZOr1lWlgsZCsSiFQkFKvn/e9/0f+6XSy5lice+JEyeKduSHzX9XgM72zZvvCCqVv0w2NKxqaWoSz3VVFnoihYeV6mS78JkK4OU6LnIRv1yW9NiY5MbH9wWl0jcOv/POL+oIXOLDhwZ4G6w26nl/60UiX5oDYHBJgasJgdVDCiWaBLTWPqmOvRQo6FBJmLMylE7LeKHwd5jDXz969GjuErFp9w8FcNeuXanC2NhLqYaGXclEgxRLRQMuFPhCK5ET6wiMDG27rTN+y0ZYUzNYFCBdPGdyObrwf8aSyT/Yv39/Bs2XlD4UwI9fe+13ML++3trcAg3nFRzc1AgeAqEUFoiWTQXvClTBhdbW8iRrqtuyo7quI3nMT7j7K8tXrbr9UiOuRzqXkJydW7c+ViwWHxofH5doNKLgOG8IkG7Fi27KZ52HzCfXsU/YFxFU+zMnDb18XxBoGHD0KiJnAq0V6aEhr//cuV9egry1sD2rMddv2/ZgNBr9awCUYydOCFxUFnZ2qjtRSAKiu9Xm2DRUrVtW0ZdlBqKaIqiM8NlalbQ4J+musVjMj8di2w8cOXJgGtLTVs3agjfu2LEUFJ6LeF48D4DDIyMyhGssl4UnmcDAeaPziHOJFwZofuFzWD9ZIqsUBa0WnvAI4/4cJF4sGq2eGRh4ZfLYDyrPGuCy7u57wPyuLFwzl89LAJdCKJdsriB01zzmIt2TgLBLMVr3PPFwacCgFXAx2uqFfrX6SQqggmyCMcVamp7BBHorFy9Y8FzfwMCo7fdB+awBrujufhQhe8kwQnepVII2XWmMe7J6Ubv0nhuR7HhBisUCwI/LOBRQQB87H9VtIaC1EgWiIiYnfQ6B0h1rz2EnXVNRBsBYPJEY7Ovvf3Xy+IuVZwXw9ptv7sZk/6t0NhvNYBFm8oOKrLl8vvzoa3fJ5mULpFQO5PRgRtJZWriguxPOVT8o6/yBa4u9aFXOq7rcWtvjgo/dD3hUKpyjJlgx8BAkrQ43zfYPDDyngsxwi8zQbporlasQ4ZLcUtEqEY/RM5DtG9fI/O4lsqttruzcuEpOvD8gb717Vv7nzR75v+N9MprLY64W5fzwqIKJxeKSiMcYLAT7VHVVMiAQ0g2gDGN17L2rcHcAysMTyuUKtn2eIMBoREafy2clNzrNCiC0eTl3KbwYBKjFRCwiOzetFqehEcwTkmxuk3XtHbJ+zUq5Z9cWGRzOyGB6TDLZvJyGC5/ClcuXpOCXsXaW1BqkkcBSE8OeNRZxpb05qdecVELptyQTcuhEn3znxdckDsWUQysi6nZi/9ty8ODB9ExAZwUQGkvYbRjdh1qe09ggyxZ1Yk3DvIhEJRJPiNPUDMVXxCuXpGvufFkIhUAqmAgWwcX1kEGDrqZBgzkT5xyc0rikWTrYFAXoSLJRUv9xSAJU2O5QchNApjDyowFYCgJXJzk4cO5wju3aslraW5ulAFd1XeNuDtzOBdhoMimoBFgAwlWB61UA1kHOZzdcA2sSK0oMQR5Cpt8StyxrapXO9mbp6TuPucyVQhMCtTsr48yqEzQGhZlNdBUsUg0x+eId1wuMp9GUYZ9uy3kSxTyRCOYK55VVOfuFZbo4hdeYGtZFEFg8oKnCyqWSr0sQFcKlqAW8rlq5WI7+9n1pgdeotR2nEvF9ZU/SH5TMu80H9WBbFY4HYehIecyfTauWyHowLfkIOJhDqaaUBo7zo1k58HaPvPPbUxpVPQDWhCUFfqyXAws7CDZuFBfyWColQ2MFOfhOr7zdc0bHJZMN0oDLhcl8eMh9t+2U1qYGKKW2tBRKnjerd8VZWRAhuqCah7QN8Yjc9+ltahACGEfg+O5T/yp7Dx2Tk6fOysDQKOaOJ0sXLZB//ps/lavXrRS/hLnIFFpMfQ+PUQSO7z7+rHz/hy9IZiwH60eke+F8WdLVIV+4/ZNy846rpFgoykYodPeO9fLczw8gkkJBrjueTCYLSnOG2+ws6LrnKRxD9vorFsonrl4pRWg2lUrK957+N/nWE8/KL/cdwtpXktXLLpfurk4ZhcAEzw1BHTBOLJtQHBrN6KZ91fLF0tXZLid6z8jLP98rd33123LwWI80JODu6H/9hpW6jHDPi2Hn9+7daxZkS+si+awsiJfaHkZPHyGe0dPuMkp4vmHrOp1rm2Gpa69eLfPaW8XHNINPY64mxIcF1GKTcMHXNJWLvnz7oS/Jnz/weUkgYjJS97zXJ6++8aYMDo1IV0e7lBGVK+CzdtlCaW9JSQY7pvlt3uBF8EypnhVAvGweDc6fPw43XZGERhlQAgAmwJ3XrJVPbluPAAG1juQknR6HEuISRT89KqPFJoOjCKEV6fYe5llz1JFRrJmlwJFVSxbLuitwToXAU8A+18fmggGrrTklnYja59P9mM7esSlILlIxK4B33rrtsn3/G8ke7z0tzViEGTUpJPNCNifZZKf8eu/r0tv7rvz6v34mV2/eKJ+7717pmJdCIInVPLQmQwiQDUVsBI7CFX8D2r/691dk3rx5cu/9X5GlHBuUlAc9hoqIRz0Fe+OW9eUDhw/XyH1QYcY5ePfdd8euu6LjhZs3L9+Qh7t5tAYE06XZx46kuVuOvDcoLzzzrOze80fy7ukReebJ5+Vnv/hvKbtNUuVCP00iRq6JZwsJefx7fy87b/ucSGKu/PTFX8lTj3xD0k2Xw9Wx5MA16NG6AUepsSEuX9694cGX/unRv5iG7JSqGQGuWbJkfjQorpjT0oiJVdZAYqhgnXPhil2r5dWX/0X2731T9txyE1xoRBqaRU4feV4yFe4doQyisVbjYCiIlxdvlr5zo/LWG8fkvt27ZP/r2JIlRIpDb8vZU8dF2paqgjie63AGG/nFl82V9jmN0iilj01BM03FjADburoGsZ/s65iDnRHcpMhXJU44ajYSl6oXk7lzWyQBDO+9NyBZxJTuRdiBrEhIvHUh1oIUsDAO1icu6k5DqySbIGxU5P3efhnJlARxRNasFYk3oDI1T6oOdkkYWgbAoXRWVi1eIDGnKr54Z+spTv804xx84IEHinuffuTo8o7kysUdrRr+sZkEPljAqUh5PCu3fOEB6d3/sgwOnpPGdpGbbgDA6/5YmtrmSZA/Dem4ZFHM+lR2IrJyw3b59N0fl54jr4oPj/zULpHLVt8hHct2iIyfEQfBBuiww8F5Keb78kUdUsALdiQ152A9temfZvU++MV7dm+aHw+2z8duPxXzZMOVy3U75gKgkzsrzXM6ZPW2T8jclnFZu75LFm34mqy46rNSHe0Vt4QXb3XPECDdk4l1fg47oQbZcMNuaWouyJWr5kjXlZ+RVVv/TBLjfeKOntRXpgreIoo4GulKeXLLNixLQTXIJDsefvonL864XExVq2Ffdz/w0g++Mt/vfwKLkpTwxp66bJE0zGmVCM5EHbgt39siiSQiZhLG5TEF3gh8fH6g9nVPfDE2AFvxxYWbe7GUlLnjgeuWc0OY7gxOmHsIRGUch2QG+qV0fkASrW2SrcZO9jatXXPrrbfOuF2b0UWJdKjsHGiFmwTUJCJpAvOwAkG4juFkRXDyrG1BkNGwXrVvF1UAw9ypINryNclDBNHXJTxzH+qgH7SgICq5UZ2r+uZBpmjjqxfnLzfdZZyN8l0yinK+Ej05G3BKhreZUvvS4HDBiR+jdgmsjJPsKqxJ4XWPyqDIYM5/gKZQBMJygL7FsbQuCVw3GRFpkdIYXBe0NHEM/3SsoYMHNCE4hQoq47xH5zHGjOT9N83Ame8zRlGS2LTpy34u1vYPQT4rVViRzAKugXQjjZCMqhMCUSh9RltxdFhygwNSymGnAqB+LiN+HvvU84MAD6HVe1UzSsvhWKMpY+3QemXsaJxyEZvy8ZFhJ/XkzNBMj4u66JkzZ5KZTMbDGiDNvh+kT5/+ybnsWDzpDn4WEXQD8eDwAgLCzeiS3FSHFtIAwiCCesqbOTsg+UxWsOVTKzFgROCiLV38vAZX1L4YTx1hJ4HXPRTp3rSrqzTozulY+yvB/OVP3n3nfT2Dn/l8EyxeHR4GBW+0tHz58mnno+rvQm3s2/fGY4lk7F6w0vcc8nfcSCVw3XQ1n+twg+J8F+936nIAZZMu6PaBApI6hKTF6bLGWqYDx3t8OSZxAsPaxpxFY32W6eq4I9DoFU+dxAs1jtcqjXxGBw0CeFctV4PqNzdv3vAjQ33iThHq0lPPPHNlZmjkCDa0OJ0wh7YUnBc32RaUGWjqKSO/75EfE2q1vxEX5VAJnGMKkkDUBTiCD+ZZn4xrQC+cw6QGgADJpAEIiuJYXnrKgJyvUA3xxKmW5tTqPXv21H1mm+KivT3vdUNtXpxv3VgCFJQFFwJVwBCa+0MmBc1cnwlOHyYbTAViuwLjoDDpARTKamHmk4QnACY9D6Ilw+BlgdXq0S9dSXdgBi1A9xM6KLxN+FetNsARCedUKLApaOuEZVgySUEZBZs+tiEUNOwWgrdKCIHYRvRFiwEX1qkSqRBtYaVhovw439FmyjU5I+O+Hw+H17IpAN1KFO+rxgWUL26UmeS1Xoea9hoVBRUyrFWagrXI5JwtRjGGqh1i67RvWGn1ZfsYmObOOqtq9Ct7leiUQDMFYCTiZA0xQ5rwJsihRQGTbKhxasFoQucKhZtIIY26OtO91q/WPVQaPYYJY+wwm5sGc7fAjNIhpevkYrHqlHPSKQCxcRo1g81QwqsJY/girIN/Pewab8qr/VXwmvR1ve1YKzj713hoZQjS0qpRZ4V5UBooG1WrEXBkVOLPU+rSFIBetJoG+aIVjbmyQ8EIZAtGCLZPCGja9JkqCAVXhZnBBkhYb6QlBZPMONIzwcUwtp5ie4VuqcMI0/wh4BXa2tq4ga1LUwDGqtUxkB+r6dDIrGQ4kvOEtJVsKLSlSAGnS+zLZAHoXAs71oaErmn4Gh4YoNrVpskCkZ4+40bSuNC1MDw8PDPARCIxjiFZZczBmkihVgotigoyCSU04IwU7FoHFn0sOM3rxhi6NTrho+Vn6glkKg1VXKhw7KQKDz/8cGh6SwTr80TRlB588EH6sf5cQwVVTtSoeWJWE55VSLVn9qLwFCas17Uq7Md6fTPARn1ijBlvu7CPJu5sammibFQYhhjyUXdme4W78SlpCkD2APMcRTTEzJiJMomauhpbahEPBhzbJjTOBv7xnx8x52Jv294+V79QsT93KZPp1YCHxPls20nZlk2zlQobEsed9jdu0wIEnTAa2TVQRaSMevGujFBhQNW1sDX0XiMGD4yz+EEPv+hu3XKtfttnnQETjiXBUHrDzfIiCEOHGdtsOxqQTLvruUPmuf4+ZasWNoffIoxlOMlVV1Z9ajGA0MqJPjXSEITvA0z8nt/Z2QFgW/ANv6gfaz51042y77XXpb+/X3+wx341y5kHxWoVQEpKjXLYQgiTItBhsVu7JIC5UD4lrco1aMymn4zYooBBXrkSKLmbZ0ZK7hn5E5Dt27bJku7FaDNpFD9kGOO3/lBRHKNyYzxzLdu7VuBmKtHKvkZ9akuOweV6zrSnbNO6KGgxkupA0iUYPBgmioxFQ1hzNrOPJtaYDTIfuVnHLxG1xd4K+ICaBsgwVKA6pM0OysfQ1v7KXBtCecK+EwyVX8SrTHsANQXgdbc823V2oGmT59njBCO8occdPUs2ABm0ajnU13iiwDp2ZWA59f77Kqu90WW3YC6WePSh/TjWjFfqHE8uzEM6OlYrDRUWbeLZVl9/CifTU1MdwO3bf9h07lzqxZF00xq6nf2zw8iQiRmB2jmodUYaIxR6GMXjtA0/MDh06LAMDQ3LWDYr6UxGRkZHpaenB9bF2zyI1YS1DEhQU9gIYqaJPSGVPtiByCHI4bdavrV2ww82hgNrWV2QKVSiT5TKjdcEWFKUiBk7IQHnGv7VacFUQYZ9LCSdj9rNzElGTgL68XM/VUH4hs6jxuxYFt8FcXpdl4iEa3XIxwLWR9w0mTlum6jJAF+lCsWm1ryffmbl9ke2/GbvQ7VvhzULbtz+j9ePlxJ7vEgDggPOz0mP/JCpm6BkWKDSJq0wtWHPULvsQE0zq+KLb1R/Epkfxy+gcHyRxy+hovhSa8yMTuhjraK8+Bxym2gLOSjRUDCQpzSVKo4tK0kcgDetjuQT96OqlmoAfd/7Jj4WQKtxfBdPIU6RCJnz3+Qcpay1fkIItKqAZtfCxZu/TmItk1EIgw3WKg06tKpNOhYPBKbjWbaNjLJmuKlEH8ufORPzIMDhVpWH0Akp+ok/WbP50U5LQgFefc3j6/1yYovrRnEYjR/cBPyVRBi60dNsjkFQpdGbIW+FUsZoRq6/BSVAuJoVwjKzubGWeVJg6M/c1pOfuYx6anRYjz/7TEnUghWcFQk/zEbBt2luxY/caXkpQBzb/WG1ip/dABznR6nE4z42kRT+LABbJuUwqYLRzmQFtGU+m8MjtPM/BHFhroMn38J+uo1TYpPGghBBajX7wdcqFXiEwx8nIKQ48MAg8tUrrnhcjy/c6657OOKXY9fjtx3Yz5mYU/I9NbtKFTKggCaReAjaCs0aMLswWSAEaYHaOptfOIZ8lBLpEQBdHSwJxTSYsmFn6gIaA76MHyLCinHwSn0slsqtJm13ZLxpaaUaW8YPIKoBaMT3+fsUzpMQiJI3ZQ4C2TCFdSoM5TCata0fLjfUeTdkCcLWsWweyYn84LVoprfxs4A5hK4KA6Vz+7p1j6UiCLE3wD1jtJ6eVEPb2AdjHlIrhrDKzaISqy0IGgAmQKmOlSlLBqoRACNrSmG9UqWgLIUPmrFNUVFxLJu5yfHko20YYGkYPgxqXE95xIlzXICswBvx+fuOiuRfjyBy7ajikxc1QHfAMSq/kuEnHfw9J+cQSYOk/qPEz2WGowkEZE41hskUwz6oo+AaMNgOqbUv8irWVIYGclTibLaRV4kQCIRmvV54Bm8C583QZVSuYOlhUCQV0scIXJUg1u04+XW04EKsJOM4eC1UXAzkfIFGjp/ELwnL55yIh89aYcABaWXCnMnAMncKYiomwLJqxkRJkcyruIViKgwMlFHNJUTpI1PLohrbedTHqyd7uwCMW0uOV7W4+Mkf/NBp/H+t9+adElp7mAAAAABJRU5ErkJggg==";
+
+                /***/
+            },
+
+        /***/ "./src/assets/downArrow.svg":
+            /*!**********************************!*\
+  !*** ./src/assets/downArrow.svg ***!
+  \**********************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                function _objectWithoutProperties(obj, keys) {
+                    var target = {};
+                    for (var i in obj) {
+                        if (keys.indexOf(i) >= 0) continue;
+                        if (!Object.prototype.hasOwnProperty.call(obj, i))
+                            continue;
+                        target[i] = obj[i];
+                    }
+                    return target;
+                }
+
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = function(_ref) {
+                    var _ref$styles = _ref.styles,
+                        styles = _ref$styles === undefined ? {} : _ref$styles,
+                        props = _objectWithoutProperties(_ref, ["styles"]);
+
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "svg",
+                        _extends(
+                            {
+                                width: "66",
+                                height: "82",
+                                viewBox: "0 0 66 82",
+                                xmlns: "http://www.w3.org/2000/svg"
+                            },
+                            props
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "title",
+                            null,
+                            "angle-double-down"
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "path",
+                            {
+                                d:
+                                    "M29.495 41.535L1.454 13.228c-1.939-1.957-1.939-5.12 0-7.057l4.66-4.704c1.938-1.956 5.072-1.956 6.99 0l19.875 20.066L52.856 1.467c1.938-1.956 5.072-1.956 6.99 0l4.7 4.684c1.939 1.956 1.939 5.12 0 7.056l-28.04 28.307a4.902 4.902 0 0 1-7.011.021zm7.01 39l28.041-28.293c1.939-1.956 1.939-5.118 0-7.053l-4.66-4.701c-1.938-1.956-5.072-1.956-6.99 0L33 60.522 13.124 40.467c-1.938-1.956-5.072-1.956-6.99 0l-4.68 4.701c-1.939 1.956-1.939 5.118 0 7.053l28.04 28.294a4.903 4.903 0 0 0 7.011.02z",
+                                fill: "#7A7A7A",
+                                fillRule: "nonzero"
+                            }
+                        )
+                    );
+                };
+
+                /***/
+            },
+
+        /***/ "./src/assets/home.svg":
+            /*!*****************************!*\
+  !*** ./src/assets/home.svg ***!
+  \*****************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                function _objectWithoutProperties(obj, keys) {
+                    var target = {};
+                    for (var i in obj) {
+                        if (keys.indexOf(i) >= 0) continue;
+                        if (!Object.prototype.hasOwnProperty.call(obj, i))
+                            continue;
+                        target[i] = obj[i];
+                    }
+                    return target;
+                }
+
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = function(_ref) {
+                    var _ref$styles = _ref.styles,
+                        styles = _ref$styles === undefined ? {} : _ref$styles,
+                        props = _objectWithoutProperties(_ref, ["styles"]);
+
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "svg",
+                        _extends(
+                            {
+                                width: "54",
+                                height: "41",
+                                viewBox: "0 0 54 41",
+                                xmlns: "http://www.w3.org/2000/svg"
+                            },
+                            props
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "title",
+                            null,
+                            "home"
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "path",
+                            {
+                                d:
+                                    "M45.75 25.677v13.125c0 1.218-1.004 2.198-2.251 2.198H32.623c-.619 0-1.125-.495-1.125-1.1V29.644c0-.605-.507-1.1-1.125-1.1h-6.751c-.619 0-1.125.495-1.125 1.1V39.9c0 .604-.507 1.099-1.125 1.099H10.496c-1.247 0-2.25-.98-2.25-2.198V25.677c0-.33.15-.641.412-.852l17.627-14.178a1.164 1.164 0 0 1 1.434 0l17.627 14.178c.253.211.403.522.403.852zm7.837-5.578l-7.838-6.31V1.104c0-.605-.506-1.1-1.125-1.1h-5.25c-.62 0-1.126.495-1.126 1.1v6.649l-8.391-6.75a4.578 4.578 0 0 0-5.72 0L.408 20.099a1.085 1.085 0 0 0-.15 1.548l2.39 2.84a1.147 1.147 0 0 0 1.585.146l22.053-17.74a1.164 1.164 0 0 1 1.434 0l22.052 17.74c.479.385 1.191.32 1.585-.147l2.39-2.839a1.085 1.085 0 0 0-.159-1.548z",
+                                fill: "#FFF",
+                                fillRule: "nonzero"
+                            }
+                        )
+                    );
+                };
+
+                /***/
+            },
+
+        /***/ "./src/assets/skills.svg":
+            /*!*******************************!*\
+  !*** ./src/assets/skills.svg ***!
+  \*******************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                function _objectWithoutProperties(obj, keys) {
+                    var target = {};
+                    for (var i in obj) {
+                        if (keys.indexOf(i) >= 0) continue;
+                        if (!Object.prototype.hasOwnProperty.call(obj, i))
+                            continue;
+                        target[i] = obj[i];
+                    }
+                    return target;
+                }
+
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = function(_ref) {
+                    var _ref$styles = _ref.styles,
+                        styles = _ref$styles === undefined ? {} : _ref$styles,
+                        props = _objectWithoutProperties(_ref, ["styles"]);
+
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "svg",
+                        _extends(
+                            {
+                                width: "64",
+                                height: "43",
+                                viewBox: "0 0 64 43",
+                                xmlns: "http://www.w3.org/2000/svg"
+                            },
+                            props
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "title",
+                            null,
+                            "list-alt"
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "path",
+                            {
+                                d:
+                                    "M58 0H6C2.686 0 0 2.063 0 4.607v33.786C0 40.937 2.686 43 6 43h52c3.314 0 6-2.063 6-4.607V4.607C64 2.063 61.314 0 58 0zm-.75 38.393H6.75c-.414 0-.75-.258-.75-.576V5.183c0-.318.336-.576.75-.576h50.5c.414 0 .75.258.75.576v32.634c0 .318-.336.576-.75.576zM52 29.563v2.303c0 .636-.672 1.152-1.5 1.152h-25c-.828 0-1.5-.516-1.5-1.152v-2.303c0-.637.672-1.152 1.5-1.152h25c.828 0 1.5.515 1.5 1.151zm0-9.215v2.304c0 .636-.672 1.152-1.5 1.152h-25c-.828 0-1.5-.516-1.5-1.152v-2.304c0-.636.672-1.152 1.5-1.152h25c.828 0 1.5.516 1.5 1.152zm0-9.214v2.303c0 .637-.672 1.152-1.5 1.152h-25c-.828 0-1.5-.515-1.5-1.152v-2.303c0-.636.672-1.152 1.5-1.152h25c.828 0 1.5.516 1.5 1.152zm-31.5 1.152c0 1.908-2.015 3.455-4.5 3.455s-4.5-1.547-4.5-3.455c0-1.909 2.015-3.456 4.5-3.456s4.5 1.547 4.5 3.456zm0 9.214c0 1.908-2.015 3.455-4.5 3.455s-4.5-1.547-4.5-3.455c0-1.908 2.015-3.455 4.5-3.455s4.5 1.547 4.5 3.455zm0 9.214c0 1.909-2.015 3.456-4.5 3.456s-4.5-1.547-4.5-3.456c0-1.908 2.015-3.455 4.5-3.455s4.5 1.547 4.5 3.455z",
+                                fill: "#A8A8A8",
+                                fillRule: "nonzero"
+                            }
+                        )
+                    );
+                };
+
+                /***/
+            },
+
+        /***/ "./src/assets/slider.svg":
+            /*!*******************************!*\
+  !*** ./src/assets/slider.svg ***!
+  \*******************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                function _objectWithoutProperties(obj, keys) {
+                    var target = {};
+                    for (var i in obj) {
+                        if (keys.indexOf(i) >= 0) continue;
+                        if (!Object.prototype.hasOwnProperty.call(obj, i))
+                            continue;
+                        target[i] = obj[i];
+                    }
+                    return target;
+                }
+
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = function(_ref) {
+                    var _ref$styles = _ref.styles,
+                        styles = _ref$styles === undefined ? {} : _ref$styles,
+                        props = _objectWithoutProperties(_ref, ["styles"]);
+
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "svg",
+                        _extends(
+                            {
+                                width: "235",
+                                height: "192",
+                                viewBox: "0 0 235 192",
+                                xmlns: "http://www.w3.org/2000/svg"
+                            },
+                            props
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "title",
+                            null,
+                            "sliders-h"
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "defs",
+                            null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                "filter",
+                                {
+                                    x: "-7.3%",
+                                    y: "-27.1%",
+                                    width: "114.6%",
+                                    height: "157.8%",
+                                    filterUnits: "objectBoundingBox",
+                                    id: "a"
+                                },
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    "feOffset",
+                                    {
+                                        dy: "4",
+                                        in: "SourceAlpha",
+                                        result: "shadowOffsetOuter1"
+                                    }
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    "feGaussianBlur",
+                                    {
+                                        stdDeviation: "21",
+                                        in: "shadowOffsetOuter1",
+                                        result: "shadowBlurOuter1"
+                                    }
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    "feColorMatrix",
+                                    {
+                                        values:
+                                            "0 0 0 0 0.677508503 0 0 0 0 0.677508503 0 0 0 0 0.677508503 0 0 0 0.5 0",
+                                        in: "shadowBlurOuter1",
+                                        result: "shadowMatrixOuter1"
+                                    }
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    "feMerge",
+                                    null,
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "feMergeNode",
+                                        { in: "shadowMatrixOuter1" }
+                                    ),
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "feMergeNode",
+                                        { in: "SourceGraphic" }
+                                    )
+                                )
+                            )
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "path",
+                            {
+                                d:
+                                    "M150.156 88H48.437v-4c0-2.2-2.18-4-4.843-4h-9.688c-2.664 0-4.843 1.8-4.843 4v4H4.843C2.18 88 0 89.8 0 92v8c0 2.2 2.18 4 4.844 4h24.218v4c0 2.2 2.18 4 4.844 4h9.688c2.664 0 4.843-1.8 4.843-4v-4h101.72c2.663 0 4.843-1.8 4.843-4v-8c0-2.2-2.18-4-4.844-4zm0-40h-24.219v-4c0-2.2-2.18-4-4.843-4h-9.688c-2.664 0-4.844 1.8-4.844 4v4H4.844C2.18 48 0 49.8 0 52v8c0 2.2 2.18 4 4.844 4h101.719v4c0 2.2 2.18 4 4.843 4h9.688c2.664 0 4.844-1.8 4.844-4v-4h24.218c2.664 0 4.844-1.8 4.844-4v-8c0-2.2-2.18-4-4.844-4zm0-40H87.187V4c0-2.2-2.18-4-4.843-4h-9.688c-2.664 0-4.844 1.8-4.844 4v4H4.844C2.18 8 0 9.8 0 12v8c0 2.2 2.18 4 4.844 4h62.968v4c0 2.2 2.18 4 4.844 4h9.688c2.664 0 4.844-1.8 4.844-4v-4h62.968c2.664 0 4.844-1.8 4.844-4v-8c0-2.2-2.18-4-4.844-4z",
+                                transform: "translate(40 36)",
+                                filter: "url(#a)",
+                                fill: "#4A90E2",
+                                fillRule: "nonzero"
+                            }
+                        )
+                    );
+                };
+
+                /***/
+            },
+
+        /***/ "./src/assets/work.svg":
+            /*!*****************************!*\
+  !*** ./src/assets/work.svg ***!
+  \*****************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                var _extends =
+                    Object.assign ||
+                    function(target) {
+                        for (var i = 1; i < arguments.length; i++) {
+                            var source = arguments[i];
+                            for (var key in source) {
+                                if (
+                                    Object.prototype.hasOwnProperty.call(
+                                        source,
+                                        key
+                                    )
+                                ) {
+                                    target[key] = source[key];
+                                }
+                            }
+                        }
+                        return target;
+                    };
+
+                function _objectWithoutProperties(obj, keys) {
+                    var target = {};
+                    for (var i in obj) {
+                        if (keys.indexOf(i) >= 0) continue;
+                        if (!Object.prototype.hasOwnProperty.call(obj, i))
+                            continue;
+                        target[i] = obj[i];
+                    }
+                    return target;
+                }
+
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = function(_ref) {
+                    var _ref$styles = _ref.styles,
+                        styles = _ref$styles === undefined ? {} : _ref$styles,
+                        props = _objectWithoutProperties(_ref, ["styles"]);
+
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "svg",
+                        _extends(
+                            {
+                                width: "48",
+                                height: "42",
+                                viewBox: "0 0 48 42",
+                                xmlns: "http://www.w3.org/2000/svg"
+                            },
+                            props
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "title",
+                            null,
+                            "Shape"
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "path",
+                            {
+                                d:
+                                    "M30 24h18v13.5a4.5 4.5 0 0 1-4.5 4.5h-39A4.5 4.5 0 0 1 0 37.5V24h18v1.875c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V24zm18-10.5V21H0v-7.5A4.5 4.5 0 0 1 4.5 9H12V4.5A4.5 4.5 0 0 1 16.5 0h15A4.5 4.5 0 0 1 36 4.5V9h7.5a4.5 4.5 0 0 1 4.5 4.5zM30 6H18v3h12V6z",
+                                fill: "#A8A8A8",
+                                fillRule: "nonzero"
+                            }
+                        )
+                    );
+                };
+
+                /***/
+            },
+
+        /***/ "./src/components/ColorSwitcher.jsx":
+            /*!******************************************!*\
+  !*** ./src/components/ColorSwitcher.jsx ***!
+  \******************************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+                    /*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.es.js"
+                );
+                var _templateObject = _taggedTemplateLiteralLoose(
+                    ["\n    background: #6cae67;\n"],
+                    ["\n    background: #6cae67;\n"]
+                );
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                }
+                function _taggedTemplateLiteralLoose(strings, raw) {
+                    strings.raw = raw;
+                    return strings;
+                }
+                var FloatElement = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].div.withConfig({
+                    displayName: "ColorSwitcher__FloatElement"
+                })(["position:fixed;right:30px;bottom:30px;z-index:11;"]);
+                var Card = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].div.withConfig({ displayName: "ColorSwitcher__Card" })([
+                    "background:rgba(234,234,234,0.25);border-radius:50% 50%;width:100px;height:100px;display:flex;justify-content:center;flex-direction:column;align-items:center;"
+                ]);
+                var ChildOne = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].div.withConfig({ displayName: "ColorSwitcher__ChildOne" })([
+                    "background:#aad29d;width:50px;height:25px;cursor:pointer;"
+                ]);
+                var ChildTwo = ChildOne.extend(_templateObject);
+                var ColorSwitcher = (function(_Component) {
+                    _inherits(ColorSwitcher, _Component);
+                    function ColorSwitcher() {
+                        _classCallCheck(this, ColorSwitcher);
+                        return _possibleConstructorReturn(
+                            this,
+                            _Component.apply(this, arguments)
+                        );
+                    }
+                    ColorSwitcher.prototype.render = function render() {
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            FloatElement,
+                            null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                Card,
+                                null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    ChildOne,
+                                    null
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    ChildTwo,
+                                    null
+                                )
+                            )
+                        );
+                    };
+                    return ColorSwitcher;
+                })(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = ColorSwitcher;
+
+                /***/
+            },
+
+        /***/ "./src/components/Header.jsx":
+            /*!***********************************!*\
+  !*** ./src/components/Header.jsx ***!
+  \***********************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+                    /*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.es.js"
+                );
+                /* harmony import */ var react_grid_system__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+                    /*! react-grid-system */ "./node_modules/react-grid-system/build/index.js"
+                );
+                /* harmony import */ var react_grid_system__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+                    react_grid_system__WEBPACK_IMPORTED_MODULE_2__
+                );
+                /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+                    /*! react-router-dom */ "./node_modules/react-router-dom/es/index.js"
+                );
+                /* harmony import */ var _assets_dev_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+                    /*! ../assets/dev.png */ "./src/assets/dev.png"
+                );
+                /* harmony import */ var _assets_dev_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+                    _assets_dev_png__WEBPACK_IMPORTED_MODULE_4__
+                );
+                /* harmony import */ var _assets_home_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+                    /*! ../assets/home.svg */ "./src/assets/home.svg"
+                );
+                /* harmony import */ var _assets_skills_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+                    /*! ../assets/skills.svg */ "./src/assets/skills.svg"
+                );
+                /* harmony import */ var _assets_work_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+                    /*! ../assets/work.svg */ "./src/assets/work.svg"
+                );
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                } // assets
+                var HeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].header.withConfig({ displayName: "Header__HeaderWrapper" })([
+                    "position:absolute;top:0;left:0;right:0;background:rgba(255,255,255,0.8);padding:0px 0px;display:flex;justify-content:space-between;"
+                ]);
+                var Brand = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].div.withConfig({ displayName: "Header__Brand" })([
+                    "padding:10px 30px;a{display:flex;justify-content:center;text-decoration:none;align-items:center;img{margin:0 15px;user-select:none;}h2{color:#555;margin:0;font-size:22px;font-weight:700;line-height:45px;letter-spacing:1px;}}"
+                ]);
+                var Nav = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].div.withConfig({ displayName: "Header__Nav" })([
+                    "display:flex;justify-content:center;a{display:flex;justify-content:center;align-items:center;text-decoration:none;color:#a8a8a8;font-weight:700;padding:0 20px;font-size:16px;text-transform:uppercase;&:nth-child(3){margin-right:0;}span{margin-left:10px;display:none;user-select:none;}path{fill:#a8a8a8;}&:hover{background:#aad29d;color:#fff;path{fill:#fff;}}&.active{background:#aad29d;color:#fff;path{fill:#fff;}span{display:inline-block;}}}"
+                ]);
+                var Header = (function(_Component) {
+                    _inherits(Header, _Component);
+                    function Header() {
+                        _classCallCheck(this, Header);
+                        return _possibleConstructorReturn(
+                            this,
+                            _Component.apply(this, arguments)
+                        );
+                    }
+                    Header.prototype.render = function render() {
+                        var path = this.props.path;
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            HeaderWrapper,
+                            null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                Brand,
+                                null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    react_router_dom__WEBPACK_IMPORTED_MODULE_3__[
+                                        "Link"
+                                    ],
+                                    { to: "/" },
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "img",
+                                        {
+                                            src:
+                                                _assets_dev_png__WEBPACK_IMPORTED_MODULE_4___default.a,
+                                            alt: "dev icon",
+                                            width: "35"
+                                        }
+                                    ),
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "h2",
+                                        null,
+                                        "Vijay Singh"
+                                    )
+                                )
+                            ),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                Nav,
+                                null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    react_router_dom__WEBPACK_IMPORTED_MODULE_3__[
+                                        "Link"
+                                    ],
+                                    {
+                                        to: "/",
+                                        className:
+                                            path === "/" ? "active" : null
+                                    },
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        _assets_home_svg__WEBPACK_IMPORTED_MODULE_5__[
+                                            "default"
+                                        ],
+                                        { width: 30 }
+                                    ),
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "span",
+                                        null,
+                                        "Home"
+                                    )
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    react_router_dom__WEBPACK_IMPORTED_MODULE_3__[
+                                        "Link"
+                                    ],
+                                    {
+                                        to: "/skills",
+                                        className:
+                                            path === "/skills" ? "active" : null
+                                    },
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        _assets_skills_svg__WEBPACK_IMPORTED_MODULE_6__[
+                                            "default"
+                                        ],
+                                        { width: 30 }
+                                    ),
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "span",
+                                        null,
+                                        "Skills"
+                                    )
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    react_router_dom__WEBPACK_IMPORTED_MODULE_3__[
+                                        "Link"
+                                    ],
+                                    {
+                                        to: "/work",
+                                        className:
+                                            path === "/work" ? "active" : null
+                                    },
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        _assets_work_svg__WEBPACK_IMPORTED_MODULE_7__[
+                                            "default"
+                                        ],
+                                        { width: 25 }
+                                    ),
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "span",
+                                        null,
+                                        "Work"
+                                    )
+                                )
+                            )
+                        );
+                    };
+                    return Header;
+                })(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = Header;
+
+                /***/
+            },
+
+        /***/ "./src/components/HomeCard.jsx":
+            /*!*************************************!*\
+  !*** ./src/components/HomeCard.jsx ***!
+  \*************************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+                    /*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.es.js"
+                );
+                /* harmony import */ var react_grid_system__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+                    /*! react-grid-system */ "./node_modules/react-grid-system/build/index.js"
+                );
+                /* harmony import */ var react_grid_system__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+                    react_grid_system__WEBPACK_IMPORTED_MODULE_2__
+                );
+                /* harmony import */ var react_transition_group__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+                    /*! react-transition-group */ "./node_modules/react-transition-group/index.js"
+                );
+                /* harmony import */ var react_transition_group__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+                    react_transition_group__WEBPACK_IMPORTED_MODULE_3__
+                );
+                /* harmony import */ var _assets_slider_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+                    /*! ../assets/slider.svg */ "./src/assets/slider.svg"
+                );
+                /* harmony import */ var _assets_close_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+                    /*! ../assets/close.svg */ "./src/assets/close.svg"
+                );
+                /* harmony import */ var _assets_beer_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+                    /*! ../assets/beer.png */ "./src/assets/beer.png"
+                );
+                /* harmony import */ var _assets_beer_png__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+                    _assets_beer_png__WEBPACK_IMPORTED_MODULE_6__
+                );
+                /* harmony import */ var _assets_dev_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+                    /*! ../assets/dev.png */ "./src/assets/dev.png"
+                );
+                /* harmony import */ var _assets_dev_png__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+                    _assets_dev_png__WEBPACK_IMPORTED_MODULE_7__
+                );
+                /* harmony import */ var _assets_downArrow_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+                    /*! ../assets/downArrow.svg */ "./src/assets/downArrow.svg"
+                );
+                var _templateObject = _taggedTemplateLiteralLoose(
+                        [
+                            "\n    box-shadow: 0px 0px 3px 0px #adadad;\n\n    .card_heading {\n        display: block;\n        text-align: center;\n        background: #f4f4f4;\n    }\n\n    h1 {\n        line-height: 125px;\n        font-size: 40px;\n        margin: 0;\n        position: relative;\n        top: -3px;\n        font-weight: 700;\n        color: #555;\n    }\n"
+                        ],
+                        [
+                            "\n    box-shadow: 0px 0px 3px 0px #adadad;\n\n    .card_heading {\n        display: block;\n        text-align: center;\n        background: #f4f4f4;\n    }\n\n    h1 {\n        line-height: 125px;\n        font-size: 40px;\n        margin: 0;\n        position: relative;\n        top: -3px;\n        font-weight: 700;\n        color: #555;\n    }\n"
+                        ]
+                    ),
+                    _templateObject2 = _taggedTemplateLiteralLoose(
+                        [
+                            "\n    background: rgba(255, 255, 255, 0.7);\n    text-align: center;\n    flex-direction: column;\n    width: 600px;\n    padding: 30px 0;\n    position: relative;\n\n    p {\n        display: block;\n        margin: 0;\n        line-height: 45px;\n        color: #555;\n        font-weight: 700;\n        font-size: 22px;\n    }\n\n    input {\n        width: 40px;\n        margin: 0 8px;\n        padding: 2px 10px;\n        border: 1px solid #ddd;\n        color: #555;\n    }\n"
+                        ],
+                        [
+                            "\n    background: rgba(255, 255, 255, 0.7);\n    text-align: center;\n    flex-direction: column;\n    width: 600px;\n    padding: 30px 0;\n    position: relative;\n\n    p {\n        display: block;\n        margin: 0;\n        line-height: 45px;\n        color: #555;\n        font-weight: 700;\n        font-size: 22px;\n    }\n\n    input {\n        width: 40px;\n        margin: 0 8px;\n        padding: 2px 10px;\n        border: 1px solid #ddd;\n        color: #555;\n    }\n"
+                        ]
+                    );
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                }
+                function _taggedTemplateLiteralLoose(strings, raw) {
+                    strings.raw = raw;
+                    return strings;
+                } // icons
+                var Card = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].main.withConfig({ displayName: "HomeCard__Card" })([
+                    "display:flex;justify-content:center;align-items:center;position:absolute;flex-direction:column;bottom:0;top:-20%;left:0;right:0;"
+                ]);
+                var CardCommon = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].div.withConfig({ displayName: "HomeCard__CardCommon" })([
+                    "width:500px;background:#fff;display:flex;align-items:center;z-index:1;"
+                ]);
+                var CardHeader = CardCommon.extend(_templateObject);
+                var CardContent = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].div.withConfig({ displayName: "HomeCard__CardContent" })([
+                    "width:600px;background:rgba(255,255,255,0.39);padding-top:80px;text-align:center;display:flex;justify-content:center;margin-top:-60px;z-index:0;padding-bottom:35px;h2{margin:0;line-height:40px;font-size:34px;color:#555;margin-left:10px;font-weight:700;margin-right:10px;span{color:#4a90e2;}}"
+                ]);
+                var CardFooter = CardCommon.extend(_templateObject2);
+                var Button = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].button.withConfig({ displayName: "HomeCard__Button" })([
+                    "border:1px solid #fff;background:#6cae67;color:#fff;padding:8px 25px;cursor:pointer;font-weight:700;font-size:18px;margin-top:20px;margin-bottom:5px;box-shadow:0px 0px 3px 0px #6cae67;text-transform:uppercase;letter-spacing:2px;"
+                ]);
+                var ScrollAnimate = Object(
+                    styled_components__WEBPACK_IMPORTED_MODULE_1__["keyframes"]
+                )(["0%,100%{bottom:50px}50%{bottom:30px}"]);
+                var ScrollEL = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].div.withConfig({ displayName: "HomeCard__ScrollEL" })(
+                    [
+                        "position:absolute;bottom:50px;display:flex;justify-content:center;text-align:center;background:rgba(255,255,255,0.6);width:88px;line-height:50px;border-radius:50% 50%;border:2px solid #fff;right:0;left:0;padding-left:2px;transition:all 800ms ease;margin:0 auto;animation:",
+                        " 4s infinite;cursor:pointer;&:hover{background:rgba(255,255,255,0.3);}"
+                    ],
+                    ScrollAnimate
+                );
+                var EmojiImg = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].img.withConfig({ displayName: "HomeCard__EmojiImg" })([
+                    "width:40px;height:40px;user-select:none;"
+                ]);
+                var CloseButton = styled_components__WEBPACK_IMPORTED_MODULE_1__[
+                    "default"
+                ].div.withConfig({ displayName: "HomeCard__CloseButton" })([
+                    "position:absolute;right:15px;top:-4px;cursor:pointer;"
+                ]);
+                var SliderImg = Object(
+                    styled_components__WEBPACK_IMPORTED_MODULE_1__["default"]
+                )(
+                    _assets_slider_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
+                ).withConfig({ displayName: "HomeCard__SliderImg" })([
+                    "width:160px;height:90px;"
+                ]);
+                var HomeCard = (function(_Component) {
+                    _inherits(HomeCard, _Component);
+                    function HomeCard() {
+                        var _temp, _this, _ret;
+                        _classCallCheck(this, HomeCard);
+                        for (
+                            var _len = arguments.length,
+                                args = Array(_len),
+                                _key = 0;
+                            _key < _len;
+                            _key++
+                        ) {
+                            args[_key] = arguments[_key];
+                        }
+                        return (
+                            (_ret = ((_temp = ((_this = _possibleConstructorReturn(
+                                this,
+                                _Component.call.apply(
+                                    _Component,
+                                    [this].concat(args)
+                                )
+                            )),
+                            _this)),
+                            (_this.state = { flip: false, interval: 60 }),
+                            (_this.handleClickFlip = function() {
+                                _this.setState(function(prevState) {
+                                    return { flip: !prevState.flip };
+                                });
+                            }),
+                            (_this.handleChangeInterval = function(event) {
+                                _this.setState({
+                                    interval:
+                                        parseInt(event.target.value, 10) || ""
+                                });
+                            }),
+                            _temp)),
+                            _possibleConstructorReturn(_this, _ret)
+                        );
+                    }
+                    HomeCard.prototype.cardBack = function cardBack() {
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            Card,
+                            { key: 2 },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                CardFooter,
+                                null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    CloseButton,
+                                    { onClick: this.handleClickFlip },
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        _assets_close_svg__WEBPACK_IMPORTED_MODULE_5__[
+                                            "default"
+                                        ],
+                                        { width: 22 }
+                                    )
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    "p",
+                                    null,
+                                    "Website uses dynamic color palette"
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    "p",
+                                    null,
+                                    "Change colors every",
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "input",
+                                        {
+                                            type: "number",
+                                            onChange: this.handleChangeInterval,
+                                            value: this.state.interval
+                                        }
+                                    ),
+                                    "Seconds"
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    Button,
+                                    null,
+                                    "Change Color"
+                                )
+                            )
+                        );
+                    };
+                    HomeCard.prototype.cardFront = function cardFront() {
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            Card,
+                            { key: 1 },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                CardHeader,
+                                null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    react_grid_system__WEBPACK_IMPORTED_MODULE_2__[
+                                        "Col"
+                                    ],
+                                    {
+                                        onClick: this.handleClickFlip,
+                                        sm: 4,
+                                        style: {
+                                            paddingLeft: "5px",
+                                            cursor: "pointer"
+                                        }
+                                    },
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        SliderImg,
+                                        { width: 180 }
+                                    )
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    react_grid_system__WEBPACK_IMPORTED_MODULE_2__[
+                                        "Col"
+                                    ],
+                                    {
+                                        style: {
+                                            paddingLeft: 0,
+                                            paddingRight: 0
+                                        }
+                                    },
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "div",
+                                        { className: "card_heading" },
+                                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                            "h1",
+                                            null,
+                                            "Hi, ",
+                                            "I'm",
+                                            " Vijay!"
+                                        )
+                                    )
+                                )
+                            ),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                CardContent,
+                                null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    EmojiImg,
+                                    {
+                                        src:
+                                            _assets_beer_png__WEBPACK_IMPORTED_MODULE_6___default.a,
+                                        alt: "Beer Png Icon"
+                                    }
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    "h2",
+                                    null,
+                                    "/ (?=Absolute) (",
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "span",
+                                        null,
+                                        "dev"
+                                    ),
+                                    "|",
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                        "span",
+                                        null,
+                                        "vella"
+                                    ),
+                                    ") /"
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    EmojiImg,
+                                    {
+                                        src:
+                                            _assets_dev_png__WEBPACK_IMPORTED_MODULE_7___default.a,
+                                        alt: "Dev Png Icon"
+                                    }
+                                )
+                            )
+                        );
+                    };
+                    HomeCard.prototype.render = function render() {
+                        var CardEl = this.state.flip
+                            ? this.cardBack()
+                            : this.cardFront();
+                        var updateScroll = this.props.updateScroll;
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            react_transition_group__WEBPACK_IMPORTED_MODULE_3__[
+                                "CSSTransitionGroup"
+                            ],
+                            {
+                                transitionName: "trans",
+                                transitionEnterTimeout: 800,
+                                transitionLeaveTimeout: 800
+                            },
+                            CardEl,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                ScrollEL,
+                                { onClick: updateScroll },
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    _assets_downArrow_svg__WEBPACK_IMPORTED_MODULE_8__[
+                                        "default"
+                                    ],
+                                    { width: 30 }
+                                )
+                            )
+                        );
+                    };
+                    return HomeCard;
+                })(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = HomeCard;
 
                 /***/
             },
@@ -50249,7 +55980,7 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                             )),
                             _this)),
                             (_this.state = { interval: 60000 }),
-                            (_this.updateDimensions = function() {
+                            (_this.updateCanvas = function() {
                                 clearTimeout(_this.resizeInterval);
                                 _this.resizeInterval = setTimeout(function() {
                                     _this.changeCanvas();
@@ -50295,17 +56026,11 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                         this.interval = setInterval(function() {
                             _this2.changeCanvas();
                         }, this.state.interval);
-                        window.addEventListener(
-                            "resize",
-                            this.updateDimensions
-                        );
+                        window.addEventListener("resize", this.updateCanvas);
                     };
                     Trianglify.prototype.componentWillUnmount = function componentWillUnmount() {
                         clearInterval(this.interval);
-                        window.removeEventListener(
-                            "resize",
-                            this.updateDimensions
-                        );
+                        window.removeEventListener("resize", this.updateCanvas);
                     };
                     /**
                      * Update dimenesion method
@@ -50403,6 +56128,15 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
                     react__WEBPACK_IMPORTED_MODULE_0__
                 );
+                /* harmony import */ var _components_HomeCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+                    /*! ../components/HomeCard */ "./src/components/HomeCard.jsx"
+                );
+                /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+                    /*! ../components/Header */ "./src/components/Header.jsx"
+                );
+                /* harmony import */ var _components_ColorSwitcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+                    /*! ../components/ColorSwitcher */ "./src/components/ColorSwitcher.jsx"
+                );
                 function _classCallCheck(instance, Constructor) {
                     if (!(instance instanceof Constructor)) {
                         throw new TypeError(
@@ -50450,17 +56184,59 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 var Home = (function(_Component) {
                     _inherits(Home, _Component);
                     function Home() {
+                        var _temp, _this, _ret;
                         _classCallCheck(this, Home);
-                        return _possibleConstructorReturn(
-                            this,
-                            _Component.apply(this, arguments)
+                        for (
+                            var _len = arguments.length,
+                                args = Array(_len),
+                                _key = 0;
+                            _key < _len;
+                            _key++
+                        ) {
+                            args[_key] = arguments[_key];
+                        }
+                        return (
+                            (_ret = ((_temp = ((_this = _possibleConstructorReturn(
+                                this,
+                                _Component.call.apply(
+                                    _Component,
+                                    [this].concat(args)
+                                )
+                            )),
+                            _this)),
+                            (_this.state = { scroll: false }),
+                            (_this.updateScroll = function() {
+                                _this.setState({ scroll: true });
+                            }),
+                            _temp)),
+                            _possibleConstructorReturn(_this, _ret)
                         );
                     }
                     Home.prototype.render = function render() {
+                        if (this.state.scroll === false) {
+                            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                _components_HomeCard__WEBPACK_IMPORTED_MODULE_1__[
+                                    "default"
+                                ],
+                                { updateScroll: this.updateScroll }
+                            );
+                        }
                         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                            "div",
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a
+                                .Fragment,
                             null,
-                            "hey"
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                _components_Header__WEBPACK_IMPORTED_MODULE_2__[
+                                    "default"
+                                ],
+                                { path: this.props.match.path }
+                            ),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                _components_ColorSwitcher__WEBPACK_IMPORTED_MODULE_3__[
+                                    "default"
+                                ],
+                                null
+                            )
                         );
                     };
                     return Home;
@@ -50468,6 +56244,208 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 /* harmony default export */ __webpack_exports__[
                     "default"
                 ] = Home;
+
+                /***/
+            },
+
+        /***/ "./src/pages/Skills.jsx":
+            /*!******************************!*\
+  !*** ./src/pages/Skills.jsx ***!
+  \******************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+                    /*! ../components/Header */ "./src/components/Header.jsx"
+                );
+                /* harmony import */ var _components_ColorSwitcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+                    /*! ../components/ColorSwitcher */ "./src/components/ColorSwitcher.jsx"
+                );
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                }
+                var Skills = (function(_Component) {
+                    _inherits(Skills, _Component);
+                    function Skills() {
+                        _classCallCheck(this, Skills);
+                        return _possibleConstructorReturn(
+                            this,
+                            _Component.apply(this, arguments)
+                        );
+                    }
+                    Skills.prototype.render = function render() {
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a
+                                .Fragment,
+                            null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                _components_Header__WEBPACK_IMPORTED_MODULE_1__[
+                                    "default"
+                                ],
+                                { path: this.props.match.path }
+                            ),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                _components_ColorSwitcher__WEBPACK_IMPORTED_MODULE_2__[
+                                    "default"
+                                ],
+                                null
+                            )
+                        );
+                    };
+                    return Skills;
+                })(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = Skills;
+
+                /***/
+            },
+
+        /***/ "./src/pages/Work.jsx":
+            /*!****************************!*\
+  !*** ./src/pages/Work.jsx ***!
+  \****************************/
+            /*! exports provided: default */
+            /***/ function(module, __webpack_exports__, __webpack_require__) {
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! react */ "./node_modules/react/index.js"
+                );
+                /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+                    react__WEBPACK_IMPORTED_MODULE_0__
+                );
+                /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+                    /*! ../components/Header */ "./src/components/Header.jsx"
+                );
+                /* harmony import */ var _components_ColorSwitcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+                    /*! ../components/ColorSwitcher */ "./src/components/ColorSwitcher.jsx"
+                );
+                function _classCallCheck(instance, Constructor) {
+                    if (!(instance instanceof Constructor)) {
+                        throw new TypeError(
+                            "Cannot call a class as a function"
+                        );
+                    }
+                }
+                function _possibleConstructorReturn(self, call) {
+                    if (!self) {
+                        throw new ReferenceError(
+                            "this hasn't been initialised - super() hasn't been called"
+                        );
+                    }
+                    return call &&
+                        (typeof call === "object" || typeof call === "function")
+                        ? call
+                        : self;
+                }
+                function _inherits(subClass, superClass) {
+                    if (
+                        typeof superClass !== "function" &&
+                        superClass !== null
+                    ) {
+                        throw new TypeError(
+                            "Super expression must either be null or a function, not " +
+                                typeof superClass
+                        );
+                    }
+                    subClass.prototype = Object.create(
+                        superClass && superClass.prototype,
+                        {
+                            constructor: {
+                                value: subClass,
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
+                            }
+                        }
+                    );
+                    if (superClass)
+                        Object.setPrototypeOf
+                            ? Object.setPrototypeOf(subClass, superClass)
+                            : (subClass.__proto__ = superClass);
+                }
+                var Work = (function(_Component) {
+                    _inherits(Work, _Component);
+                    function Work() {
+                        _classCallCheck(this, Work);
+                        return _possibleConstructorReturn(
+                            this,
+                            _Component.apply(this, arguments)
+                        );
+                    }
+                    Work.prototype.render = function render() {
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a
+                                .Fragment,
+                            null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                _components_Header__WEBPACK_IMPORTED_MODULE_1__[
+                                    "default"
+                                ],
+                                { path: this.props.match.path }
+                            ),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                _components_ColorSwitcher__WEBPACK_IMPORTED_MODULE_2__[
+                                    "default"
+                                ],
+                                null
+                            )
+                        );
+                    };
+                    return Work;
+                })(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+                /* harmony default export */ __webpack_exports__[
+                    "default"
+                ] = Work;
 
                 /***/
             },
@@ -50496,8 +56474,14 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                     /*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.es.js"
                 );
                 var _templateObject = _taggedTemplateLiteralLoose(
-                    ["\n        ", "\n\n    }\n  "],
-                    ["\n        ", "\n\n    }\n  "]
+                    [
+                        "\n        @import url('https://fonts.googleapis.com/css?family=Lato:400,700');\n\n        ",
+                        "\n\n        body{\n            font-family: 'Lato',sans-serif;\n            -webkit-font-smoothing: antialiased;\n            -moz-font-smoothing: antialiased;\n            font-smoothing: antialiased;\n            text-rendering: optimizeLegibility;\n            font-smooth: always;\n        }\n\n        /*  animation */\n        .trans-enter {\n            opacity: 0.01;\n            transition: opacity 800ms ease-in;\n            transform: rotateX(0deg);\n\n            &.trans-enter-active {\n                opacity: 1;\n            }\n        }\n\n        .trans-leave {\n            opacity: 1;\n            transition: all 800ms cubic-bezier(.23,1,.32,1);\n            transform: rotateX(180deg);\n\n            &.trans-leave-active {\n                opacity: 0;\n            }\n\n        }\n"
+                    ],
+                    [
+                        "\n        @import url('https://fonts.googleapis.com/css?family=Lato:400,700');\n\n        ",
+                        "\n\n        body{\n            font-family: 'Lato',sans-serif;\n            -webkit-font-smoothing: antialiased;\n            -moz-font-smoothing: antialiased;\n            font-smoothing: antialiased;\n            text-rendering: optimizeLegibility;\n            font-smooth: always;\n        }\n\n        /*  animation */\n        .trans-enter {\n            opacity: 0.01;\n            transition: opacity 800ms ease-in;\n            transform: rotateX(0deg);\n\n            &.trans-enter-active {\n                opacity: 1;\n            }\n        }\n\n        .trans-leave {\n            opacity: 1;\n            transition: all 800ms cubic-bezier(.23,1,.32,1);\n            transform: rotateX(180deg);\n\n            &.trans-leave-active {\n                opacity: 0;\n            }\n\n        }\n"
+                    ]
                 );
                 function _taggedTemplateLiteralLoose(strings, raw) {
                     strings.raw = raw;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="42px" viewBox="0 0 48 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Header" transform="translate(-1451.000000, -56.000000)" fill="#A8A8A8" fill-rule="nonzero">
+            <g id="Nav">
+                <g transform="translate(120.000000, 20.000000)">
+                    <g id="Nav-Menu" transform="translate(990.000000, 0.000000)">
+                        <g id="briefcase" transform="translate(341.000000, 36.000000)">
+                            <path d="M30,24 L48,24 L48,37.5 C48,39.9853125 45.9853125,42 43.5,42 L4.5,42 C2.0146875,42 0,39.9853125 0,37.5 L0,24 L18,24 L18,25.875 C18,26.4962813 18.5037187,27 19.125,27 L28.875,27 C29.4962812,27 30,26.4962813 30,25.875 L30,24 Z M48,13.5 L48,21 L0,21 L0,13.5 C0,11.0146875 2.0146875,9 4.5,9 L12,9 L12,4.5 C12,2.0146875 14.0146875,0 16.5,0 L31.5,0 C33.9853125,0 36,2.0146875 36,4.5 L36,9 L43.5,9 C45.9853125,9 48,11.0146875 48,13.5 Z M30,6 L18,6 L18,9 L30,9 L30,6 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

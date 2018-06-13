@@ -17,12 +17,12 @@ class Trianglify extends Component {
             this.changeCanvas();
         }, this.state.interval);
 
-        window.addEventListener("resize", this.updateDimensions);
+        window.addEventListener("resize", this.updateCanvas);
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
-        window.removeEventListener("resize", this.updateDimensions);
+        window.removeEventListener("resize", this.updateCanvas);
     }
 
     /**
@@ -30,7 +30,7 @@ class Trianglify extends Component {
      * that'll regenrate canvas
      * on window resize
      */
-    updateDimensions = () => {
+    updateCanvas = () => {
         clearTimeout(this.resizeInterval);
 
         this.resizeInterval = setTimeout(() => {
