@@ -172,7 +172,22 @@ const SliderImg = styled(SliderIcon)`
 class HomeCard extends Component {
     state = {
         flip: false,
-        interval: 60,
+        interval: 60
+    };
+
+    componentDidMount() {
+        window.addEventListener("keydown", this.handleKeyDown);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("keydown", this.handleKeyDown);
+    }
+
+    handleKeyDown = event => {
+        // arrow down and right capturing
+        if (event.keyCode === 39 || event.keyCode === 40) {
+            this.props.updateScroll();
+        }
     };
 
     handleClickFlip = () => {
@@ -181,7 +196,7 @@ class HomeCard extends Component {
 
     handleChangeInterval = event => {
         this.setState({
-            interval: parseInt(event.target.value, 10) || "",
+            interval: parseInt(event.target.value, 10) || ""
         });
     };
 

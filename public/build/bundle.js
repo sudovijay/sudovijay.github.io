@@ -54457,16 +54457,16 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 /* harmony import */ var _pages_Home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
                     /*! ./pages/Home */ "./src/pages/Home.jsx"
                 );
-                /* harmony import */ var _pages_Skills__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+                /* harmony import */ var _pages_Skills__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
                     /*! ./pages/Skills */ "./src/pages/Skills.jsx"
                 );
-                /* harmony import */ var _pages_Work__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+                /* harmony import */ var _pages_Work__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
                     /*! ./pages/Work */ "./src/pages/Work.jsx"
                 );
-                /* harmony import */ var _errors_FourOFour__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+                /* harmony import */ var _errors_FourOFour__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
                     /*! ./errors/FourOFour */ "./src/errors/FourOFour.jsx"
                 );
-                /* harmony import */ var _styles_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+                /* harmony import */ var _styles_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
                     /*! ./styles/index */ "./src/styles/index.js"
                 );
                 function _classCallCheck(instance, Constructor) {
@@ -54525,7 +54525,7 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                     }
                     App.prototype.render = function render() {
                         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                            _styles_index__WEBPACK_IMPORTED_MODULE_7__[
+                            _styles_index__WEBPACK_IMPORTED_MODULE_8__[
                                 "default"
                             ],
                             null,
@@ -54565,7 +54565,7 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                                                 exact: true,
                                                 path: "/skills",
                                                 component:
-                                                    _pages_Skills__WEBPACK_IMPORTED_MODULE_9__[
+                                                    _pages_Skills__WEBPACK_IMPORTED_MODULE_5__[
                                                         "default"
                                                     ]
                                             }
@@ -54578,7 +54578,7 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                                                 exact: true,
                                                 path: "/work",
                                                 component:
-                                                    _pages_Work__WEBPACK_IMPORTED_MODULE_8__[
+                                                    _pages_Work__WEBPACK_IMPORTED_MODULE_6__[
                                                         "default"
                                                     ]
                                             }
@@ -54589,7 +54589,7 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                                             ],
                                             {
                                                 component:
-                                                    _errors_FourOFour__WEBPACK_IMPORTED_MODULE_6__[
+                                                    _errors_FourOFour__WEBPACK_IMPORTED_MODULE_7__[
                                                         "default"
                                                     ]
                                             }
@@ -55708,6 +55708,15 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                             )),
                             _this)),
                             (_this.state = { flip: false, interval: 60 }),
+                            (_this.handleKeyDown = function(event) {
+                                // arrow down and right capturing
+                                if (
+                                    event.keyCode === 39 ||
+                                    event.keyCode === 40
+                                ) {
+                                    _this.props.updateScroll();
+                                }
+                            }),
                             (_this.handleClickFlip = function() {
                                 _this.setState(function(prevState) {
                                     return { flip: !prevState.flip };
@@ -55723,6 +55732,15 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                             _possibleConstructorReturn(_this, _ret)
                         );
                     }
+                    HomeCard.prototype.componentDidMount = function componentDidMount() {
+                        window.addEventListener("keydown", this.handleKeyDown);
+                    };
+                    HomeCard.prototype.componentWillUnmount = function componentWillUnmount() {
+                        window.removeEventListener(
+                            "keydown",
+                            this.handleKeyDown
+                        );
+                    };
                     HomeCard.prototype.cardBack = function cardBack() {
                         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                             Card,
