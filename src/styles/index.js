@@ -15,6 +15,7 @@ const Global = ({ children }) => {
             font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
             font-smooth: always;
+            overflow-x: hidden;
         }
 
         /*  animation */

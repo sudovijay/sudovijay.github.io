@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import styled, { keyframes } from "styled-components";
-import { Col } from "react-grid-system";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 // assets
-import DevPng from "../assets/dev.png";
-import HomeIcon from "../assets/home.svg";
-import SkillsIcon from "../assets/skills.svg";
-import WorkIcon from "../assets/work.svg";
+import DevPng from "../assets/common/dev.png";
+import HomeIcon from "../assets/common/home.svg";
+import SkillsIcon from "../assets/common/skills.svg";
+import WorkIcon from "../assets/common/work.svg";
 
 const HeaderWrapper = styled.header`
     position: relative;

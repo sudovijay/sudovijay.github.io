@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { Container, Row, Col } from "react-grid-system";
 
 // icons
-import GitIcon from "../assets/github.svg";
-import TwitterIcon from "../assets/twitter.svg";
-import ProfileImg from "../assets/vijay.jpg";
-import MapIcon from "../assets/map.svg";
-import Tada from "../assets/tada.png";
-import India from "../assets/india.png";
-import AtIcon from "../assets/at.svg";
+import GitIcon from "../assets/home/github.svg";
+import TwitterIcon from "../assets/home/twitter.svg";
+import ProfileImg from "../assets/home/vijay.jpg";
+import MapIcon from "../assets/home/map.svg";
+import Tada from "../assets/home/tada.png";
+import India from "../assets/home/india.png";
+import AtIcon from "../assets/home/at.svg";
 
 const ContentWrapper = styled.main`
     background: rgba(244, 244, 244, 0.75);

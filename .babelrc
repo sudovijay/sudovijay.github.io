@@ -7,11 +7,12 @@
                 "modules": false
             }
         ],
-        "react",
+        "react"
     ],
     "plugins": [
         "babel-plugin-styled-components",
         "babel-plugin-transform-class-properties",
-        "babel-plugin-transform-object-rest-spread"
-    ],
+        "babel-plugin-transform-object-rest-spread",
+        "syntax-dynamic-import"
+    ]
 }

@@ -1,6 +1,6 @@
 /* eslint import/no-dynamic-require: 0 , global-require: 0 */
 import React, { Component } from "react";
-import { Container, Row, Col } from "react-grid-system";
+import { Container, Col } from "react-grid-system";
 import styled from "styled-components";
 
 import Header from "../components/Header";
@@ -10,7 +10,7 @@ import WorkData from "../data/work.json";
 
 const CardBox = styled.div`
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 8%;
     width: 90%;
     display: flex;
     justify-content: center;
@@ -90,7 +90,10 @@ class Work extends Component {
     renderCardImage(el) {
         return (
             <CardImage className="card_image">
-                <img src={require(`../assets/${el}.jpg`)} alt="9xbuddy Icon" />
+                <img
+                    src={require(`../assets/work/${el}.jpg`)}
+                    alt="9xbuddy Icon"
+                />
             </CardImage>
         );
     }

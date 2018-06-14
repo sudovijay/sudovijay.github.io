@@ -34,7 +34,7 @@ class Trianglify extends Component {
         clearTimeout(this.resizeInterval);
         this.resizeInterval = setTimeout(() => {
             this.changeCanvas();
-        }, 200);
+        }, 100);
     };
 
     /**
@@ -44,7 +44,7 @@ class Trianglify extends Component {
     generatePattern = () =>
         trianglify({
             width: window.innerWidth,
-            height: window.innerHeight,
+            height: document.body.offsetHeight || window.innerHeight,
             cell_size: 150,
         });
 

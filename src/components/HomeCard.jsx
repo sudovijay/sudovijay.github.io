@@ -4,11 +4,11 @@ import { Col } from "react-grid-system";
 import { CSSTransitionGroup } from "react-transition-group";
 
 // icons
-import SliderIcon from "../assets/slider.svg";
-import CloseIcon from "../assets/close.svg";
-import BeerPng from "../assets/beer.png";
-import DevPng from "../assets/dev.png";
-import ArrowDown from "../assets/downArrow.svg";
+import SliderIcon from "../assets/home/slider.svg";
+import CloseIcon from "../assets/home/close.svg";
+import BeerPng from "../assets/home/beer.png";
+import DevPng from "../assets/common/dev.png";
+import ArrowDown from "../assets/home/downArrow.svg";
 
 const Card = styled.main`
     display: flex;
