@@ -9,7 +9,7 @@ const FloatElement = styled.div`
 `;
 
 const Card = styled.div`
-    background: rgba(234, 234, 234, 0.25);
+    background: rgba(234, 234, 234, 0.7);
     border-radius: 50% 50%;
     width: 100px;
     height: 100px;

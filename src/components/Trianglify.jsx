@@ -32,7 +32,6 @@ class Trianglify extends Component {
      */
     updateCanvas = () => {
         clearTimeout(this.resizeInterval);
-
         this.resizeInterval = setTimeout(() => {
             this.changeCanvas();
         }, 200);

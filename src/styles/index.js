@@ -38,6 +38,25 @@ const Global = ({ children }) => {
             }
 
         }
+
+        .transtop-enter {
+            opacity: 0.1;
+            transition: opacity 100ms linear;
+
+            &.transtop-enter-active {
+                opacity: 1;
+            }
+        }
+
+        .transtop-leave {
+            opacity: 1;
+            transition: opacity 100ms linear;
+
+            &.trans-leave-active {
+                opacity: 0;
+            }
+
+        }
 `;
 
     return Children.only(children);

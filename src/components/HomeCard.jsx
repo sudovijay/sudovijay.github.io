@@ -172,7 +172,7 @@ const SliderImg = styled(SliderIcon)`
 class HomeCard extends Component {
     state = {
         flip: false,
-        interval: 60
+        interval: 60,
     };
 
     componentDidMount() {
@@ -186,7 +186,7 @@ class HomeCard extends Component {
     handleKeyDown = event => {
         // arrow down and right capturing
         if (event.keyCode === 39 || event.keyCode === 40) {
-            this.props.updateScroll();
+            this.props.updateSeen();
         }
     };
 
@@ -196,7 +196,7 @@ class HomeCard extends Component {
 
     handleChangeInterval = event => {
         this.setState({
-            interval: parseInt(event.target.value, 10) || ""
+            interval: parseInt(event.target.value, 10) || "",
         });
     };
 
@@ -254,7 +254,7 @@ class HomeCard extends Component {
     render() {
         const CardEl = this.state.flip ? this.cardBack() : this.cardFront();
 
-        const { updateScroll } = this.props;
+        const { updateSeen } = this.props;
 
         return (
             <CSSTransitionGroup
@@ -263,7 +263,7 @@ class HomeCard extends Component {
                 transitionLeaveTimeout={800}
             >
                 {CardEl}
-                <ScrollEL onClick={updateScroll}>
+                <ScrollEL onClick={updateSeen}>
                     <ArrowDown width={30} />
                 </ScrollEL>
             </CSSTransitionGroup>

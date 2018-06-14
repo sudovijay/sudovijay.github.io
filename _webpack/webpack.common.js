@@ -11,7 +11,8 @@ module.exports = {
     },
     output: {
         filename: `${file_name}.js`,
-        path: path.join(process.cwd(), "/public/build")
+        path: path.join(process.cwd(), "/public/build"),
+        publicPath: "/build/"
     },
     devtool: !is_dev ? "false" : "source-maps",
     module: {
@@ -32,7 +33,7 @@ module.exports = {
                         loader: "url-loader",
                         options: {
                             limit: 10000,
-                            name: "build/images/[name].[md5:hash:hex:8].[ext]"
+                            name: "images/[name].[md5:hash:hex:8].[ext]"
                         }
                     }
                 ]
