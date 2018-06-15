@@ -273,7 +273,7 @@
                 var SearchWrap = styled_components__WEBPACK_IMPORTED_MODULE_2__[
                     "default"
                 ].div.withConfig({ displayName: "Skills__SearchWrap" })([
-                    "margin-top:7%;background:rgba(255,255,255,0.4);padding:40px;"
+                    "margin-top:7%;background:rgba(255,255,255,0.4);padding:60px 40px;"
                 ]);
                 var InputWrap = styled_components__WEBPACK_IMPORTED_MODULE_2__[
                     "default"
@@ -417,11 +417,6 @@
                                             "a",
                                             null,
                                             "Tools"
-                                        ),
-                                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                                            "a",
-                                            null,
-                                            "Platforms"
                                         )
                                     )
                                 ),

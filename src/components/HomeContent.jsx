@@ -50,7 +50,7 @@ const ImageWrap = IconWrap.extend`
 
 const ContentText = styled.div`
     color: #555;
-    font-size: 24px;
+    font-size: 22px;
     text-align: center;
     margin-top: -80px;
 

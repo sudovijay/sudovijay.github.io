@@ -57036,7 +57036,7 @@ children dangerouslySetInnerHTML key ref autoFocus defaultValue valueLink defaul
                 var ContentText = styled_components__WEBPACK_IMPORTED_MODULE_1__[
                     "default"
                 ].div.withConfig({ displayName: "HomeContent__ContentText" })([
-                    "color:#555;font-size:24px;text-align:center;margin-top:-80px;em{color:#4a90e2;margin:0 5px;font-style:normal;}"
+                    "color:#555;font-size:22px;text-align:center;margin-top:-80px;em{color:#4a90e2;margin:0 5px;font-style:normal;}"
                 ]);
                 var ContentBtns = styled_components__WEBPACK_IMPORTED_MODULE_1__[
                     "default"

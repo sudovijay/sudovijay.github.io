@@ -17,7 +17,7 @@ import SkillData from "../data/skills.json";
 const SearchWrap = styled.div`
     margin-top: 7%;
     background: rgba(255, 255, 255, 0.4);
-    padding: 40px;
+    padding: 60px 40px;
 `;
 
 const InputWrap = styled.div`
@@ -126,7 +126,7 @@ class Skills extends Component {
                             src={require(`../assets/skills/${el}.png`)}
                             alt="react icon"
                         />
-                    </li>,
+                    </li>
                 );
             }
         }
@@ -168,7 +168,6 @@ class Skills extends Component {
                             <a>Libraries</a>
                             <a>Languages</a>
                             <a>Tools</a>
-                            <a>Platforms</a>
                         </Container>
                     </CatHeader>
                     <CatList>
