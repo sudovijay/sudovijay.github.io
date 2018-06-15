@@ -5,27 +5,21 @@ import Loadable from "react-loadable";
 
 // components
 import Trianglify from "./components/Trianglify";
+import Loader from "./components/Loader";
 
 // importing pages
 import Home from "./pages/Home";
 import FourOFour from "./errors/FourOFour";
-
 import Global from "./styles/index";
-
-const Loading = props => {
-    console.log(props);
-
-    return <div>Loading...</div>;
-};
 
 const Skills = Loadable({
     loader: () => import("./pages/Skills"),
-    loading: Loading,
+    loading: Loader,
 });
 
 const Work = Loadable({
     loader: () => import("./pages/Work"),
-    loading: Loading,
+    loading: Loader,
 });
 
 class App extends Component {

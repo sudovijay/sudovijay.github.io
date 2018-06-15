@@ -16,7 +16,7 @@ const HeaderWrapper = styled.header`
     background: rgba(255, 255, 255, 0.8);
     padding: 0px 0px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 `;
 
 const Brand = styled.div`

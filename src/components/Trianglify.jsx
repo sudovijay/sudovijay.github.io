@@ -3,6 +3,8 @@ import trianglify from "trianglify";
 
 import { fadeIn, fadeOut } from "../utils/FadeInOut";
 
+import ThemeContext from "../components/Theme";
+
 class Trianglify extends Component {
     static resizeInterval;
 
@@ -82,7 +84,9 @@ class Trianglify extends Component {
                         left: 0,
                     }}
                 />
-                {this.props.children}
+                <ThemeContext.Provider value="black">
+                    {this.props.children}
+                </ThemeContext.Provider>
             </React.Fragment>
         );
     }
