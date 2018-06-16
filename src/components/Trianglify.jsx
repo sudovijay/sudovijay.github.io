@@ -10,6 +10,7 @@ class Trianglify extends Component {
 
     state = {
         interval: 60000,
+        colors: []
     };
 
     componentDidMount() {
@@ -47,7 +48,7 @@ class Trianglify extends Component {
         trianglify({
             width: window.innerWidth,
             height: document.body.offsetHeight || window.innerHeight,
-            cell_size: 150,
+            cell_size: 150
         });
 
     canvasRef = React.createRef();
@@ -59,12 +60,16 @@ class Trianglify extends Component {
     changeCanvas = () => {
         fadeOut(
             this.canvasRef.current,
-            fadeIn.bind(null, this.canvasRef.current, this.renderCanvas),
+            fadeIn.bind(null, this.canvasRef.current, this.renderCanvas)
         );
     };
 
     renderCanvas = () => {
         this.pattern = this.generatePattern();
+
+        this.setState({
+            colors: this.pattern.opts.y_colors
+        });
 
         this.pattern.canvas(this.canvasRef.current);
     };
@@ -81,10 +86,16 @@ class Trianglify extends Component {
                         top: 0,
                         bottom: 0,
                         right: 0,
-                        left: 0,
+                        left: 0
                     }}
                 />
-                <ThemeContext.Provider value="black">
+                <ThemeContext.Provider
+                    value={{
+                        colors: this.state.colors,
+                        interval: this.state.interval,
+                        updateCanvas: this.updateCanvas
+                    }}
+                >
                     {this.props.children}
                 </ThemeContext.Provider>
             </React.Fragment>

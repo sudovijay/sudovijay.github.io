@@ -3,6 +3,9 @@ import styled, { keyframes } from "styled-components";
 import { Col } from "react-grid-system";
 import { CSSTransitionGroup } from "react-transition-group";
 
+// import comonents
+import ThemeContext from "../components/Theme";
+
 // icons
 import SliderIcon from "../assets/home/slider.svg";
 import CloseIcon from "../assets/home/close.svg";
@@ -104,7 +107,7 @@ const CardFooter = CardCommon.extend`
 
 const Button = styled.button`
     border: 1px solid #fff;
-    background: #6cae67;
+    background: ${props => props.colors[3]};
     color: #fff;
     padding: 8px 25px;
     cursor: pointer;
@@ -115,6 +118,7 @@ const Button = styled.button`
     box-shadow: 0px 0px 3px 0px #6cae67;
     text-transform: uppercase;
     letter-spacing: 2px;
+    transition: background 200ms ease-in;
 `;
 
 const ScrollAnimate = keyframes`
@@ -217,7 +221,16 @@ class HomeCard extends Component {
                         />
                         Seconds
                     </p>
-                    <Button>Change Color</Button>
+                    <ThemeContext.Consumer>
+                        {obj => (
+                            <Button
+                                colors={obj.colors}
+                                onClick={obj.updateCanvas}
+                            >
+                                Change Color
+                            </Button>
+                        )}
+                    </ThemeContext.Consumer>
                 </CardFooter>
             </Card>
         );

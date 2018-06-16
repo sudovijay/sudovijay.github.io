@@ -13,12 +13,12 @@ module.exports = Merge(CommonConfig, {
             open: false,
             server: {
                 baseDir: ["public"],
-                middleware: [historyApiFallback()]
+                middleware: [historyApiFallback()],
             },
             notify: false,
             // proxy: 'savesubs.test',
-            files: [path.join(process.cwd(), "/src/***/*.js")]
+            files: [path.join(process.cwd(), "/src/***/*.js")],
         }),
-        new HardSourceWebpackPlugin()
-    ]
+        new HardSourceWebpackPlugin(),
+    ],
 });
