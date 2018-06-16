@@ -1,4 +1,5 @@
-/* eslint import/no-dynamic-require: 0 , global-require: 0 */
+/* eslint import/no-dynamic-require: 0 , jsx-a11y/click-events-have-key-events: 0,
+global-require: 0  , jsx-a11y/no-static-element-interactions: 0 */
 
 import React, { Component } from "react";
 import { Container, Col } from "react-grid-system";
@@ -114,20 +115,55 @@ const CatList = styled.div`
 `;
 
 class Skills extends Component {
+    state = {
+        type: "frameworks",
+        search: ""
+    };
+
+    types = ["frameworks", "libraries", "languages", "tools"];
+
+    changeType = type => {
+        if (this.types[type] === false) return;
+
+        this.setState({
+            type
+        });
+    };
+
+    hanldeInput = e => {
+        const value = e.target.value.trim();
+
+        this.setState({
+            search: value
+        });
+    };
+
+    renderElement(el) {
+        return (
+            <li key={el}>
+                {el}
+                <img
+                    src={require(`../assets/skills/${el}.png`)}
+                    alt="react icon"
+                />
+            </li>
+        );
+    }
+
     renderSkills() {
         const return_data = [];
 
         for (const el in SkillData) {
-            if (SkillData[el].type === "frameworks") {
-                return_data.push(
-                    <li key={el}>
-                        {el}
-                        <img
-                            src={require(`../assets/skills/${el}.png`)}
-                            alt="react icon"
-                        />
-                    </li>
-                );
+            if (
+                this.state.search &&
+                el.includes(this.state.search.toLocaleLowerCase())
+            ) {
+                return_data.push(this.renderElement(el));
+            } else if (
+                !this.state.search &&
+                SkillData[el].type === this.state.type
+            ) {
+                return_data.push(this.renderElement(el));
             }
         }
 
@@ -147,13 +183,34 @@ class Skills extends Component {
                             <span>
                                 <SearchIcon width={30} />
                             </span>
-                            <input type="text" placeholder="React" />
+                            <input
+                                type="text"
+                                value={this.state.search}
+                                onChange={this.hanldeInput}
+                                placeholder="React"
+                            />
                         </InputWrap>
                     </Col>
                 </Container>
             </SearchWrap>
         );
     }
+
+    renderTypes = () =>
+        this.types.map(el => {
+            const className = el === this.state.type ? "active" : "";
+
+            return (
+                <a
+                    onClick={() => this.changeType(el)}
+                    className={className}
+                    key={el}
+                >
+                    {el}
+                </a>
+            );
+        });
+
     render() {
         return (
             <React.Fragment>
@@ -161,15 +218,14 @@ class Skills extends Component {
 
                 {this.renderSearch()}
 
-                <CatWrap>
-                    <CatHeader>
-                        <Container>
-                            <a className="active">Frameworks</a>
-                            <a>Libraries</a>
-                            <a>Languages</a>
-                            <a>Tools</a>
-                        </Container>
-                    </CatHeader>
+                <CatWrap
+                    style={this.state.search ? { paddingTop: "20px" } : {}}
+                >
+                    {!this.state.search && (
+                        <CatHeader>
+                            <Container>{this.renderTypes()}</Container>
+                        </CatHeader>
+                    )}
                     <CatList>
                         <Container>
                             <ul>{this.renderSkills()}</ul>

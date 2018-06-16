@@ -1,6 +1,6 @@
 {
     "react": { "type": "frameworks" },
-    "gatsby": { "type": "frameworks" },
-    "vue": { "type": "frameworks" },
-    "express": { "type": "frameworks" }
+    "gatsby": { "type": "libraries" },
+    "vue": { "type": "languages" },
+    "express": { "type": "tools" }
 }
