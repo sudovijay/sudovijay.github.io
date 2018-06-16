@@ -8,9 +8,13 @@ import Trianglify from "./components/Trianglify";
 import Loader from "./components/Loader";
 
 // importing pages
-import Home from "./pages/Home";
 import FourOFour from "./errors/FourOFour";
 import Global from "./styles/index";
+
+const Home = Loadable({
+    loader: () => import("./pages/Home"),
+    loading: Loader,
+});
 
 const Skills = Loadable({
     loader: () => import("./pages/Skills"),

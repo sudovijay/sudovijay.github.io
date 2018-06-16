@@ -9,16 +9,16 @@ class Trianglify extends Component {
     static resizeInterval;
 
     state = {
-        interval: 60000,
-        colors: []
+        interval: 40, // basically in seconds
+        colors: [],
+        canvasWidth: window.innerWidth,
+        canvasHeight: window.innerHeight
     };
 
     componentDidMount() {
         this.renderCanvas();
 
-        this.interval = setInterval(() => {
-            this.changeCanvas();
-        }, this.state.interval);
+        this.newInterval();
 
         window.addEventListener("resize", this.updateCanvas);
     }
@@ -36,8 +36,33 @@ class Trianglify extends Component {
     updateCanvas = () => {
         clearTimeout(this.resizeInterval);
         this.resizeInterval = setTimeout(() => {
-            this.changeCanvas();
+            this.animateCanvas();
         }, 100);
+    };
+
+    /**
+     * Create new interval
+     */
+    newInterval = () => {
+        const interval = Number(this.state.interval) || 40;
+
+        this.interval = setInterval(() => {
+            this.animateCanvas();
+        }, interval * 1000);
+    };
+
+    /**
+     * Change interval method
+     * passing as a render prop
+     */
+    changeInterval = event => {
+        const newInterval = event.target.value;
+
+        /** Clear last interval and make new */
+        this.setState({ interval: newInterval }, () => {
+            clearInterval(this.interval);
+            this.newInterval();
+        });
     };
 
     /**
@@ -46,8 +71,8 @@ class Trianglify extends Component {
      */
     generatePattern = () =>
         trianglify({
-            width: window.innerWidth,
-            height: document.body.offsetHeight || window.innerHeight,
+            width: this.state.canvasWidth,
+            height: this.state.canvasHeight,
             cell_size: 150
         });
 
@@ -57,7 +82,7 @@ class Trianglify extends Component {
      * Chnage canvas re rendering
      * with fadeout and in
      */
-    changeCanvas = () => {
+    animateCanvas = () => {
         fadeOut(
             this.canvasRef.current,
             fadeIn.bind(null, this.canvasRef.current, this.renderCanvas)
@@ -93,7 +118,8 @@ class Trianglify extends Component {
                     value={{
                         colors: this.state.colors,
                         interval: this.state.interval,
-                        updateCanvas: this.updateCanvas
+                        updateCanvas: this.updateCanvas,
+                        changeInterval: this.changeInterval
                     }}
                 >
                     {this.props.children}

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Container, Row, Col } from "react-grid-system";
 
+// component
+import ThemeContext from "../components/Theme";
+
 // icons
 import GitIcon from "../assets/home/github.svg";
 import TwitterIcon from "../assets/home/twitter.svg";
@@ -25,7 +28,7 @@ const IconWrap = styled.div`
     width: 120px;
     height: 120px;
     border-radius: 50% 50%;
-    background: #6cae67;
+    background: ${props => (props.colors ? props.colors[3] : "none")};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,6 +90,10 @@ const Btn = styled.div`
         }
     }
 
+    path {
+        fill: ${props => props.colors[3]};
+    }
+
     em {
         font-weight: 700px;
         font-size: 20px;
@@ -104,23 +111,27 @@ class HomeContent extends Component {
     renderHeader() {
         return (
             <ContentHead>
-                <Row>
-                    <Col sm={3} style={{ overflow: "visible" }}>
-                        <IconWrap>
-                            <GitIcon width={75} />
-                        </IconWrap>
-                    </Col>
-                    <Col sm={6} style={{ overflow: "visible" }}>
-                        <ImageWrap>
-                            <img src={ProfileImg} alt="profile icon" />
-                        </ImageWrap>
-                    </Col>
-                    <Col sm={3} style={{ overflow: "visible" }}>
-                        <IconWrap>
-                            <TwitterIcon width={70} />
-                        </IconWrap>
-                    </Col>
-                </Row>
+                <ThemeContext.Consumer>
+                    {props => (
+                        <Row>
+                            <Col sm={3} style={{ overflow: "visible" }}>
+                                <IconWrap colors={props.colors}>
+                                    <GitIcon width={75} />
+                                </IconWrap>
+                            </Col>
+                            <Col sm={6} style={{ overflow: "visible" }}>
+                                <ImageWrap>
+                                    <img src={ProfileImg} alt="profile icon" />
+                                </ImageWrap>
+                            </Col>
+                            <Col sm={3} style={{ overflow: "visible" }}>
+                                <IconWrap colors={props.colors}>
+                                    <TwitterIcon width={70} />
+                                </IconWrap>
+                            </Col>
+                        </Row>
+                    )}
+                </ThemeContext.Consumer>
             </ContentHead>
         );
     }
@@ -144,6 +155,56 @@ class HomeContent extends Component {
         );
     }
 
+    renderContext(props) {
+        return (
+            <Row>
+                <Col
+                    md={4}
+                    sm={5}
+                    offset={{ md: 2 }}
+                    style={{ overflow: "visible" }}
+                >
+                    <Btn colors={props.colors}>
+                        <Col
+                            sm={3}
+                            style={{
+                                borderRight: "2px solid #ddd",
+                                paddingLeft: 0,
+                            }}
+                        >
+                            <MapIcon width={22} />
+                        </Col>
+                        <Col sm={9} style={{ paddingRight: 0 }}>
+                            <span>Meerut, India</span>
+                            <img src={Tada} alt="Tada icon" />
+                            <em>@</em>
+                            <img src={India} alt="India Icon" />
+                        </Col>
+                    </Btn>
+                </Col>
+                <Col md={4} sm={5} style={{ overflow: "visible" }}>
+                    <Btn
+                        style={{ paddingBottom: "11px" }}
+                        colors={props.colors}
+                    >
+                        <Col
+                            sm={3}
+                            style={{
+                                borderRight: "2px solid #ddd",
+                                paddingLeft: 0,
+                            }}
+                        >
+                            <AtIcon width={26} />
+                        </Col>
+                        <Col sm={9} style={{ paddingRight: 0 }}>
+                            <span>sudovijay@gmail.com</span>
+                        </Col>
+                    </Btn>
+                </Col>
+            </Row>
+        );
+    }
+
     render() {
         return (
             <ContentWrapper>
@@ -151,48 +212,9 @@ class HomeContent extends Component {
                     {this.renderHeader()}
                     {this.renderText()}
                     <ContentBtns>
-                        <Row>
-                            <Col
-                                md={4}
-                                sm={5}
-                                offset={{ md: 2 }}
-                                style={{ overflow: "visible" }}
-                            >
-                                <Btn>
-                                    <Col
-                                        sm={3}
-                                        style={{
-                                            borderRight: "2px solid #ddd",
-                                            paddingLeft: 0,
-                                        }}
-                                    >
-                                        <MapIcon width={22} />
-                                    </Col>
-                                    <Col sm={9} style={{ paddingRight: 0 }}>
-                                        <span>Meerut, India</span>
-                                        <img src={Tada} alt="Tada icon" />
-                                        <em>@</em>
-                                        <img src={India} alt="India Icon" />
-                                    </Col>
-                                </Btn>
-                            </Col>
-                            <Col md={4} sm={5} style={{ overflow: "visible" }}>
-                                <Btn style={{ paddingBottom: "11px" }}>
-                                    <Col
-                                        sm={3}
-                                        style={{
-                                            borderRight: "2px solid #ddd",
-                                            paddingLeft: 0,
-                                        }}
-                                    >
-                                        <AtIcon width={26} />
-                                    </Col>
-                                    <Col sm={9} style={{ paddingRight: 0 }}>
-                                        <span>sudovijay@gmail.com</span>
-                                    </Col>
-                                </Btn>
-                            </Col>
-                        </Row>
+                        <ThemeContext.Consumer>
+                            {props => this.renderContext(props)}
+                        </ThemeContext.Consumer>
                     </ContentBtns>
                 </Container>
             </ContentWrapper>

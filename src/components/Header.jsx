@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+// components
+import ThemeContext from "../components/Theme";
+
 // assets
 import DevPng from "../assets/common/dev.png";
 import HomeIcon from "../assets/common/home.svg";
@@ -34,7 +37,7 @@ const Brand = styled.div`
         }
 
         h2 {
-            color: #555;
+            color: ${props => props.colors[3]};
             margin: 0;
             font-size: 22px;
             font-weight: 700;
@@ -74,7 +77,7 @@ const Nav = styled.div`
         }
 
         &:hover {
-            background: #aad29d;
+            background: ${props => props.colors[3]};
             color: #fff;
 
             path {
@@ -83,7 +86,7 @@ const Nav = styled.div`
         }
 
         &.active {
-            background: #aad29d;
+            background: ${props => props.colors[3]};
             color: #fff;
 
             path {
@@ -98,18 +101,17 @@ const Nav = styled.div`
 `;
 
 class Header extends Component {
-    render() {
+    renderContext(props) {
         const { path } = this.props;
-
         return (
-            <HeaderWrapper>
-                <Brand>
+            <React.Fragment>
+                <Brand colors={props.colors}>
                     <Link to="/">
                         <img src={DevPng} alt="dev icon" width="35" />
                         <h2>Vijay Singh</h2>
                     </Link>
                 </Brand>
-                <Nav>
+                <Nav colors={props.colors}>
                     <Link to="/" className={path === "/" ? "active" : null}>
                         <HomeIcon width={30} />
                         <span>Home</span>
@@ -129,6 +131,16 @@ class Header extends Component {
                         <span>Work</span>
                     </Link>
                 </Nav>
+            </React.Fragment>
+        );
+    }
+
+    render() {
+        return (
+            <HeaderWrapper>
+                <ThemeContext.Consumer>
+                    {props => this.renderContext(props)}
+                </ThemeContext.Consumer>
             </HeaderWrapper>
         );
     }

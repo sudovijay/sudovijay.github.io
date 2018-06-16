@@ -176,7 +176,6 @@ const SliderImg = styled(SliderIcon)`
 class HomeCard extends Component {
     state = {
         flip: false,
-        interval: 60,
     };
 
     componentDidMount() {
@@ -198,12 +197,6 @@ class HomeCard extends Component {
         this.setState(prevState => ({ flip: !prevState.flip }));
     };
 
-    handleChangeInterval = event => {
-        this.setState({
-            interval: parseInt(event.target.value, 10) || "",
-        });
-    };
-
     cardBack() {
         return (
             <Card key={2}>
@@ -211,25 +204,8 @@ class HomeCard extends Component {
                     <CloseButton onClick={this.handleClickFlip}>
                         <CloseIcon width={22} />
                     </CloseButton>
-                    <p>Website uses dynamic color palette</p>
-                    <p>
-                        Change colors every
-                        <input
-                            type="number"
-                            onChange={this.handleChangeInterval}
-                            value={this.state.interval}
-                        />
-                        Seconds
-                    </p>
                     <ThemeContext.Consumer>
-                        {obj => (
-                            <Button
-                                colors={obj.colors}
-                                onClick={obj.updateCanvas}
-                            >
-                                Change Color
-                            </Button>
-                        )}
+                        {obj => this.renderContext(obj)}
                     </ThemeContext.Consumer>
                 </CardFooter>
             </Card>
@@ -247,11 +223,17 @@ class HomeCard extends Component {
                     >
                         <SliderImg width={180} />
                     </Col>
-                    <Col style={{ paddingLeft: 0, paddingRight: 0 }}>
-                        <div className="card_heading">
-                            <h1>Hi, {"I'm"} Vijay!</h1>
-                        </div>
-                    </Col>
+                    <ThemeContext.Consumer>
+                        {props => (
+                            <Col style={{ paddingLeft: 0, paddingRight: 0 }}>
+                                <div className="card_heading">
+                                    <h1 style={{ color: props.colors[3] }}>
+                                        Hi, {"I'm"} Vijay!
+                                    </h1>
+                                </div>
+                            </Col>
+                        )}
+                    </ThemeContext.Consumer>
                 </CardHeader>
                 <CardContent>
                     <EmojiImg src={BeerPng} alt="Beer Png Icon" />
@@ -263,6 +245,25 @@ class HomeCard extends Component {
             </Card>
         );
     }
+
+    renderContext = props => (
+        <React.Fragment>
+            <p>Website uses dynamic color palette</p>
+            <p>
+                Change colors every
+                <input
+                    type="number"
+                    onChange={props.changeInterval}
+                    value={props.interval}
+                />
+                Seconds
+            </p>
+
+            <Button colors={props.colors} onClick={props.updateCanvas}>
+                Change Color
+            </Button>
+        </React.Fragment>
+    );
 
     render() {
         const CardEl = this.state.flip ? this.cardBack() : this.cardFront();

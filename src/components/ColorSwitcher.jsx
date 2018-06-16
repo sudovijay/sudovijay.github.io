@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+// import comonents
+import ThemeContext from "../components/Theme";
+
 const FloatElement = styled.div`
     position: fixed;
     right: 30px;
@@ -20,23 +23,27 @@ const Card = styled.div`
 `;
 
 const ChildOne = styled.div`
-    background: #aad29d;
+    background: ${props => props.colors[5]};
     width: 50px;
     height: 25px;
     cursor: pointer;
 `;
 const ChildTwo = ChildOne.extend`
-    background: #6cae67;
+    background: ${props => props.colors[3]};
 `;
 
 class ColorSwitcher extends Component {
     render() {
         return (
             <FloatElement>
-                <Card>
-                    <ChildOne />
-                    <ChildTwo />
-                </Card>
+                <ThemeContext.Consumer>
+                    {props => (
+                        <Card onClick={props.updateCanvas}>
+                            <ChildOne colors={props.colors} />
+                            <ChildTwo colors={props.colors} />
+                        </Card>
+                    )}
+                </ThemeContext.Consumer>
             </FloatElement>
         );
     }
