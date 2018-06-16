@@ -1,9 +1,14 @@
+/* eslint jsx-a11y/mouse-events-have-key-events:0 */
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Container, Row, Col } from "react-grid-system";
 
 // component
 import ThemeContext from "../components/Theme";
+import Birth from "./Birth";
+
+// Utils
+import Email from "../utils/Email";
 
 // icons
 import GitIcon from "../assets/home/github.svg";
@@ -36,6 +41,17 @@ const IconWrap = styled.div`
     border: 2px solid #f1f1f1;
     position: relative;
     top: -80px;
+    cursor: pointer;
+
+    svg {
+        transition: all 200ms ease;
+    }
+
+    &:hover {
+        svg {
+            transform: scale(1.1);
+        }
+    }
 `;
 
 const ImageWrap = IconWrap.extend`
@@ -45,9 +61,12 @@ const ImageWrap = IconWrap.extend`
     background: rgba(255, 255, 255, 0.8);
     border: 4px solid #f1f1f1;
     overflow: hidden;
+    cursor: move;
+    user-select: none;
 
     img {
-        margin-left: 20px;
+        position: relative;
+        left: 10px;
     }
 `;
 
@@ -108,6 +127,43 @@ const Btn = styled.div`
 `;
 
 class HomeContent extends Component {
+    handleMouseMove = event => {
+        const { target } = event;
+
+        if (target.nodeName !== "IMG") return;
+
+        const bounds = target.parentElement.getBoundingClientRect();
+        const x = Math.round(event.clientX - bounds.left);
+        const y = Math.round(event.clientY - bounds.top);
+
+        if (x > 90) {
+            target.style.left = "auto";
+            target.style.right = `${parseInt(x - 90, 10)}px`;
+        } else {
+            target.style.right = "auto";
+            target.style.left = `${parseInt(90 - x, 10)}px`;
+        }
+
+        if (y < 90) {
+            target.style.bottom = "auto";
+            target.style.top = `${parseInt(90 - y, 10)}px`;
+        } else {
+            target.style.top = "auto";
+            target.style.bottom = `${parseInt(y - 90, 10)}px`;
+        }
+    };
+
+    handleMouseOut = event => {
+        const { target } = event;
+
+        if (target.nodeName !== "IMG") return;
+
+        target.style.top = "auto";
+        target.style.bottom = "auto";
+        target.style.right = "auto";
+        target.style.left = "10px";
+    };
+
     renderHeader() {
         return (
             <ContentHead>
@@ -116,17 +172,32 @@ class HomeContent extends Component {
                         <Row>
                             <Col sm={3} style={{ overflow: "visible" }}>
                                 <IconWrap colors={props.colors}>
-                                    <GitIcon width={75} />
+                                    <a
+                                        href="https://github.com/sudovijay"
+                                        rel="nofollow noreferrer noopener"
+                                        target="_blank"
+                                    >
+                                        <GitIcon width={75} />
+                                    </a>
                                 </IconWrap>
                             </Col>
                             <Col sm={6} style={{ overflow: "visible" }}>
-                                <ImageWrap>
+                                <ImageWrap
+                                    onMouseMove={this.handleMouseMove}
+                                    onMouseOut={this.handleMouseOut}
+                                >
                                     <img src={ProfileImg} alt="profile icon" />
                                 </ImageWrap>
                             </Col>
                             <Col sm={3} style={{ overflow: "visible" }}>
                                 <IconWrap colors={props.colors}>
-                                    <TwitterIcon width={70} />
+                                    <a
+                                        href="https://twitter.com/sudovijay"
+                                        rel="nofollow noreferrer noopener"
+                                        target="_blank"
+                                    >
+                                        <TwitterIcon width={70} />
+                                    </a>
                                 </IconWrap>
                             </Col>
                         </Row>
@@ -144,8 +215,7 @@ class HomeContent extends Component {
                     things (Yes {"I'm"} Lazy AF)
                 </p>
                 <p>
-                    {"I'm"} 23 Years 2 Months 12 Days And <em>120122</em>{" "}
-                    Seconds Old
+                    <Birth />
                 </p>
                 <p>
                     {"I've"} no plans to make this world a better place.&nbsp;
@@ -197,7 +267,7 @@ class HomeContent extends Component {
                             <AtIcon width={26} />
                         </Col>
                         <Col sm={9} style={{ paddingRight: 0 }}>
-                            <span>sudovijay@gmail.com</span>
+                            <span>{Email()}</span>
                         </Col>
                     </Btn>
                 </Col>

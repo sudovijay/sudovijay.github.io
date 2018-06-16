@@ -8,7 +8,7 @@ import HomeContent from "../components/HomeContent";
 
 class Home extends Component {
     state = {
-        seen: false,
+        seen: true,
     };
 
     updateSeen = () => {

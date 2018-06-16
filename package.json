@@ -16,6 +16,7 @@
         "git": "git add . && git commit -m"
     },
     "dependencies": {
+        "date-fns": "^1.29.0",
         "react": "^16.4.0",
         "react-dom": "^16.4.0",
         "react-grid-system": "^4.0.1",
