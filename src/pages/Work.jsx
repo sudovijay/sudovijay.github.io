@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { Container, Col } from "react-grid-system";
 import styled from "styled-components";
 
+// context
+import ThemeContext from "../components/Theme";
+
 import Header from "../components/Header";
 import ColorSwitcher from "../components/ColorSwitcher";
 
@@ -87,6 +90,10 @@ const CardImage = styled.div`
 `;
 
 class Work extends Component {
+    componentDidMount() {
+        this.props.resetCanvas();
+    }
+
     renderCardImage(el) {
         return (
             <CardImage className="card_image">
@@ -124,7 +131,7 @@ class Work extends Component {
                         <Col sm={4} style={{ overflow: "visible" }}>
                             {this.renderCardImage(el)}
                         </Col>
-                    </CardBox>,
+                    </CardBox>
                 );
             } else {
                 content.push(
@@ -133,7 +140,7 @@ class Work extends Component {
                             {this.renderCardImage(el)}
                         </Col>
                         <Col sm={7}>{this.renderCardContent(el, WorkData)}</Col>
-                    </CardBox>,
+                    </CardBox>
                 );
             }
 
@@ -156,4 +163,12 @@ class Work extends Component {
     }
 }
 
-export default Work;
+export default props => (
+    <ThemeContext.Consumer>
+        {obj => (
+            <Work {...props} resetCanvas={obj.resetCanvas}>
+                {...props.childrens}
+            </Work>
+        )}
+    </ThemeContext.Consumer>
+);

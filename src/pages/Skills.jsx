@@ -5,6 +5,9 @@ import React, { Component } from "react";
 import { Container, Col } from "react-grid-system";
 import styled from "styled-components";
 
+// context
+import ThemeContext from "../components/Theme";
+
 // import components
 import Header from "../components/Header";
 import ColorSwitcher from "../components/ColorSwitcher";
@@ -119,6 +122,10 @@ class Skills extends Component {
         type: "frameworks",
         search: ""
     };
+
+    componentDidMount() {
+        this.props.resetCanvas();
+    }
 
     types = ["frameworks", "libraries", "languages", "tools"];
 
@@ -238,4 +245,12 @@ class Skills extends Component {
     }
 }
 
-export default Skills;
+export default props => (
+    <ThemeContext.Consumer>
+        {obj => (
+            <Skills {...props} resetCanvas={obj.resetCanvas}>
+                {...props.childrens}
+            </Skills>
+        )}
+    </ThemeContext.Consumer>
+);

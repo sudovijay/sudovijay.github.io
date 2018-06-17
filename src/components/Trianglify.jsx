@@ -11,8 +11,8 @@ class Trianglify extends Component {
     state = {
         interval: 40, // basically in seconds
         colors: [],
-        canvasWidth: window.innerWidth,
-        canvasHeight: window.innerHeight
+        canvasWidth: document.body.offsetWidth || window.innerWidth,
+        canvasHeight: this.getHeight()
     };
 
     componentDidMount() {
@@ -28,6 +28,19 @@ class Trianglify extends Component {
         window.removeEventListener("resize", this.updateCanvas);
     }
 
+    getHeight() {
+        const { body } = document;
+        const html = document.documentElement;
+
+        return Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            html.clientHeight,
+            html.scrollHeight,
+            html.offsetHeight
+        );
+    }
+
     /**
      * Update dimenesion method
      * that'll regenrate canvas
@@ -38,6 +51,22 @@ class Trianglify extends Component {
         this.resizeInterval = setTimeout(() => {
             this.animateCanvas();
         }, 100);
+    };
+
+    resetCanvas = () => {
+        const height = this.getHeight();
+
+        if (height !== this.state.canvasHeight) {
+            this.setState(
+                {
+                    canvasWidth: document.body.offsetWidth || window.innerWidth,
+                    canvasHeight: height
+                },
+                () => {
+                    this.animateCanvas();
+                }
+            );
+        }
     };
 
     /**
@@ -119,7 +148,8 @@ class Trianglify extends Component {
                         colors: this.state.colors,
                         interval: this.state.interval,
                         updateCanvas: this.updateCanvas,
-                        changeInterval: this.changeInterval
+                        changeInterval: this.changeInterval,
+                        resetCanvas: this.resetCanvas
                     }}
                 >
                     {this.props.children}

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 // import { CSSTransitionGroup } from "react-transition-group";
 
+// context
+import ThemeContext from "../components/Theme";
+
 import HomeCard from "../components/HomeCard";
 import Header from "../components/Header";
 import ColorSwitcher from "../components/ColorSwitcher";
@@ -8,8 +11,12 @@ import HomeContent from "../components/HomeContent";
 
 class Home extends Component {
     state = {
-        seen: false,
+        seen: false
     };
+
+    componentDidMount() {
+        this.props.resetCanvas();
+    }
 
     updateSeen = () => {
         this.setState({ seen: true });
@@ -46,4 +53,12 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default props => (
+    <ThemeContext.Consumer>
+        {obj => (
+            <Home {...props} resetCanvas={obj.resetCanvas}>
+                {...props.childrens}
+            </Home>
+        )}
+    </ThemeContext.Consumer>
+);
