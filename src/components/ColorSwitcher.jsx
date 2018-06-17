@@ -9,6 +9,10 @@ const FloatElement = styled.div`
     right: 30px;
     bottom: 30px;
     z-index: 11;
+
+    @media (max-width: 500px) {
+        display: none;
+    }
 `;
 
 const Card = styled.div`

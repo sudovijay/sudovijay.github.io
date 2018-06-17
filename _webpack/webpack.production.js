@@ -25,7 +25,7 @@ module.exports = Merge(CommonConfig, {
     plugins: [
         new CleanWebpackPlugin(pathsToClean, cleanOptions),
 
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
 
         new FaviconsWebpackPlugin({
             // Your source logo
