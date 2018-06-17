@@ -175,6 +175,10 @@ const Btn = styled.div`
 `;
 
 class HomeContent extends Component {
+    componentDidMount() {
+        this.props.resetCanvas();
+    }
+
     handleMouseMove = event => {
         const { target } = event;
 
@@ -215,48 +219,44 @@ class HomeContent extends Component {
     renderHeader() {
         return (
             <ContentHead>
-                <ThemeContext.Consumer>
-                    {props => (
-                        <Row>
-                            <Col xs={3} style={{ overflow: "visible" }}>
-                                <IconWrap
-                                    colors={props.colors}
-                                    className="icon_git"
-                                >
-                                    <a
-                                        href="https://github.com/sudovijay"
-                                        rel="nofollow noreferrer noopener"
-                                        target="_blank"
-                                    >
-                                        <GitIcon width={75} />
-                                    </a>
-                                </IconWrap>
-                            </Col>
-                            <Col xs={6} style={{ overflow: "visible" }}>
-                                <ImageWrap
-                                    onMouseMove={this.handleMouseMove}
-                                    onMouseOut={this.handleMouseOut}
-                                >
-                                    <img src={ProfileImg} alt="profile icon" />
-                                </ImageWrap>
-                            </Col>
-                            <Col xs={3} style={{ overflow: "visible" }}>
-                                <IconWrap
-                                    colors={props.colors}
-                                    className="icon_tw"
-                                >
-                                    <a
-                                        href="https://twitter.com/sudovijay"
-                                        rel="nofollow noreferrer noopener"
-                                        target="_blank"
-                                    >
-                                        <TwitterIcon width={70} />
-                                    </a>
-                                </IconWrap>
-                            </Col>
-                        </Row>
-                    )}
-                </ThemeContext.Consumer>
+                <Row>
+                    <Col xs={3} style={{ overflow: "visible" }}>
+                        <IconWrap
+                            colors={this.props.colors}
+                            className="icon_git"
+                        >
+                            <a
+                                href="https://github.com/sudovijay"
+                                rel="nofollow noreferrer noopener"
+                                target="_blank"
+                            >
+                                <GitIcon width={75} />
+                            </a>
+                        </IconWrap>
+                    </Col>
+                    <Col xs={6} style={{ overflow: "visible" }}>
+                        <ImageWrap
+                            onMouseMove={this.handleMouseMove}
+                            onMouseOut={this.handleMouseOut}
+                        >
+                            <img src={ProfileImg} alt="profile icon" />
+                        </ImageWrap>
+                    </Col>
+                    <Col xs={3} style={{ overflow: "visible" }}>
+                        <IconWrap
+                            colors={this.props.colors}
+                            className="icon_tw"
+                        >
+                            <a
+                                href="https://twitter.com/sudovijay"
+                                rel="nofollow noreferrer noopener"
+                                target="_blank"
+                            >
+                                <TwitterIcon width={70} />
+                            </a>
+                        </IconWrap>
+                    </Col>
+                </Row>
             </ContentHead>
         );
     }
@@ -335,15 +335,23 @@ class HomeContent extends Component {
                 <Container>
                     {this.renderHeader()}
                     {this.renderText()}
-                    <ContentBtns>
-                        <ThemeContext.Consumer>
-                            {props => this.renderContext(props)}
-                        </ThemeContext.Consumer>
-                    </ContentBtns>
+                    <ContentBtns>{this.renderContext(this.props)}</ContentBtns>
                 </Container>
             </ContentWrapper>
         );
     }
 }
 
-export default HomeContent;
+export default props => (
+    <ThemeContext.Consumer>
+        {obj => (
+            <HomeContent
+                {...props}
+                resetCanvas={obj.resetCanvas}
+                colors={obj.colors}
+            >
+                {...props.childrens}
+            </HomeContent>
+        )}
+    </ThemeContext.Consumer>
+);

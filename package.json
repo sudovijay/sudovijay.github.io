@@ -41,6 +41,7 @@
         "browser-sync-webpack-plugin": "^2.2.2",
         "clean-webpack-plugin": "^0.1.19",
         "connect-history-api-fallback": "^1.5.0",
+        "favicons-webpack-plugin": "^0.0.9",
         "file-loader": "^1.1.11",
         "glob-all": "^3.1.0",
         "hard-source-webpack-plugin": "^0.7.4",

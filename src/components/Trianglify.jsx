@@ -11,7 +11,7 @@ class Trianglify extends Component {
     state = {
         interval: 40, // basically in seconds
         colors: [],
-        canvasWidth: document.body.offsetWidth || window.innerWidth,
+        canvasWidth: this.getWidth(),
         canvasHeight: this.getHeight()
     };
 
@@ -20,12 +20,16 @@ class Trianglify extends Component {
 
         this.newInterval();
 
-        window.addEventListener("resize", this.updateCanvas);
+        window.addEventListener("resize", this.resizeCanvas);
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
-        window.removeEventListener("resize", this.updateCanvas);
+        window.removeEventListener("resize", this.resizeCanvas);
+    }
+
+    getWidth() {
+        return document.body.offsetWidth || window.innerWidth;
     }
 
     getHeight() {
@@ -41,22 +45,21 @@ class Trianglify extends Component {
         );
     }
 
-    /**
-     * Update dimenesion method
-     * that'll regenrate canvas
-     * on window resize
-     */
-    updateCanvas = () => {
+    resizeCanvas = () => {
         clearTimeout(this.resizeInterval);
         this.resizeInterval = setTimeout(() => {
-            this.animateCanvas();
+            this.resetCanvas();
         }, 100);
     };
 
     resetCanvas = () => {
         const height = this.getHeight();
+        const width = this.getWidth();
 
-        if (height !== this.state.canvasHeight) {
+        if (
+            height !== this.state.canvasHeight ||
+            width !== this.state.canvasWidth
+        ) {
             this.setState(
                 {
                     canvasWidth: document.body.offsetWidth || window.innerWidth,
@@ -125,6 +128,11 @@ class Trianglify extends Component {
             colors: this.pattern.opts.y_colors
         });
 
+        const theme_el = document.querySelector('meta[name="theme-color"]');
+
+        if (theme_el)
+            theme_el.setAttribute("content", this.pattern.opts.y_colors[3]);
+
         this.pattern.canvas(this.canvasRef.current);
     };
 
@@ -147,7 +155,7 @@ class Trianglify extends Component {
                     value={{
                         colors: this.state.colors,
                         interval: this.state.interval,
-                        updateCanvas: this.updateCanvas,
+                        updateCanvas: this.animateCanvas,
                         changeInterval: this.changeInterval,
                         resetCanvas: this.resetCanvas
                     }}
