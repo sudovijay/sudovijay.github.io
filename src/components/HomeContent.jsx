@@ -22,11 +22,27 @@ import AtIcon from "../assets/home/at.svg";
 const ContentWrapper = styled.main`
     background: rgba(244, 244, 244, 0.75);
     padding: 20px;
-    margin-top: 10%;
+    margin-top: 12%;
+
+    @media (max-width: 1200px) {
+        margin-top: 20%;
+    }
+
+    @media (max-width: 600px) {
+        margin-top: 25%;
+    }
 `;
 
 const ContentHead = styled.div`
     text-align: center;
+
+    @media (max-width: 575px) {
+        margin-bottom: 50px;
+    }
+
+    @media (max-width: 400px) {
+        margin-left: -30px !important;
+    }
 `;
 
 const IconWrap = styled.div`
@@ -50,6 +66,23 @@ const IconWrap = styled.div`
     &:hover {
         svg {
             transform: scale(1.1);
+        }
+    }
+
+    @media (max-width: 575px) {
+        position: relative;
+        top: -60px;
+        left: -10px;
+
+        &.icon_git {
+            margin-top: 200px;
+            left: 10px;
+        }
+
+        &.icon_tw {
+            margin-top: 200px;
+            left: -50px;
+            z-index: 10;
         }
     }
 `;
@@ -81,12 +114,21 @@ const ContentText = styled.div`
         margin: 0 5px;
         font-style: normal;
     }
+
+    @media (max-width: 575px) {
+        font-size: 20px;
+        line-height: 30px;
+    }
 `;
 
 const ContentBtns = styled.div`
     text-align: center;
     margin-top: 80px;
     margin-bottom: 80px;
+
+    @media (max-width: 575px) {
+        margin: 40px 0;
+    }
 `;
 
 const Btn = styled.div`
@@ -98,6 +140,8 @@ const Btn = styled.div`
     color: #555;
     font-size: 17px;
     box-shadow: 0px 0px 2px 0px #c7c7c7;
+    overflow: hidden;
+    white-space: nowrap;
 
     img {
         width: 25px;
@@ -123,6 +167,10 @@ const Btn = styled.div`
     span {
         vertical-align: super;
         margin-right: 4px;
+    }
+
+    @media (max-width: 575px) {
+        padding: 15px 10px;
     }
 `;
 
@@ -170,8 +218,11 @@ class HomeContent extends Component {
                 <ThemeContext.Consumer>
                     {props => (
                         <Row>
-                            <Col sm={3} style={{ overflow: "visible" }}>
-                                <IconWrap colors={props.colors}>
+                            <Col xs={3} style={{ overflow: "visible" }}>
+                                <IconWrap
+                                    colors={props.colors}
+                                    className="icon_git"
+                                >
                                     <a
                                         href="https://github.com/sudovijay"
                                         rel="nofollow noreferrer noopener"
@@ -181,7 +232,7 @@ class HomeContent extends Component {
                                     </a>
                                 </IconWrap>
                             </Col>
-                            <Col sm={6} style={{ overflow: "visible" }}>
+                            <Col xs={6} style={{ overflow: "visible" }}>
                                 <ImageWrap
                                     onMouseMove={this.handleMouseMove}
                                     onMouseOut={this.handleMouseOut}
@@ -189,8 +240,11 @@ class HomeContent extends Component {
                                     <img src={ProfileImg} alt="profile icon" />
                                 </ImageWrap>
                             </Col>
-                            <Col sm={3} style={{ overflow: "visible" }}>
-                                <IconWrap colors={props.colors}>
+                            <Col xs={3} style={{ overflow: "visible" }}>
+                                <IconWrap
+                                    colors={props.colors}
+                                    className="icon_tw"
+                                >
                                     <a
                                         href="https://twitter.com/sudovijay"
                                         rel="nofollow noreferrer noopener"
@@ -230,21 +284,21 @@ class HomeContent extends Component {
             <Row>
                 <Col
                     md={4}
-                    sm={5}
-                    offset={{ md: 2 }}
+                    sm={6}
+                    offset={{ md: 2, sm: 0 }}
                     style={{ overflow: "visible" }}
                 >
                     <Btn colors={props.colors}>
                         <Col
-                            sm={3}
+                            xs={3}
                             style={{
                                 borderRight: "2px solid #ddd",
-                                paddingLeft: 0,
+                                paddingLeft: 0
                             }}
                         >
                             <MapIcon width={22} />
                         </Col>
-                        <Col sm={9} style={{ paddingRight: 0 }}>
+                        <Col xs={9} style={{ paddingRight: 0 }}>
                             <span>Meerut, India</span>
                             <img src={Tada} alt="Tada icon" />
                             <em>@</em>
@@ -252,21 +306,21 @@ class HomeContent extends Component {
                         </Col>
                     </Btn>
                 </Col>
-                <Col md={4} sm={5} style={{ overflow: "visible" }}>
+                <Col md={4} sm={6} style={{ overflow: "visible" }}>
                     <Btn
                         style={{ paddingBottom: "11px" }}
                         colors={props.colors}
                     >
                         <Col
-                            sm={3}
+                            xs={3}
                             style={{
                                 borderRight: "2px solid #ddd",
-                                paddingLeft: 0,
+                                paddingLeft: 0
                             }}
                         >
                             <AtIcon width={26} />
                         </Col>
-                        <Col sm={9} style={{ paddingRight: 0 }}>
+                        <Col xs={9} style={{ paddingRight: 0 }}>
                             <span>{Email()}</span>
                         </Col>
                     </Btn>

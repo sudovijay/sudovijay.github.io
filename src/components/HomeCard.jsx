@@ -31,6 +31,10 @@ const CardCommon = styled.div`
     display: flex;
     align-items: center;
     z-index: 1;
+
+    @media (max-width: 600px) {
+        width: auto;
+    }
 `;
 
 const CardHeader = CardCommon.extend`
@@ -50,6 +54,15 @@ const CardHeader = CardCommon.extend`
         top: -3px;
         font-weight: 700;
         color: #555;
+    }
+
+    @media (max-width: 600px) {
+        width: auto;
+
+        h1 {
+            line-height: 25px;
+            font-size: 30px;
+        }
     }
 `;
 
@@ -77,6 +90,23 @@ const CardContent = styled.div`
             color: #4a90e2;
         }
     }
+
+    @media (max-width: 600px) {
+        width: auto;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 20px;
+        margin-top: -70px;
+
+        h2 {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 `;
 
 const CardFooter = CardCommon.extend`
@@ -102,6 +132,17 @@ const CardFooter = CardCommon.extend`
         padding: 2px 10px;
         border: 1px solid #ddd;
         color: #555;
+    }
+
+    @media (max-width: 600px) {
+        padding: 20px;
+    }
+
+    @media (max-width: 400px) {
+        p {
+            font-size: 16px;
+            line-height: 35px;
+        }
     }
 `;
 
@@ -153,6 +194,16 @@ const ScrollEL = styled.div`
     &:hover {
         background: rgba(255, 255, 255, 0.3);
     }
+
+    @media (max-width: 600px) {
+        width: 65px;
+        height: 65px;
+
+        svg {
+            width: 20px;
+            height: 70px;
+        }
+    }
 `;
 
 const EmojiImg = styled.img`
@@ -166,16 +217,25 @@ const CloseButton = styled.div`
     right: 15px;
     top: -4px;
     cursor: pointer;
+
+    @media (max-width: 400px) {
+        top: -10px;
+        right: 10px;
+    }
 `;
 
 const SliderImg = styled(SliderIcon)`
     width: 160px;
     height: 90px;
+
+    @media (max-width: 600px) {
+        width: 70px;
+    }
 `;
 
 class HomeCard extends Component {
     state = {
-        flip: false,
+        flip: false
     };
 
     componentDidMount() {
@@ -218,6 +278,7 @@ class HomeCard extends Component {
                 <CardHeader>
                     <Col
                         onClick={this.handleClickFlip}
+                        xs={3}
                         sm={4}
                         style={{ paddingLeft: "5px", cursor: "pointer" }}
                     >
@@ -225,9 +286,17 @@ class HomeCard extends Component {
                     </Col>
                     <ThemeContext.Consumer>
                         {props => (
-                            <Col style={{ paddingLeft: 0, paddingRight: 0 }}>
+                            <Col
+                                xs={9}
+                                sm={8}
+                                style={{ paddingLeft: 0, paddingRight: 0 }}
+                            >
                                 <div className="card_heading">
-                                    <h1 style={{ color: props.colors[3] }}>
+                                    <h1
+                                        style={{
+                                            color: props.colors[3]
+                                        }}
+                                    >
                                         Hi, {"I'm"} Vijay!
                                     </h1>
                                 </div>

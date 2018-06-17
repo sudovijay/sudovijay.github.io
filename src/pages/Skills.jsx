@@ -22,6 +22,14 @@ const SearchWrap = styled.div`
     margin-top: 7%;
     background: rgba(255, 255, 255, 0.4);
     padding: 60px 40px;
+
+    @media (max-width: 575px) {
+        padding: 15px 10px;
+
+        > div {
+            padding-left: 0 !important;
+        }
+    }
 `;
 
 const InputWrap = styled.div`
@@ -54,6 +62,10 @@ const CatWrap = styled.div`
     padding: 40px 0;
     margin-top: 5%;
     padding-top: 60px;
+
+    @media (max-width: 575px) {
+        padding-top: 20px;
+    }
 `;
 
 const CatHeader = styled.div`
@@ -81,6 +93,25 @@ const CatHeader = styled.div`
             position: relative;
             top: -5px;
             box-shadow: 0px 2px 3px 0px #e4e4e4;
+        }
+    }
+
+    @media (max-width: 575px) {
+        > div {
+            display: block;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        a {
+            padding: 10px 10px;
+            display: inline-block;
+            margin: 5px;
+
+            &.active,
+            &:hover {
+                top: 0;
+            }
         }
     }
 `;
@@ -115,6 +146,21 @@ const CatList = styled.div`
             margin-left: 30px;
         }
     }
+
+    @media (max-width: 575px) {
+        > div {
+            padding-left: 10px !important;
+        }
+
+        ul {
+            padding-left: 0;
+        }
+
+        li {
+            width: 70%;
+            margin-left: 0;
+        }
+    }
 `;
 
 class Skills extends Component {
@@ -125,9 +171,12 @@ class Skills extends Component {
 
     componentDidMount() {
         this.props.resetCanvas();
+        this.inputRef.current.focus();
     }
 
     types = ["frameworks", "libraries", "languages", "tools"];
+
+    inputRef = React.createRef();
 
     changeType = type => {
         if (this.types[type] === false) return;
@@ -182,8 +231,9 @@ class Skills extends Component {
             <SearchWrap>
                 <Container>
                     <Col
+                        xs={10}
                         sm={8}
-                        offset={{ sm: 2 }}
+                        offset={{ sm: 2, xs: 0 }}
                         style={{ overflow: "visible" }}
                     >
                         <InputWrap>
@@ -194,6 +244,7 @@ class Skills extends Component {
                                 type="text"
                                 value={this.state.search}
                                 onChange={this.hanldeInput}
+                                ref={this.inputRef}
                                 placeholder="React"
                             />
                         </InputWrap>

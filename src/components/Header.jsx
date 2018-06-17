@@ -20,6 +20,7 @@ const HeaderWrapper = styled.header`
     padding: 0px 0px;
     display: flex;
     justify-content: space-around;
+    min-height: 65px;
 `;
 
 const Brand = styled.div`
@@ -44,6 +45,10 @@ const Brand = styled.div`
             line-height: 45px;
             letter-spacing: 1px;
         }
+    }
+
+    @media (max-width: 500px) {
+        display: none;
     }
 `;
 

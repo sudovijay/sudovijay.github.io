@@ -41,6 +41,27 @@ const CardBox = styled.div`
             padding-left: 70px;
         }
     }
+
+    @media (max-width: 1000px) {
+        width: 100%;
+    }
+
+    @media (max-width: 575px) {
+        &.card_left .card_text,
+        &.card_right .card_text {
+            padding: 20px;
+        }
+
+        > div {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+        &.card_left .card_image,
+        &.card_right .card_image {
+            display: none;
+        }
+    }
 `;
 
 const CardContent = styled.div`
