@@ -171,12 +171,9 @@ class Skills extends Component {
 
     componentDidMount() {
         this.props.resetCanvas();
-        this.inputRef.current.focus();
     }
 
     types = ["frameworks", "libraries", "languages", "tools"];
-
-    inputRef = React.createRef();
 
     changeType = type => {
         if (this.types[type] === false) return;
@@ -244,7 +241,6 @@ class Skills extends Component {
                                 type="text"
                                 value={this.state.search}
                                 onChange={this.hanldeInput}
-                                ref={this.inputRef}
                                 placeholder="React"
                             />
                         </InputWrap>
