@@ -1,6 +1,110 @@
 {
-    "react": { "type": "frameworks" },
-    "gatsby": { "type": "frameworks" },
-    "vue": { "type": "frameworks" },
-    "express": { "type": "frameworks" }
+    "React": {
+        "type": "frameworks",
+        "src": "react"
+    },
+    "Vue": {
+        "type": "frameworks",
+        "src": "vue"
+    },
+    "Express": {
+        "type": "frameworks",
+        "src": "express"
+    },
+    "React Native": {
+        "type": "frameworks",
+        "src": "reactnative"
+    },
+    "Next JS": {
+        "type": "frameworks",
+        "src": "nextjs"
+    },
+    "laravel": {
+        "type": "frameworks",
+        "src": "laravel"
+    },
+    "Gatsby": {
+        "type": "libraries",
+        "src": "gatsby"
+    },
+    "Node JS": {
+        "type": "libraries",
+        "src": "nodejs"
+    },
+    "Redux": {
+        "type": "libraries",
+        "src": "redux"
+    },
+    "Jest": {
+        "type": "libraries",
+        "src": "jest"
+    },
+    "JQuery": {
+        "type": "libraries",
+        "src": "jquery"
+    },
+    "Sass": {
+        "type": "libraries",
+        "src": "sass"
+    },
+    "Styled Components": {
+        "type": "libraries",
+        "src": "styledcomponents"
+    },
+    "Javascript": {
+        "type": "languages",
+        "src": "javascript"
+    },
+    "PHP": {
+        "type": "languages",
+        "src": "php"
+    },
+    "HTML": {
+        "type": "languages",
+        "src": "html"
+    },
+    "CSS": {
+        "type": "languages",
+        "src": "css"
+    },
+    "Type Script": {
+        "type": "languages",
+        "src": "typescript"
+    },
+    "Shell Scripting": {
+        "type": "languages",
+        "src": "shellscripting"
+    },
+    "SQL": {
+        "type": "languages",
+        "src": "sql"
+    },
+    "Graphql": {
+        "type": "languages",
+        "src": "graphql"
+    },
+    "Webpack": {
+        "type": "tools",
+        "src": "webpack"
+    },
+    "Sublime": {
+        "type": "tools",
+        "src": "sublime"
+    },
+    "VS Code": {
+        "type": "tools",
+        "src": "vscode"
+    },
+    "Git": {
+        "type": "tools",
+        "src": "git"
+    },
+    "Sketch": {
+        "type": "tools",
+        "src": "sketch"
+    },
+    "iTerm2": {
+        "type": "tools",
+        "src": "iTerm2"
+    }
 }

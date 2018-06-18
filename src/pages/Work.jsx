@@ -108,6 +108,10 @@ const CardImage = styled.div`
     img {
         width: 100%;
     }
+
+    &:hover {
+        border-color: ${props => props.colors[3]};
+    }
 `;
 
 class Work extends Component {
@@ -117,7 +121,7 @@ class Work extends Component {
 
     renderCardImage(el) {
         return (
-            <CardImage className="card_image">
+            <CardImage className="card_image" colors={this.props.colors}>
                 <img
                     src={require(`../assets/work/${el}.jpg`)}
                     alt="9xbuddy Icon"
@@ -187,7 +191,7 @@ class Work extends Component {
 export default props => (
     <ThemeContext.Consumer>
         {obj => (
-            <Work {...props} resetCanvas={obj.resetCanvas}>
+            <Work {...props} resetCanvas={obj.resetCanvas} colors={obj.colors}>
                 {...props.childrens}
             </Work>
         )}

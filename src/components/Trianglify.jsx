@@ -33,7 +33,13 @@ class Trianglify extends Component {
     }
 
     getHeight() {
-        return document.body.offsetHeight || window.innerHeight;
+        return Math.max(
+            document.documentElement.clientHeight,
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.offsetHeight
+        );
     }
 
     resizeCanvas = () => {
@@ -53,7 +59,7 @@ class Trianglify extends Component {
         ) {
             this.setState(
                 {
-                    canvasWidth: document.body.offsetWidth || window.innerWidth,
+                    canvasWidth: width,
                     canvasHeight: height
                 },
                 () => {

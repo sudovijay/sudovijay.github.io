@@ -128,7 +128,7 @@ const CatList = styled.div`
     }
 
     li {
-        padding: 20px 60px;
+        padding: 20px 40px;
         color: #fff;
         max-height: 30px;
         margin: 30px 20px;
@@ -178,9 +178,14 @@ class Skills extends Component {
     changeType = type => {
         if (this.types[type] === false) return;
 
-        this.setState({
-            type
-        });
+        this.setState(
+            {
+                type
+            },
+            () => {
+                this.props.resetCanvas();
+            }
+        );
     };
 
     hanldeInput = e => {
@@ -191,12 +196,12 @@ class Skills extends Component {
         });
     };
 
-    renderElement(el) {
+    renderElement(el, obj) {
         return (
-            <li key={el}>
+            <li key={obj.src}>
                 {el}
                 <img
-                    src={require(`../assets/skills/${el}.png`)}
+                    src={require(`../assets/skills/${obj.src}.png`)}
                     alt="react icon"
                 />
             </li>
@@ -209,14 +214,16 @@ class Skills extends Component {
         for (const el in SkillData) {
             if (
                 this.state.search &&
-                el.includes(this.state.search.toLocaleLowerCase())
+                el
+                    .toLocaleLowerCase()
+                    .includes(this.state.search.toLocaleLowerCase())
             ) {
-                return_data.push(this.renderElement(el));
+                return_data.push(this.renderElement(el, SkillData[el]));
             } else if (
                 !this.state.search &&
                 SkillData[el].type === this.state.type
             ) {
-                return_data.push(this.renderElement(el));
+                return_data.push(this.renderElement(el, SkillData[el]));
             }
         }
 
