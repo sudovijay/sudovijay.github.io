@@ -59,6 +59,10 @@ const CardHeader = CardCommon.extend`
     @media (max-width: 600px) {
         width: auto;
 
+        .card_heading {
+            background: none;
+        }
+
         h1 {
             line-height: 25px;
             font-size: 30px;
@@ -136,6 +140,10 @@ const CardFooter = CardCommon.extend`
 
     @media (max-width: 600px) {
         padding: 20px;
+
+        p {
+            font-size: 16px;
+        }
     }
 
     @media (max-width: 400px) {
@@ -218,9 +226,13 @@ const CloseButton = styled.div`
     top: -4px;
     cursor: pointer;
 
-    @media (max-width: 400px) {
-        top: -10px;
-        right: 10px;
+    @media (max-width: 600px) {
+        top: -7px;
+        right: 12px;
+
+        svg {
+            width: 15px;
+        }
     }
 `;
 

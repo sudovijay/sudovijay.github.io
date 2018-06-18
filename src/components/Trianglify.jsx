@@ -33,16 +33,7 @@ class Trianglify extends Component {
     }
 
     getHeight() {
-        const { body } = document;
-        const html = document.documentElement;
-
-        return Math.max(
-            body.scrollHeight,
-            body.offsetHeight,
-            html.clientHeight,
-            html.scrollHeight,
-            html.offsetHeight
-        );
+        return document.body.offsetHeight || window.innerHeight;
     }
 
     resizeCanvas = () => {

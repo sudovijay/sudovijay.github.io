@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
     background: #1e1f21;
@@ -29,6 +30,16 @@ const Loader = styled.div`
         font-weight: 700;
         text-transform: uppercase;
     }
+
+    a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 17px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 `;
 
 const SpinFrame = keyframes`
@@ -46,13 +57,26 @@ const Spinner = styled.div`
     animation: ${SpinFrame} 0.5s linear infinite;
 `;
 
-const Loading = () => (
-    <Wrapper>
-        <Loader>
-            <Spinner />
-            <p>Loading</p>
-        </Loader>
-    </Wrapper>
-);
+const Loading = props => {
+    if (props.content) {
+        return (
+            <Wrapper>
+                <Loader>
+                    <p>{props.content}</p>
+                    <Link to="/">{"Let's"} Go Back Home</Link>
+                </Loader>
+            </Wrapper>
+        );
+    }
+
+    return (
+        <Wrapper>
+            <Loader>
+                <Spinner />
+                <p>Loading</p>
+            </Loader>
+        </Wrapper>
+    );
+};
 
 export default Loading;
