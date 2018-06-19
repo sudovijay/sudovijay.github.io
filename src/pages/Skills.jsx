@@ -158,7 +158,7 @@ const CatList = styled.div`
 
         li {
             width: 70%;
-            margin-left: 0;
+            margin-left: 15px;
         }
     }
 `;
