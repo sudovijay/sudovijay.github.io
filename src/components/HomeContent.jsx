@@ -72,7 +72,7 @@ const IconWrap = styled.div`
     @media (max-width: 575px) {
         position: relative;
         top: -60px;
-        left: -10px;
+        left: -15px;
 
         &.icon_git {
             margin-top: 200px;
@@ -81,7 +81,7 @@ const IconWrap = styled.div`
 
         &.icon_tw {
             margin-top: 200px;
-            left: -50px;
+            left: -57px;
             z-index: 10;
         }
     }

@@ -59,7 +59,11 @@ const CardBox = styled.div`
 
         &.card_left .card_image,
         &.card_right .card_image {
-            display: none;
+            width: 80%;
+            height: auto;
+            margin: 0 auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
     }
 `;
@@ -102,7 +106,7 @@ const CardContent = styled.div`
 const CardImage = styled.div`
     position: relative;
     height: 250px;
-    border: 4px solid #fff;
+    border: 4px solid ${props => props.colors[3]};
     overflow: hidden;
     background: #ebedf1;
     img {
@@ -110,7 +114,7 @@ const CardImage = styled.div`
     }
 
     &:hover {
-        border-color: ${props => props.colors[3]};
+        border-color: ${props => props.colors[5]};
     }
 `;
 
