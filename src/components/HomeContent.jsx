@@ -41,7 +41,7 @@ const ContentHead = styled.div`
     }
 
     @media (max-width: 400px) {
-        margin-left: -30px !important;
+        margin-left: -25px !important;
     }
 `;
 
@@ -171,6 +171,24 @@ const Btn = styled.div`
 
     @media (max-width: 575px) {
         padding: 15px 10px;
+    }
+
+    @media (max-width: 400px) {
+        img {
+            width: 15px;
+            position: relative;
+            top: -5px;
+
+            &:last-child {
+                top: -7px;
+            }
+        }
+
+        em {
+            font-size: 16px;
+            position: relative;
+            top: -5px;
+        }
     }
 `;
 

@@ -7,6 +7,7 @@ const file_name = is_dev ? "[name]" : "[name]-[hash]";
 
 module.exports = {
     entry: {
+        polyfill: "babel-polyfill",
         bundle: path.join(process.cwd(), "/src/init.js")
     },
     output: {

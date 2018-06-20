@@ -36,13 +36,28 @@ module.exports = Merge(CommonConfig, {
             emitStats: false,
             // Generate a cache file with control hashes and
             // don't rebuild the favicons until those hashes change
-            persistentCache: true,
+            persistentCache: false,
             // Inject the html into the html-webpack-plugin
             inject: true,
             // favicon background color (see https://github.com/haydenbleasel/favicons#usage)
             background: "#ef6551",
             // favicon app title (see https://github.com/haydenbleasel/favicons#usage)
-            title: "Vijay Singh"
+            title: "sudovijay",
+            description:
+                "Hi there! My name is Vijay Singh. I love working on new things (Yes I'm Lazy AF). I've no plans to make this world a better place. I'm more of a private repo.",
+
+            icons: {
+                android: true,
+                appleIcon: true,
+                appleStartup: true,
+                coast: false,
+                favicons: true,
+                firefox: true,
+                opengraph: false,
+                twitter: false,
+                yandex: false,
+                windows: false
+            }
         })
     ]
 });
