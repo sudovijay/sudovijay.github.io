@@ -1,8 +1,8 @@
 /* eslint no-restricted-globals: 1 */
 
-const CACHE_NAME = "sudo-v1";
+const CACHE_NAME = "sudo-v2";
 
-const HASH_KEY = "a797e7ac05821450bf04";
+const HASH_KEY = "8abed96825395d2e8d01";
 
 let CACHE_URLS = [
     // pages
