@@ -1,7 +1,8 @@
 {
     "name": "Vijay Singh",
     "short_name": "Vijay Singh",
-    "description": "Hi there! My name is Vijay Singh. I love working on new things (Yes I'm Lazy AF). I've no plans to make this world a better place. I'm more of a private repo.",
+    "description":
+        "Hi there! My name is Vijay Singh. I love working on new things (Yes I'm Lazy AF). I've no plans to make this world a better place. I'm more of a private repo.",
     "icons": [
         {
             "src": "/icons/android-chrome-192x192.png",
