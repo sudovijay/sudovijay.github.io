@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // eslint-disable-line
+const PreloadWebpackPlugin = require("preload-webpack-plugin"); // eslint-disable-line
 
 const is_dev = process.env.NODE_ENV === "development";
 
@@ -83,6 +84,7 @@ module.exports = {
                 removeScriptTypeAttributes: true,
                 removeStyleLinkTypeAttributes: true
             }
-        })
+        }),
+        new PreloadWebpackPlugin()
     ]
 };
