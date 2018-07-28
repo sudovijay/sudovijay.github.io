@@ -290,8 +290,8 @@ class HomeContent extends Component {
                     <Birth />
                 </p>
                 <p>
-                    {"I've"} no plans to make this world a better place.&nbsp;
-                    {"I'm"} more of a private repo.
+                    {"I've"} no plans to make this world a better place.{" "}
+                    {" I'm "} more of a private repo.
                 </p>
             </ContentText>
         );
