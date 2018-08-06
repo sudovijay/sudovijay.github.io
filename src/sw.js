@@ -1,8 +1,8 @@
 /* eslint no-restricted-globals: 1 */
 
-const CACHE_NAME = "sudo-v4";
+const CACHE_NAME = "sudo-v5";
 
-const HASH_KEY = "c06cf84aba41953f720d";
+const HASH_KEY = "8787ea6f1ccc9679ee16";
 
 let CACHE_URLS = [
     // pages
@@ -95,5 +95,21 @@ self.addEventListener("fetch", event => {
         );
 
         // if google font
+    } else if (/fonts.(googleapis|gstatic).com/.test(event.request.url)) {
+        event.respondWith(
+            caches.open(CACHE_NAME).then(cache =>
+                cache.match(request).then(
+                    cachedResponse =>
+                        cachedResponse ||
+                        fetch(request).then(networkResponse => {
+                            cache.put(request, networkResponse.clone());
+
+                            return networkResponse;
+                        })
+                )
+            )
+        );
+
+        // if request mode is navigate
     }
 });

@@ -5,17 +5,17 @@
         "Hi there! My name is Vijay Singh. I love working on new things (Yes I'm Lazy AF).",
     "icons": [
         {
-            "src": "/icons/android-chrome-192x192.png",
+            "src": "/assets/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/icons/android-chrome-512x512.png",
+            "src": "/assets/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
     ],
-    "theme_color": "#f54f33",
+    "theme_color": "#fff",
     "background_color": "#ffffff",
     "orientation": "portrait",
     "display": "standalone",
