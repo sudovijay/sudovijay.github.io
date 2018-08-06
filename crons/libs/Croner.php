@@ -38,7 +38,12 @@ class Croner
         // matching hours
         if ($time_exp[0] === 0 || $time_exp[0] === $this->timeArray['hours']) {
             // matching minutes
-            if ($time_exp[1] === $this->timeArray['minutes']) {
+            if ($time_exp[0] === 0) {
+                // run every n interval in hour
+                if ($this->timeArray['minutes'] % $time_exp[1] === 0) {
+                    return true;
+                }
+            } elseif ($time_exp[1] === $this->timeArray['minutes']) {
                 return true;
             }
         }
