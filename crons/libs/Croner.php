@@ -2,7 +2,7 @@
 class Croner
 {
     private $jobs_queue = [];
-    private $timeArray = [];
+    private $time_array = [];
 
     function __construct()
     {
@@ -12,7 +12,9 @@ class Croner
         $current_time['hours'] = $timeObj->format('H');
         $current_time['minutes'] = $timeObj->format('i');
         $current_time['seconds'] = $timeObj->format('s');
-        $this->timeArray = $current_time;
+        $this->time_array = $current_time;
+
+        $this->root_dir = __DIR__ . '/../';
     }
 
     /**
@@ -37,15 +39,15 @@ class Croner
 
         // matching hours
         if (
-            $time_exp[0] === '00' || $time_exp[0] === $this->timeArray['hours']
+            $time_exp[0] === '00' || $time_exp[0] === $this->time_array['hours']
         ) {
             // matching minutes
             if ($time_exp[0] === '00' && $time_exp[1] !== '00') {
                 // run every n interval in hour
-                if (($this->timeArray['minutes'] % $time_exp[1]) === 0) {
+                if (($this->time_array['minutes'] % $time_exp[1]) === 0) {
                     return true;
                 }
-            } elseif ($time_exp[1] === $this->timeArray['minutes']) {
+            } elseif ($time_exp[1] === $this->time_array['minutes']) {
                 return true;
             }
         }
@@ -61,7 +63,7 @@ class Croner
 
         foreach ($this->jobs_queue as $job) {
             // lets include dynamic object
-            include 'jobs/' . $job . '.php';
+            include $this->root_dir . 'jobs/' . $job . '.php';
 
             // simply initiate dynamic class
             // rest will be done by that class
