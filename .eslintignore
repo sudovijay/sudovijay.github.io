@@ -2,3 +2,4 @@ public/build/
 node_modules/
 webpack.config.js
 tailwind.js
+/public/sw.js

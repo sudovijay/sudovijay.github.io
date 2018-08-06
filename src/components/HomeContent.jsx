@@ -290,8 +290,8 @@ class HomeContent extends Component {
                     <Birth />
                 </p>
                 <p>
-                    {"I've"} no plans to make this world a better place.{" "}
-                    {" I'm "} more of a private repo.
+                    {"I've"} no plans to make this world a better place. I make
+                    things for money and for fun..
                 </p>
             </ContentText>
         );
@@ -317,7 +317,7 @@ class HomeContent extends Component {
                             <MapIcon width={22} />
                         </Col>
                         <Col xs={9} style={{ paddingRight: 0 }}>
-                            <span>Meerut, India</span>
+                            <span>India</span>
                             <img src={Tada} alt="Tada icon" />
                             <em>@</em>
                             <img src={India} alt="India Icon" />

@@ -123,13 +123,19 @@ class Work extends Component {
         this.props.resetCanvas();
     }
 
-    renderCardImage(el) {
+    renderCardImage(el, work_data) {
         return (
             <CardImage className="card_image" colors={this.props.colors}>
-                <img
-                    src={require(`../assets/work/${el}.jpg`)}
-                    alt="9xbuddy Icon"
-                />
+                <a
+                    href={work_data.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img
+                        src={require(`../assets/work/${el}.jpg`)}
+                        alt="9xbuddy Icon"
+                    />
+                </a>
             </CardImage>
         );
     }
@@ -158,7 +164,7 @@ class Work extends Component {
                     <CardBox key={el} className="card_left">
                         <Col sm={7}>{this.renderCardContent(el, WorkData)}</Col>
                         <Col sm={4} style={{ overflow: "visible" }}>
-                            {this.renderCardImage(el)}
+                            {this.renderCardImage(el, WorkData[el])}
                         </Col>
                     </CardBox>
                 );
@@ -166,7 +172,7 @@ class Work extends Component {
                 content.push(
                     <CardBox key={el} className="card_right">
                         <Col sm={4} style={{ overflow: "visible" }}>
-                            {this.renderCardImage(el)}
+                            {this.renderCardImage(el, WorkData[el])}
                         </Col>
                         <Col sm={7}>{this.renderCardContent(el, WorkData)}</Col>
                     </CardBox>
