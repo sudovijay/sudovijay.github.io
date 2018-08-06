@@ -19,7 +19,7 @@ $cronObj = new Croner();
 $cronObj->register('Cleaner', '2:30');
 
 // scaleway status checker runs every 30 minutes
-$cronObj->register('Scaleway', '00:30');
+$cronObj->register('Scaleway', '00:02');
 
 /**
  * Now that all registered
