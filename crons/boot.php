@@ -18,8 +18,8 @@ $cronObj = new Croner();
 // cleaner cron runs every morning 2:30
 $cronObj->register('Cleaner', '2:30');
 
-// scaleway status checker runs every 20 minutes
-$cronObj->register('Scaleway', '00:20');
+// scaleway status checker runs every 15 minutes
+$cronObj->register('Scaleway', '00:15');
 
 /**
  * Now that all registered
