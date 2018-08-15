@@ -14,7 +14,7 @@ class Cleaner
     function removeCache()
     {
         // execute command
-        $command = 'rm -rf /data/nginx_cache/body/*';
+        $command = 'rm -rf /data/nginx_cache/body/* > /dev/null &';
 
         // simple exec it
         exec($command);
