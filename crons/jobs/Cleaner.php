@@ -18,5 +18,19 @@ class Cleaner
 
         // simple exec it
         exec($command);
+
+        // clear grabber command too
+        $command =
+            'rm -rf /var/www/vhosts/sudovijay.com/mp3/storage/temp/* > /dev/null &';
+
+        // simple exec it too
+        exec($command);
+
+        // clear media folder
+        $command =
+            'rm -rf /var/www/vhosts/sudovijay.com/mp3/storage/media/* > /dev/null &';
+
+        // simple exec it too
+        exec($command);
     }
 }
