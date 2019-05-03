@@ -23,7 +23,7 @@ $cronObj->register('Cleaner', '02:30');
 $cronObj->register('Scaleway', '00:15');
 
 // backup managaer
-$cronObj->register('Backup', '00:05');
+$cronObj->register('Backup', '05:30');
 
 /**
  * Now that all registered
