@@ -69,7 +69,7 @@ class Scaleway
         curl_setopt($curl, CURLOPT_URL, $server);
         //curl_setopt($curl, CURLOPT_NOBODY, true);
         curl_setopt($curl, CURLOPT_HEADER, true);
-        curl_setopt($curl, CURLOPT_TIMEOUT_MS, 15000);
+        curl_setopt($curl, CURLOPT_TIMEOUT_MS, 25000);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_USERAGENT, $this->user_agent);
         $output = curl_exec($curl);
