@@ -20,8 +20,7 @@ class Cleaner
         exec($command);
 
         // clear httpd logs
-        $command =
-            'rm -rf /var/log/httpd/* > /dev/null &';
+        $command = 'rm -rf /var/log/httpd/* > /dev/null &';
 
         // simple exec it too
         exec($command);
