@@ -19,8 +19,8 @@ $cronObj = new Croner();
 // make sure to give this in dual format
 $cronObj->register('Cleaner', '02:30');
 
-// scaleway status checker runs every 15 minutes
-$cronObj->register('Scaleway', '00:15');
+// // scaleway status checker runs every 15 minutes
+// $cronObj->register('Scaleway', '00:15');
 
 // backup managaer
 $cronObj->register('Backup', '05:30');
