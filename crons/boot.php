@@ -15,15 +15,15 @@ $cronObj = new Croner();
  * Lets register few crons
  */
 
-// cleaner cron runs every morning 2:30
+// cleaner cron runs every morning 2:00
 // make sure to give this in dual format
-$cronObj->register('Cleaner', '02:30');
+$cronObj->register('Cleaner', '02:00');
 
 // // scaleway status checker runs every 15 minutes
 // $cronObj->register('Scaleway', '00:15');
 
 // backup managaer
-$cronObj->register('Backup', '05:30');
+$cronObj->register('Backup', '05:00');
 
 /**
  * Now that all registered
