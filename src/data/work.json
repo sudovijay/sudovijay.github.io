@@ -1,38 +1,11 @@
 {
-    "9xbuddy": {
+    "123Sudo": {
         "position": "Developer",
         "duration": "June 2014 - Present",
-        "website": "//9xbuddy.app",
+        "website": "//123sudo.com",
         "content": [
-            "The primary motivation behind 9xbuddy was my friends and family who were keep asking me for help with downloading their videos from different sites.",
-            "You know, when you are THE IT guy of your family, everybody treats you as their personal technical support. But I am the nice one and I wanted to give them the way how to download desired videos by themselves without constantly asking me for the help And this is what i end up making."
-        ]
-    },
-    "offmp3": {
-        "position": "Developer",
-        "duration": "June 2017 - Present",
-        "website": "//offmp3.app",
-        "content": [
-            "This idea actually came with 9xbuddy with users constantly asking for ways to convert those videos in mp3 format. Though there were already too many such apps but they miss a thing or two.",
-            "I wanted to make it simple for users without much hassle so made offmp3 with those features in mind. Users now can convert audio from many sites and even further cut them or add meta tags like artworks & stuff in it, sounds cool right? "
-        ]
-    },
-    "savesubs": {
-        "position": "Developer",
-        "duration": "January 2018 - Present",
-        "website": "//savesubs.com",
-        "content": [
-            "This idea more or less came with sites like Viki and Youtube which actually has so many subtitles embedded in the video and there's no way to add subtitle extraction in the site 9xbuddy",
-            "I end up making a site which totally focuses on subs extraction from various such sites without getting into video, it even converts subs from many other formats to SRT on the fly which is a globally supported format."
-        ]
-    },
-    "offmp4": {
-        "position": "Developer",
-        "duration": "March 2018 - Present",
-        "website": "//offmp4.app",
-        "content": [
-            "Always wanted to learn how to make browser extension and couldn't find any better reason to make one for 9xbuddy. Its a much-requested thing by users anyway so decided to do that",
-            "Most of the browser now follow same code base for their browser extensions which is like the coolest thing ever happened so with few changes here and there I end up making an extension for all major browsers except safari cause it doesn't support same extension model as others. "
+            "Its been a while since working at 123sudo as a developer, making new things for fun & for money",
+            "Checkout that page for all my current and past projects"
         ]
     }
 }
