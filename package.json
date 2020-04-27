@@ -60,14 +60,5 @@
         "webpack-cli": "^2.1.4",
         "webpack-merge": "^4.1.2"
     },
-    "lint-staged": {
-        "*.{js,css,md,jsx}": [
-            "/usr/local/bin/prettier --write",
-            "git add"
-        ],
-        "*.{js,jsx}": [
-            "eslint --fix",
-            "git add"
-        ]
-    }
+    "lint-staged": {}
 }

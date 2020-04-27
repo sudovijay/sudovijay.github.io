@@ -41,15 +41,6 @@ class Home extends Component {
             this.state.seen === false ? this.renderCard() : this.renderHome();
 
         return return_data;
-        // (
-        //     <CSSTransitionGroup
-        //         transitionName="transtop"
-        //         transitionEnterTimeout={100}
-        //         transitionLeaveTimeout={100}
-        //     >
-        //         {return_data}
-        //     </CSSTransitionGroup>
-        // );
     }
 }
 

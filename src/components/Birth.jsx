@@ -33,7 +33,7 @@ class Birth extends React.Component {
     }
 
     getBirthDate = () => {
-        const time_born = start_of_minute(new Date("1995-04-16 23:30"));
+        const time_born = start_of_minute(new Date("Sun Apr 16 1995 23:30:00 GMT+0530 (India Standard Time)"));
 
         const years = differenceInYears(new Date(), time_born);
 
