@@ -99,7 +99,16 @@ const ImageWrap = IconWrap.extend`
 
     img {
         position: relative;
-        left: 10px;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        transition: all 200ms ease;
+    }
+
+    &:hover {
+        img {
+            transform: scale(1.1);
+        }
     }
 `;
 
@@ -253,10 +262,7 @@ class HomeContent extends Component {
                         </IconWrap>
                     </Col>
                     <Col xs={6} style={{ overflow: "visible" }}>
-                        <ImageWrap
-                            onMouseMove={this.handleMouseMove}
-                            onMouseOut={this.handleMouseOut}
-                        >
+                        <ImageWrap>
                             <img src={ProfileImg} alt="profile icon" />
                         </ImageWrap>
                     </Col>
@@ -284,13 +290,13 @@ class HomeContent extends Component {
             <ContentText>
                 <p>
                     Hi there! My name is Vijay Singh. I love working on new
-                    things (Yes {"I'm"} Lazy AF)
+                    things (Yes I'm Lazy AF)
                 </p>
                 <p>
                     <Birth />
                 </p>
                 <p>
-                    {"I've"} no plans to make this world a better place. I make
+                    I've no plans to make this world a better place. I make
                     things for money and for fun..
                 </p>
             </ContentText>
@@ -317,7 +323,7 @@ class HomeContent extends Component {
                             <MapIcon width={22} />
                         </Col>
                         <Col xs={9} style={{ paddingRight: 0 }}>
-                            <span>India</span>
+                            <span>Uttarakhand</span>
                             <img src={Tada} alt="Tada icon" />
                             <em>@</em>
                             <img src={India} alt="India Icon" />
