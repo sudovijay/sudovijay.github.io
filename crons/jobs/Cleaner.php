@@ -6,18 +6,18 @@
  */
 class Cleaner
 {
-    function __construct()
+    public function __construct()
     {
         $this->removeCache();
     }
 
-    function removeCache()
+    public function removeCache()
     {
         // execute command
-        $command = 'rm -rf /data/nginx_cache/body/* > /dev/null &';
+        // $command = 'rm -rf /data/nginx_cache/body/* > /dev/null &';
 
         // simple exec it
-        exec($command);
+        //  exec($command);
 
         // clear httpd logs
         $command = 'rm -rf /var/log/httpd/* > /dev/null &';
