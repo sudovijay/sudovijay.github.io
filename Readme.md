@@ -2,4 +2,4 @@
 
 > Will probably modify it later when i get free time
 
-Live - <https://sudovijay.com>
+Live - [sudovijay.github.io](https://sudovijay.github.io)
