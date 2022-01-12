@@ -1,5 +1,5 @@
-public/build/
+docs/build/
 node_modules/
 webpack.config.js
 tailwind.js
-/public/sw.js
+/docs/sw.js
