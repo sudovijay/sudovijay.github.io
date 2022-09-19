@@ -13,8 +13,8 @@
         "format": "prettier --write --single-quote --print-width=120 --parser=flow --tab-width=2 \"src/**/*.{js,jsx}\"",
         "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
         "git": "git add . && git commit -m",
-        "server": "php -S localhost:8888 -t public/",
-        "worker": "cp src/sw.js public/sw.js && uglifyjs public/sw.js -c -m -o public/sw.js"
+        "server": "php -S localhost:8888 -t docs/",
+        "worker": "cp src/sw.js docs/sw.js && uglifyjs docs/sw.js -c -m -o docs/sw.js"
     },
     "dependencies": {
         "babel-polyfill": "^6.26.0",

@@ -7,7 +7,7 @@ const CommonConfig = require("./webpack.common.js");
 const pathsToClean = ["build"];
 
 const cleanOptions = {
-    root: path.join(process.cwd(), "/public/"),
+    root: path.join(process.cwd(), "/docs/"),
     verbose: true,
     dry: false
 };

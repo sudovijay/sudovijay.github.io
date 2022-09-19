@@ -13,7 +13,7 @@ module.exports = {
     },
     output: {
         filename: `${file_name}.js`,
-        path: path.join(process.cwd(), "/public/build"),
+        path: path.join(process.cwd(), "/docs/build"),
         publicPath: "/build/"
     },
     devtool: !is_dev ? "false" : "source-maps",
@@ -75,7 +75,7 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            filename: "../index.html",
+            filename: path.join(process.cwd(), "/docs/index.html"),
             template: path.join(process.cwd(), "templ/index.templ.html"),
             minify: {
                 collapseWhitespace: true,

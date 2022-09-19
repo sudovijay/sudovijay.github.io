@@ -1,4 +1,4 @@
-public/build/
-public/index.html
+docs/build/
+docs/index.html
 node_modules/
-/public/sw.js
+/docs/sw.js

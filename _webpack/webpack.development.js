@@ -12,7 +12,7 @@ module.exports = Merge(CommonConfig, {
             port: 3000,
             open: false,
             server: {
-                baseDir: ["public"],
+                baseDir: ["docs"],
                 middleware: [historyApiFallback()],
             },
             notify: false,

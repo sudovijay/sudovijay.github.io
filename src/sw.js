@@ -1,6 +1,6 @@
 /* eslint no-restricted-globals: 1 */
 
-const CACHE_NAME = "sudo-v5";
+const CACHE_NAME = "sudo-v6";
 
 const HASH_KEY = "8787ea6f1ccc9679ee16";
 
